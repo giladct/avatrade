@@ -1,0 +1,5 @@
+# local backups and preview copy
+build/*.before*
+site/preview.html
+.claude/
+__pycache__/
