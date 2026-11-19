@@ -30,8 +30,11 @@ first_page = {}
 
 
 def _merge(q, intro):
-    """The section's lead-in (e.g. Section F's case data) opens its first question page."""
-    return intro + q
+    """The section's lead-in (Section F's case data) goes right under the first question's heading."""
+    if not intro.strip():
+        return q
+    j = q.index("</h3>") + len("</h3>")
+    return q[:j] + intro + q[j:]
 
 for k in range(1, len(parts), 2):
     title = parts[k]
@@ -56,7 +59,7 @@ for k in range(1, len(parts), 2):
     content = content.replace("<!-- widget:cohort -->", "")  # A2 cohort table: Word only, not on the site
     content = content.replace("<!-- widget:excel -->", '<div id="excel-widget"></div>')
     content = content.replace("<!-- widget:samplesize -->", '<div id="d1-widget"></div>')
-    content = content.replace("<!-- widget:section-f -->", '<div id="f-widget"></div>')
+    content = content.replace("<!-- widget:section-f -->", "")  # F charts: removed from the site
     content = content.replace("<!-- note -->", '<div class="callout">').replace("<!-- /note -->", "</div>")
     # sql code blocks get a header bar
     content = content.replace('<pre><code class="language-sql">',
@@ -82,15 +85,6 @@ for k in range(1, len(parts), 2):
         first = pid
     else:
         first = None
-        if intro.strip():  # shared case data (Section F) gets its own page before the questions
-            pid = letter.lower()
-            ptitle = f"{letter}. The Q3 numbers"
-            qhtml = f'<h3 class="qhead"><span>{ptitle}</span></h3>'
-            out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" hidden>{crumb}{qhtml}{intro}</section>')
-            pages.append((pid, ptitle, ""))
-            chips.append(f'<a href="#{pid}" data-page="{pid}">Data</a>')
-            first = pid
-            intro = ""
         for j, q in enumerate(qs):
             pid = re.match(r'<h3 id="q-([^"]+)"', q).group(1)
             ptitle = html.unescape(re.sub(r"<[^>]+>", "", re.search(r'<span>(.*?)</span>', q).group(1)))
@@ -120,6 +114,8 @@ if os.path.exists("content/explain_he.md"):
             lines.append(ln)
             prev = ln
         he[key.strip()] = markdown.markdown("\n".join(lines), extensions=["nl2br"])
+    if "f" in he and "f1" in he:  # the F data note now opens the F1 note
+        he["f1"] = he.pop("f") + he["f1"]
     for i, s in enumerate(out):
         pid = re.search(r'data-page="([^"]+)"', s).group(1)
         if pid in he:

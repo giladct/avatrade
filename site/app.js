@@ -12,7 +12,7 @@
   // ---------- one question per page (hash routing: #a2, #e, #f1 ...)
   const pages = $$("section.page");
   const ids = pages.map(p => p.dataset.page);
-  const LEGACY = { "section-a": "a1", "section-b": "b1", "section-c": "c1", "section-d": "d1", "section-e": "e", "section-f": "f" };
+  const LEGACY = { "section-a": "a1", "section-b": "b1", "section-c": "c1", "section-d": "d1", "section-e": "e", "section-f": "f1", "f": "f1" };
   const pager = $("#pager");
   let current = null;
   function resolve(h) {
