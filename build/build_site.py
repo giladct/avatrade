@@ -144,9 +144,12 @@ page = (tpl.replace("{{NAV}}", "\n".join(nav)).replace("{{TOC}}", toc)
 open("site/index.html", "w", encoding="utf-8").write(page)
 print("site/index.html", len(page) // 1024, "KB")
 
-# local preview copy with the skeleton the artifact host adds
-open("site/preview.html", "w", encoding="utf-8").write(
+# local preview copy with the skeleton the artifact host adds; docs/ is the GitHub Pages copy
+os.makedirs("docs", exist_ok=True)
+full = (
     '<!doctype html><html lang="en"><head><meta charset="utf-8">'
     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
     '<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>'
     '</head><body>' + page + '</body></html>')
+for path in ("site/preview.html", "docs/index.html"):
+    open(path, "w", encoding="utf-8").write(full)

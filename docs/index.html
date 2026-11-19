@@ -1,0 +1,1856 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style></head><body><title>BA Assessment Answers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: an analyst's answer book. Sticky section rail on the left, one reading column, data widgets break out wider. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f7;
+  --ink: #111a2b;
+  --ink-2: #44506a;
+  --ink-3: #6b7690;
+  --line: #d9e0ea;
+  --accent: #2a5fd0;
+  --accent-soft: #e3ebfb;
+  --up: #12805c;
+  --down: #c2372f;
+  --code-bg: #f3f5f9;
+  --code-ink: #1d2638;
+  --tok-kw: #2a5fd0;
+  --tok-str: #a24f12;
+  --tok-num: #8a2b8f;
+  --tok-com: #2e7d4f;
+  --tok-fn: #6b3fc4;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --div-pos: #2a78d6;
+  --div-neg: #e34948;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e131c; --surface: #151c28; --surface-2: #1b2433; --ink: #e8edf5; --ink-2: #b4bfd1; --ink-3: #8592a8;
+    --line: #2a3446; --accent: #7aa5ff; --accent-soft: #1d2b47; --up: #3cc28f; --down: #ff7b72;
+    --code-bg: #111824; --code-ink: #dbe3f0; --tok-kw: #7aa5ff; --tok-str: #f0a874; --tok-num: #e29be6; --tok-com: #6cc993; --tok-fn: #b9a2ff;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --div-pos: #3987e5; --div-neg: #e66767;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e131c; --surface: #151c28; --surface-2: #1b2433; --ink: #e8edf5; --ink-2: #b4bfd1; --ink-3: #8592a8;
+  --line: #2a3446; --accent: #7aa5ff; --accent-soft: #1d2b47; --up: #3cc28f; --down: #ff7b72;
+  --code-bg: #111824; --code-ink: #dbe3f0; --tok-kw: #7aa5ff; --tok-str: #f0a874; --tok-num: #e29be6; --tok-com: #6cc993; --tok-fn: #b9a2ff;
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --div-pos: #3987e5; --div-neg: #e66767;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.shell { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 80px; }
+.rail { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; display: flex; flex-direction: column; gap: 2px; }
+.rail .who { font-family: var(--font-display); font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.rail .what { font-size: 12.5px; color: var(--ink-3); margin-bottom: 18px; }
+.rail a { display: grid; grid-template-columns: 22px 1fr auto; align-items: baseline; gap: 8px; padding: 7px 10px; border-radius: var(--radius);
+  color: var(--ink-2); text-decoration: none; font-size: 14px; }
+.rail a b { font-family: var(--font-mono); font-weight: 600; color: var(--ink-3); font-size: 13px; }
+.rail a em { font-style: normal; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+.rail a:hover { background: var(--surface-2); color: var(--ink); }
+.rail a.on { background: var(--accent-soft); color: var(--ink); }
+.rail a.on b { color: var(--accent); }
+.rail .total { margin-top: 14px; padding: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3);
+  display: flex; justify-content: space-between; font-family: var(--font-mono); }
+
+main { min-width: 0; }
+.hero { padding-bottom: 36px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; margin: 0 0 14px; text-wrap: balance; letter-spacing: -.01em; }
+.hero .lede { color: var(--ink-2); max-width: 62ch; margin: 0 0 28px; font-size: 17px; }
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.finding { background: var(--surface); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: inherit; }
+.finding:hover { background: var(--surface-2); }
+.finding .k { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+.finding .v { font-family: var(--font-display); font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.finding .v .dn { color: var(--down); } .finding .v .up { color: var(--up); }
+.finding .s { font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font-size: 13.5px; color: var(--ink-3); }
+.meta-row span::before { content: "▪"; color: var(--accent); margin-right: 7px; }
+
+.sec { padding-top: 44px; scroll-margin-top: 12px; }
+.sechead { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.secletter { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: var(--radius); background: var(--ink); color: var(--bg);
+  font-family: var(--font-display); font-weight: 700; font-size: 24px; }
+.sechead h2 { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.1; margin: 0; }
+.secpts { margin: 2px 0 0; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-3); }
+.qhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-family: var(--font-display); font-weight: 600; font-size: 22px;
+  margin: 38px 0 12px; padding-top: 18px; border-top: 1px solid var(--line); text-wrap: balance; scroll-margin-top: 12px; }
+.sec > .qhead:first-of-type { border-top: 0; padding-top: 0; margin-top: 8px; }
+.pts { flex: none; font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 99px; }
+.sec p, .sec li { max-width: 72ch; }
+.sec p { margin: 0 0 14px; }
+.sec ul, .sec ol { padding-left: 22px; margin: 0 0 16px; }
+.sec li { margin-bottom: 8px; }
+.sec li::marker { color: var(--ink-3); font-family: var(--font-mono); font-size: 14px; }
+.sec strong { font-weight: 600; }
+.sec code { font-family: var(--font-mono); font-size: .86em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+blockquote.brief { margin: 0 0 20px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink-2); }
+blockquote.brief p { margin: 0; font-size: 15px; }
+.brief-label { display: block; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 4px; }
+
+.tablewrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td { font-variant-numeric: tabular-nums; }
+
+.codebox { margin: 4px 0 18px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--code-bg); }
+.codebar { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); background: var(--surface); }
+.codebox pre { margin: 0; overflow-x: auto; padding: 14px 16px; }
+.codebox code { font-family: var(--font-mono); font-size: 12.8px; line-height: 1.55; color: var(--code-ink); background: none; padding: 0; white-space: pre; }
+.hljs-keyword, .hljs-built_in { color: var(--tok-kw); font-weight: 500; }
+.hljs-string { color: var(--tok-str); }
+.hljs-number, .hljs-literal { color: var(--tok-num); }
+.hljs-comment { color: var(--tok-com); font-style: italic; }
+.hljs-type, .hljs-title { color: var(--tok-fn); }
+.hljs-operator { color: var(--ink-2); }
+
+button, select, input { font: inherit; }
+.btn, .copy { cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 5px; padding: 4px 10px; font-size: 12.5px; font-family: var(--font-mono); }
+.btn:hover, .copy:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 600; padding: 7px 14px; }
+.btn.primary:hover { filter: brightness(1.08); color: var(--surface); }
+.btn[disabled] { opacity: .55; cursor: progress; }
+
+/* SQL runner */
+.sqlrun { margin: 0 0 26px; border: 1px dashed var(--line); border-radius: var(--radius); background: var(--surface); padding: 14px 16px; }
+.sqlrun .bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.sqlrun .bar .label { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); margin-right: auto; }
+.sqlrun .note { font-size: 13px; color: var(--ink-3); margin: 8px 0 0; max-width: none; }
+.sqlrun textarea { width: 100%; min-height: 260px; margin-top: 12px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; background: var(--code-bg); color: var(--code-ink);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; resize: vertical; white-space: pre; overflow-x: auto; }
+.sqlrun .result { margin-top: 12px; }
+.sqlrun .result .tablewrap { overflow-x: auto; margin: 0; }
+.sqlrun .result td.num, .sqlrun .result td { white-space: nowrap; }
+.sqlrun .result table { font-size: 13px; font-family: var(--font-mono); }
+.sqlrun .result th { position: sticky; top: 0; }
+.sqlrun .result td.num { text-align: right; }
+.sqlrun .status { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+.sqlrun .err { color: var(--down); }
+.mv-up { color: var(--up); } .mv-dn { color: var(--down); }
+
+/* Widgets */
+.widget { margin: 6px 0 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; }
+.widget h4 { font-family: var(--font-display); font-weight: 600; font-size: 18px; margin: 0 0 4px; }
+.widget .sub { font-size: 13.5px; color: var(--ink-3); margin: 0 0 16px; max-width: 70ch; }
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px 18px; margin-bottom: 16px; }
+.controls.opt-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ctl { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ctl label { font-size: 12.5px; color: var(--ink-2); display: flex; justify-content: space-between; gap: 8px; }
+.info-tip { cursor: help; color: var(--accent); font-size: 13px; margin-left: 4px; }
+.ctl label .info-tip { flex: none; margin-right: auto; }
+.ctl label output { font-family: var(--font-mono); color: var(--ink); font-weight: 500; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); }
+.ctl select { padding: 5px 8px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); }
+.toggle { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; padding: 10px 12px; background: var(--surface-2); border-radius: var(--radius); margin-bottom: 16px; }
+.toggle input { margin-top: 4px; accent-color: var(--accent); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.tile { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; }
+.tile .k { font-size: 12px; color: var(--ink-3); }
+.tile .v { font-family: var(--font-display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pos { color: var(--up); } .neg { color: var(--down); }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-3); }
+.chart .lbl { fill: var(--ink); font-weight: 500; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .axis { stroke: var(--ink-3); stroke-width: 1; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--ink-2); margin: 4px 0 8px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.legend i.sq { height: 10px; width: 10px; }
+.tip { position: fixed; pointer-events: none; z-index: 50; background: var(--ink); color: var(--bg); font-size: 12.5px; line-height: 1.45; padding: 7px 10px; border-radius: 5px; max-width: 260px; font-family: var(--font-body); }
+.tip b { font-family: var(--font-mono); }
+.two { display: grid; grid-template-columns: 1fr; gap: 26px; }
+.chart-title { font-size: 13.5px; font-weight: 600; margin: 0 0 2px; }
+.chart-sub { font-size: 12.5px; color: var(--ink-3); margin: 0 0 6px; }
+footer.end { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+
+
+/* Cohort triangle */
+.cohort-bar { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin-bottom: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-right: auto; }
+.seg button { border: 0; background: var(--surface); color: var(--ink-2); padding: 6px 12px; font-size: 13px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
+.cohort-legend { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; font-size: 12.5px; color: var(--ink-2); margin: 4px 0 10px; }
+.cohort-legend .muted { color: var(--ink-3); }
+.lg-bar { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; }
+.lg-bar i { display: inline-block; width: 150px; height: 10px; border-radius: 3px; }
+.lg-sw { display: inline-block; width: 18px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+.cohort-wrap { border: 0; background: transparent; margin-bottom: 6px; }
+table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto; font-size: 12.5px; }
+.cohort-table th, .cohort-table td { border: 0; padding: 0; text-align: center; vertical-align: middle; }
+.cohort-table thead th { background: var(--surface-2); color: var(--ink); font-family: var(--font-display); font-size: 15px; font-weight: 600; padding: 8px 4px; min-width: 50px; border-radius: 2px; }
+.cohort-table .c-name { text-align: left; white-space: nowrap; padding: 0 12px 0 6px; font-size: 13px; position: sticky; left: 0; background: var(--surface); z-index: 1; }
+.cohort-table thead .c-name { background: var(--surface-2); padding: 8px 12px; z-index: 2; }
+.cohort-table .c-size { font-family: var(--font-mono); padding: 0 8px; text-align: right; color: var(--ink-2); }
+.cohort-table thead .c-size { font-size: 12px; line-height: 1.2; text-align: center; }
+.cohort-table td { height: 32px; }
+.a2-table thead th { font-size: 12.5px; line-height: 1.25; padding: 8px 10px; }
+.a2-table .cell { min-width: 96px; }
+.a2-table .c-size { text-align: center; padding: 0 12px; }
+.cohort-table .cell { display: flex; align-items: center; justify-content: center; height: 32px; min-width: 50px; border-radius: 5px; font-family: var(--font-mono); font-size: 12px; cursor: default; }
+.cohort-table .cell:hover { outline: 2px solid var(--ink); outline-offset: 1px; }
+.cell.partial, .lg-sw.partial { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 3px, transparent 3px 7px); }
+.cohort-table tr.avg td { padding-top: 6px; }
+.cohort-table tr.avg .c-name { font-weight: 600; }
+.widget .status { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); margin: 6px 0 0; }
+.widget .status.err { color: var(--down); }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 0 60px; }
+  .rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; flex-direction: row; overflow-x: auto; gap: 4px; padding: 8px 0; background: var(--bg); border-bottom: 1px solid var(--line); margin: 0 0 24px; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+  .rail .who, .rail .what, .rail .total { display: none; }
+  .rail a { grid-template-columns: auto auto; white-space: nowrap; padding: 6px 10px; }
+  .rail a em { display: none; }
+  .hero { padding-top: 8px; }
+  .sec { scroll-margin-top: 60px; } .qhead { scroll-margin-top: 60px; }
+}
+@media (max-width: 520px) {
+  .sechead h2 { font-size: 25px; }
+  .qhead { font-size: 19px; flex-direction: column; gap: 4px; }
+  .rail a span { display: none; }
+}
+
+/* One question per page */
+.page[hidden] { display: none !important; }
+.hero { border-bottom: 0; }
+.rail .r-sec { display: flex; flex-direction: column; }
+.r-qs { display: flex; flex-wrap: wrap; gap: 3px; padding: 2px 4px 8px 36px; }
+.r-sec.single .r-qs { display: none; }
+.rail .r-qs a { display: inline-block; padding: 2px 6px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); border-radius: 5px; }
+.rail .r-qs a:hover { background: var(--surface-2); color: var(--ink); }
+.rail .r-qs a.on { background: var(--accent); color: var(--bg); }
+.crumb { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-3); max-width: none !important; }
+.crumb b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 5px; background: var(--ink); color: var(--bg); font-size: 13px; }
+.crumb-pts { margin-left: auto; }
+.callout { margin: 0 0 20px; padding: 14px 18px 4px; background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--radius); }
+.callout p, .callout ul { margin: 0 0 10px; max-width: none; }
+.kid { margin: 0 0 22px; border: 1px dashed var(--accent); border-radius: var(--radius); background: var(--accent-soft); text-align: right;
+  font-family: "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif; }
+.kid summary { cursor: pointer; padding: 10px 16px; font-weight: 600; font-size: 14px; color: var(--accent); }
+.kid-body { padding: 0 18px 12px; font-size: 15.5px; line-height: 1.7; color: var(--ink); }
+.kid-body p, .kid-body ul, .kid-body ol { margin: 0 0 10px; max-width: none; }
+.kid-body ul, .kid-body ol { padding-right: 22px; padding-left: 0; }
+.page > .qhead { font-size: 30px; font-weight: 700; line-height: 1.15; }
+.page > .crumb + .qhead { border-top: 0; padding-top: 0; margin-top: 4px; }
+.page > .crumb + blockquote, .page > .crumb + p { margin-top: 18px; }
+.toc-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 34px 0 8px; }
+.toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 24px; }
+.toc a { display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; align-items: baseline; padding: 9px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 14.5px; }
+.toc a:hover { color: var(--accent); }
+.toc a b { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); }
+.toc a em { font-style: normal; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+.pager { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 12px; margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); }
+.pager a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); background: var(--surface); min-width: 0; }
+.pager a:hover { border-color: var(--accent); }
+.pager a.next { text-align: right; grid-column: 3; }
+.pager a.prev { grid-column: 1; }
+.pager small { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+.pager span { font-size: 14.5px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pager .count { grid-column: 2; align-self: center; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-3); }
+@media (max-width: 900px) {
+  .rail .r-sec, .rail .r-qs { display: contents; }
+  .rail .r-head { display: none; }
+  .r-sec.single .r-qs { display: contents; }
+  .rail .r-qs a { padding: 6px 10px; font-size: 13px; white-space: nowrap; }
+  .rail .r-home span { display: none; }
+  .page > .qhead { font-size: 24px; }
+}
+@media (max-width: 520px) {
+  .pager { grid-template-columns: 1fr 1fr; }
+  .pager .count { display: none; }
+  .pager a.next { grid-column: 2; }
+  .page > .qhead { font-size: 21px; }
+}
+</style>
+
+<div class="shell">
+  <nav class="rail" aria-label="Sections">
+    <div class="who">Gilad Cohen-Tal</div>
+    <div class="what">Business Analyst Assessment</div>
+    <a class="r-home" href="#overview" data-page="overview"><b>⌂</b><span>Overview</span></a>
+    <div class="r-sec single" data-sec="assumptions"><a class="r-head" href="#assumptions" data-sec="assumptions"><b>•</b><span>Applies to every answer</span></a><div class="r-qs"><a href="#assumptions" data-page="assumptions">•</a></div></div>
+<div class="r-sec" data-sec="section-a"><a class="r-head" href="#a1" data-sec="section-a"><b>A</b><span>SQL</span><em>25</em></a><div class="r-qs"><a href="#a1" data-page="a1">A1</a><a href="#a2" data-page="a2">A2</a><a href="#a3" data-page="a3">A3</a></div></div>
+<div class="r-sec" data-sec="section-b"><a class="r-head" href="#b1" data-sec="section-b"><b>B</b><span>Metrics</span><em>15</em></a><div class="r-qs"><a href="#b1" data-page="b1">B1</a><a href="#b2" data-page="b2">B2</a><a href="#b3" data-page="b3">B3</a></div></div>
+<div class="r-sec" data-sec="section-c"><a class="r-head" href="#c1" data-sec="section-c"><b>C</b><span>Data quality</span><em>10</em></a><div class="r-qs"><a href="#c1" data-page="c1">C1</a><a href="#c2" data-page="c2">C2</a></div></div>
+<div class="r-sec" data-sec="section-d"><a class="r-head" href="#d1" data-sec="section-d"><b>D</b><span>Analytical reasoning</span><em>10</em></a><div class="r-qs"><a href="#d1" data-page="d1">D1</a><a href="#d2" data-page="d2">D2</a></div></div>
+<div class="r-sec single" data-sec="section-e"><a class="r-head" href="#e" data-sec="section-e"><b>E</b><span>Excel model</span><em>20</em></a><div class="r-qs"><a href="#e" data-page="e">E</a></div></div>
+<div class="r-sec" data-sec="section-f"><a class="r-head" href="#f" data-sec="section-f"><b>F</b><span>Business review</span><em>20</em></a><div class="r-qs"><a href="#f" data-page="f">Data</a><a href="#f1" data-page="f1">F1</a><a href="#f2" data-page="f2">F2</a><a href="#f3" data-page="f3">F3</a><a href="#f4" data-page="f4">F4</a></div></div>
+    <div class="total"><span>Total</span><span>100 pts</span></div>
+  </nav>
+  <main>
+    <section class="page" id="p-overview" data-page="overview" data-title="Overview" hidden>
+    <header class="hero">
+      <p class="eyebrow">Business Analyst Assessment · Answers</p>
+      <h1>Gilad Cohen-Tal</h1>
+      <p class="lede">All six answers. The SQL runs on sample data, and Sections E and F are interactive.</p>
+      <div class="findings">
+        <a class="finding" href="#f"><span class="k">Q3 headline vs reality</span><span class="v"><span class="up">+6%</span> / <span class="dn">−7.5%</span></span><span class="s">Only the top 20 clients grew.</span></a>
+        <a class="finding" href="#f"><span class="k">Cost per funded account</span><span class="v">$500 → $548</span><span class="s">More spend, smaller accounts.</span></a>
+        <a class="finding" href="#e"><span class="k">Subscription at $9.99</span><span class="v"><span class="dn">−$1.10M</span>/mo</span><span class="s">Break-even price: $128.43.</span></a>
+        <a class="finding" href="#d2"><span class="k">A/B test, p = 0.04</span><span class="v">Not yet</span><span class="s">Rerun with a pre-set plan.</span></a>
+      </div>
+      <p class="toc-title">Questions</p>
+      <nav class="toc" aria-label="All questions"><a href="#assumptions"><b>•</b><span>General assumptions</span></a><a href="#a1"><b>A1</b><span>New funded accounts</span><em>6 pts</em></a><a href="#a2"><b>A2</b><span>Cohort activity</span><em>10 pts</em></a><a href="#a3"><b>A3</b><span>Most traded symbols</span><em>9 pts</em></a><a href="#b1"><b>B1</b><span>Active customers</span><em>5 pts</em></a><a href="#b2"><b>B2</b><span>Assets versus revenue</span><em>5 pts</em></a><a href="#b3"><b>B3</b><span>Country comparison</span><em>5 pts</em></a><a href="#c1"><b>C1</b><span>Sudden drop</span><em>5 pts</em></a><a href="#c2"><b>C2</b><span>Two numbers for one month</span><em>5 pts</em></a><a href="#d1"><b>D1</b><span>New onboarding flow</span><em>6 pts</em></a><a href="#d2"><b>D2</b><span>A/B test result</span><em>4 pts</em></a><a href="#e"><b>E</b><span>Excel model</span><em>20 pts</em></a><a href="#f"><b>F</b><span>The Q3 numbers</span></a><a href="#f1"><b>F1</b><span>The real state of the business</span><em>6 pts</em></a><a href="#f2"><b>F2</b><span>The number that worries me most</span><em>4 pts</em></a><a href="#f3"><b>F3</b><span>Three cuts of data I would ask for next</span><em>6 pts</em></a><a href="#f4"><b>F4</b><span>What management should decide differently next quarter</span><em>4 pts</em></a></nav>
+    </header>
+    </section>
+    <section class="sec page" id="p-assumptions" data-page="assumptions" data-sec="assumptions" data-title="General assumptions" hidden><p class="crumb"><b>·</b><span>Read first</span></p><h3 class="qhead"><span>General assumptions</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p>לפני שעונים על השאלות, קובעים חוקים, כמו לפני משחק כדורגל.</p>
+<ul>
+<li><strong>חשבונות בדיקה</strong> (חשבונות "מזויפים" שהחברה פותחת כדי לבדוק את המערכת) לא נספרים אף פעם.</li>
+<li><strong>"חשבון ממומן"</strong> = הפעם הראשונה שמישהו באמת הכניס כסף, וההפקדה הצליחה.</li>
+<li><strong>מטבעות:</strong> אם מישהו הפקיד ביורו, ממירים לדולר לפי השער של אותו יום. אם אין שער לאותו יום (למשל שבת), לוקחים את השער האחרון שהיה לפני.</li>
+<li><strong>הכנסה</strong> = עמלה שהחברה לוקחת על כל קנייה או מכירה, ועוד ריבית שהיא מרוויחה על הכסף שהלקוחות משאירים במזומן.</li>
+</ul></div></details>
+<ul>
+<li><strong>SQL is Snowflake.</strong> Test accounts are excluded everywhere.</li>
+<li><strong>Funding = first completed deposit</strong> over all history (ties broken by <code>transaction_id</code>).</li>
+<li><strong>FX:</strong> rate on the deposit date, or the latest earlier one. Months are UTC calendar months.</li>
+<li><strong>Revenue</strong> = commission + interest on cash.</li>
+</ul>
+</section>
+<section class="sec page" id="p-a1" data-page="a1" data-sec="section-a" data-title="A1. New funded accounts" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p>
+<h3 class="qhead"><span>A1. New funded accounts</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמה לקוחות חדשים הכניסו כסף בפעם הראשונה בכל חודש, וכמה כסף הם הכניסו, לפי הדרך שבה הם הגיעו אלינו (פייסבוק, גוגל, חבר שהמליץ, תוכן).</p>
+<p><strong>איך פתרתי, צעד אחרי צעד:</strong></p>
+<ol>
+<li>לכל לקוח מוצאים את <strong>ההפקדה הראשונה</strong> שלו שהצליחה. כמו לחפש באלבום את התמונה הראשונה של כל ילד.</li>
+<li>ממירים את הסכום ל<strong>דולרים</strong>, כדי שאפשר יהיה לחבר הכול יחד.</li>
+<li>בונים <strong>טבלה ריקה</strong> של כל החודשים מול כל הערוצים, כמו לוח משבצות. ככה, גם אם בחודש מסוים אף אחד לא הגיע מגוגל, יופיע 0 ולא תהיה משבצת חסרה.</li>
+<li>סופרים ומחברים לכל משבצת.</li>
+</ol>
+<p><strong>המלכודת:</strong> אם לקוח הפקיד לראשונה ב-2025 והפקיד שוב ב-2026, הוא <strong>לא</strong> חדש ב-2026. לכן קודם מוצאים את ההפקדה הראשונה מכל הזמנים, ורק אחר כך מסננים ל-2026.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.</p>
+</blockquote>
+<p><strong>Approach.</strong> Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0.</p>
+<div class="callout">
+
+<p><strong>Why Snowflake.</strong> I chose Snowflake for two features many databases lack: <code>QUALIFY</code> keeps the first deposit per account without a subquery, and <code>ASOF JOIN</code> finds the latest FX rate on or before each deposit date in one join.</p>
+</div>
+
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · submitted answer</span></div><pre><code class="language-sql">-- A1. Newly funded accounts and first-deposit USD, by month and signup channel, Jan–Oct 2026
+WITH first_deposit AS (
+    -- First COMPLETED deposit per account, over all history
+    SELECT t.account_id,
+           a.signup_channel,
+           t.created_at        AS funded_at,
+           t.created_at::DATE  AS funded_date,   -- plain column for the ASOF match condition
+           t.amount,
+           t.currency
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type   = 'Deposit'
+      AND t.status = 'Completed'
+      AND COALESCE(a.is_test, 0) = 0
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY t.account_id
+                               ORDER BY t.created_at, t.transaction_id) = 1   -- tie-break on id
+),
+first_deposit_usd AS (
+    SELECT fd.account_id,
+           fd.signup_channel,
+           DATE_TRUNC('month', fd.funded_at)::DATE AS funding_month,
+           fd.amount * CASE WHEN fd.currency = 'USD' THEN 1 ELSE fx.usd_rate END AS amount_usd
+    FROM first_deposit fd
+    -- Rate on the deposit date, or the latest earlier one (weekends, holidays).
+    -- ASOF JOIN keeps every deposit; usd_rate is NULL when no rate exists.
+    ASOF JOIN fx_rates fx
+         MATCH_CONDITION (fd.funded_date &gt;= fx.rate_date)
+         ON fx.currency = fd.currency
+    WHERE fd.funded_at &gt;= '2026-01-01'
+      AND fd.funded_at &lt;  '2026-11-01'
+),
+months AS (
+    -- Jan–Oct 2026; numbered before the cross join (SEQ4 alone can have gaps)
+    SELECT DATEADD(month, ROW_NUMBER() OVER (ORDER BY SEQ4()) - 1, '2026-01-01'::DATE) AS month
+    FROM TABLE(GENERATOR(ROWCOUNT =&gt; 10))
+),
+grid AS (
+    -- Every month x channel, so empty ones show 0
+    SELECT m.month, c.signup_channel
+    FROM months m
+    CROSS JOIN (SELECT column1 AS signup_channel
+                FROM VALUES ('Paid social'), ('Search'), ('Referral'), ('Content')) c
+)
+SELECT g.month,
+       g.signup_channel,
+       COUNT(f.account_id)                        AS new_funded_accounts,
+       COALESCE(ROUND(SUM(f.amount_usd), 2), 0)   AS first_deposit_usd,
+       COUNT(f.account_id) - COUNT(f.amount_usd)  AS rows_missing_fx_rate  -- data-quality flag
+FROM grid g
+LEFT JOIN first_deposit_usd f
+       ON f.funding_month  = g.month
+      AND f.signup_channel = g.signup_channel
+GROUP BY g.month, g.signup_channel
+ORDER BY g.month, g.signup_channel;
+</code></pre></div>
+<p><strong>Notes</strong></p>
+<ul>
+<li>The 2026 filter runs <em>after</em> finding the first deposit, so 2025-funded accounts are not counted as new.</li>
+<li><code>rows_missing_fx_rate</code> flags deposits with no FX rate; it should be 0.</li>
+</ul>
+<div class="sqlrun" data-q="a1"></div>
+
+</section>
+<section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> לוקחים את כל מי שהצטרף בינואר וקוראים לזה "קבוצת ינואר". אותו דבר לפברואר, וכך עד יוני. לכל קבוצה בודקים:</p>
+<ul>
+<li>כמה אחוז מהם קנו או מכרו משהו בחודש שבו הצטרפו, בחודש שאחריו ובחודש שאחרי זה;</li>
+<li>כמה עמלה החברה הרוויחה בממוצע מכל אחד ב-90 הימים הראשונים.</li>
+</ul>
+<p><strong>דימוי:</strong> כמו מורה שבודקת כמה מתלמידי כיתה ז' עדיין מגיעים לחוג אחרי חודש, אחרי חודשיים ואחרי שלושה.</p>
+<p><strong>איך פתרתי:</strong> לכל לקוח רושמים שלוש "וי או איקס" (סחר בחודש 0? בחודש 1? בחודש 2?) ואת סך העמלה שלו. אחר כך עושים ממוצע לכל קבוצה. ממוצע של "וי=1, איקס=0" הוא בדיוק האחוז.</p>
+<p><strong>המלכודת:</strong> לקוח שלא סחר אף פעם חייב להישאר בחישוב, עם 0. אם מוחקים אותו, נראה כאילו כולם פעילים ומרוויחים יותר ממה שבאמת.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Build a table with one row per funding month, January to June 2026, with: the number of accounts funded in that month; the share of those accounts that placed at least one order in the funding month, the month after, and the month after that; and the average commission per funded account in the first 90 days after its funding date.</p>
+</blockquote>
+<p><strong>Approach.</strong> One row per account with 0/1 flags for each month, then average per cohort. The <code>LEFT JOIN</code> keeps accounts with no orders in the denominator.</p>
+<p><strong>Interpretation.</strong> I read column 2 as three shares: the funding month, the month after, and the month after that.</p>
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · submitted answer</span></div><pre><code class="language-sql">-- A2. Funding-month cohorts, Jan–Jun 2026
+WITH funded AS (
+    -- Funding date = date of first COMPLETED deposit (real accounts only)
+    SELECT t.account_id,
+           t.created_at::DATE AS funding_date
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type   = 'Deposit'
+      AND t.status = 'Completed'
+      AND COALESCE(a.is_test, 0) = 0
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY t.account_id
+                               ORDER BY t.created_at, t.transaction_id) = 1
+),
+cohort AS (
+    SELECT account_id,
+           funding_date,
+           DATE_TRUNC('month', funding_date) AS funding_month
+    FROM funded
+    WHERE funding_date &gt;= '2026-01-01'
+      AND funding_date &lt;  '2026-07-01'
+),
+per_account AS (
+    -- One row per account; the LEFT JOIN keeps non-traders as 0
+    SELECT c.account_id,
+           c.funding_month,
+           MAX(CASE WHEN o.executed_at &gt;= c.funding_month
+                     AND o.executed_at &lt;  DATEADD(month, 1, c.funding_month) THEN 1 ELSE 0 END) AS traded_m0,
+           MAX(CASE WHEN o.executed_at &gt;= DATEADD(month, 1, c.funding_month)
+                     AND o.executed_at &lt;  DATEADD(month, 2, c.funding_month) THEN 1 ELSE 0 END) AS traded_m1,
+           MAX(CASE WHEN o.executed_at &gt;= DATEADD(month, 2, c.funding_month)
+                     AND o.executed_at &lt;  DATEADD(month, 3, c.funding_month) THEN 1 ELSE 0 END) AS traded_m2,
+           -- Days 0–89 counted from the funding date
+           COALESCE(SUM(CASE WHEN o.executed_at &gt;= c.funding_date
+                              AND o.executed_at &lt;  DATEADD(day, 90, c.funding_date)
+                             THEN o.commission_usd END), 0) AS commission_90d
+    FROM cohort c
+    LEFT JOIN orders o
+           ON o.account_id   = c.account_id
+          -- Only orders either metric needs (90 days can run past 3 months)
+          AND o.executed_at &gt;= c.funding_month
+          AND o.executed_at &lt;  GREATEST(DATEADD(month, 3, c.funding_month),
+                                        DATEADD(day, 90, c.funding_date))
+    GROUP BY c.account_id, c.funding_month
+)
+SELECT funding_month,
+       COUNT(*)                        AS funded_accounts,
+       ROUND(AVG(traded_m0), 3)        AS share_traded_m0,
+       ROUND(AVG(traded_m1), 3)        AS share_traded_m1,
+       ROUND(AVG(traded_m2), 3)        AS share_traded_m2,
+       ROUND(AVG(commission_90d), 2)   AS avg_commission_90d_usd
+FROM per_account
+GROUP BY funding_month
+ORDER BY funding_month;
+</code></pre></div>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Average commission is divided by <strong>all</strong> funded accounts, including those that never traded.</li>
+<li>The 90 days can end after the third month (funded 31 Jan → ends 1 May), so the join uses <code>GREATEST</code> to read far enough.</li>
+<li>All six cohorts are complete as of today.</li>
+</ul>
+<div class="sqlrun" data-q="a2"></div>
+
+
+
+</section>
+<section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בכל חודש של 2026, מהן 10 המניות (או המטבעות) שסחרו בהן בהכי הרבה כסף, ובכמה מקומות כל אחת עלתה או ירדה לעומת החודש הקודם. כמו מצעד הפזמונים.</p>
+<p><strong>איך פתרתי:</strong></p>
+<ol>
+<li>לכל חודש ולכל מניה מחשבים כמה כסף עבר (כמות × מחיר).</li>
+<li>מדרגים את <strong>כל</strong> המניות, לא רק את ה-10 הראשונות. למה? אם מניה הייתה במקום 15 בחודש שעבר ועכשיו היא במקום 3, אני רוצה לדעת שהיא קפצה 12 מקומות.</li>
+<li>מתחילים מדצמבר 2025, כדי שלינואר יהיה חודש קודם להשוות אליו.</li>
+</ol>
+<p><strong>איך שומרים על מהירות עם 500 מיליון שורות?</strong> הרעיון זהה בכל מסד נתונים, רק הכלים שונים. דמיין ספרייה ענקית:</p>
+<ul>
+<li><strong>קוראים רק 13 חודשים.</strong> ב-Snowflake מסדרים את הספרים לפי תאריך, והמערכת מדלגת לבד על מדפים לא רלוונטיים. במסד רגיל (כמו PostgreSQL) מחלקים את הספרייה לחדרים, חדר לכל חודש, ונכנסים רק ל-13 חדרים.</li>
+<li><strong>קוראים רק את העמודות שצריך.</strong> Snowflake כבר שומר כל עמודה בנפרד. במסד רגיל בונים <strong>אינדקס</strong>, כמו תוכן עניינים שיש בו כבר את כל המידע, כך שלא צריך לפתוח את הספר עצמו.</li>
+<li><strong>מכינים סיכום יומי מראש.</strong> כמו לסכם כל פרק פעם אחת ולא לקרוא את כולו מחדש. ב-Snowflake זה מתעדכן לבד, ובמסד רגיל מעדכנים כל לילה רק את היום האחרון.</li>
+<li><strong>כוח מחשוב.</strong> ב-Snowflake קונים מחשב גדול יותר רק לזמן קצר. במסד רגיל מריצים בלילה או על עותק של המסד, כדי לא להאט את כולם.</li>
+<li><strong>בשניהם:</strong> קודם מסכמים, אחר כך מדרגים.</li>
+</ul></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>For each month of 2026, return the 10 symbols with the highest traded value (quantity × price), their rank, and how many places each one moved compared with the previous month. Explain how you would keep this query fast on 500 million orders.</p>
+</blockquote>
+<p><strong>Approach.</strong> Rank <strong>every</strong> symbol, not just the top 10, starting from <strong>December 2025</strong>. This gives January a previous month and shows how far a new top-10 symbol climbed.</p>
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · submitted answer</span></div><pre><code class="language-sql">-- A3. Top 10 symbols by traded value per month of 2026, with movement vs the previous month
+WITH monthly AS (
+    SELECT DATE_TRUNC('month', o.executed_at)::DATE AS month,
+           o.symbol,
+           SUM(o.quantity * o.price_usd)            AS traded_value_usd
+    FROM orders o
+    WHERE o.executed_at &gt;= '2025-12-01'          -- December 2025 gives January a baseline
+      AND o.executed_at &lt;  '2027-01-01'
+      AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts
+                      WHERE a.account_id = o.account_id AND a.is_test = 1)
+    GROUP BY DATE_TRUNC('month', o.executed_at)::DATE, o.symbol
+),
+ranked AS (
+    -- Rank all symbols, not only the top 10
+    SELECT month, symbol, traded_value_usd,
+           RANK() OVER (PARTITION BY month ORDER BY traded_value_usd DESC) AS rnk
+    FROM monthly
+)
+SELECT cur.month,
+       cur.rnk                         AS rank,
+       cur.symbol,
+       ROUND(cur.traded_value_usd, 0)  AS traded_value_usd,
+       prev.rnk                        AS previous_rank,
+       prev.rnk - cur.rnk              AS places_moved,     -- positive = moved up
+       CASE WHEN prev.rnk IS NULL THEN 'New: not traded last month'
+            WHEN prev.rnk &gt; 10    THEN 'Entered top 10'
+            ELSE NULL END              AS note
+FROM ranked cur
+-- Previous calendar month (LAG would skip months with no trades)
+LEFT JOIN ranked prev
+       ON prev.symbol = cur.symbol
+      AND prev.month  = DATEADD(month, -1, cur.month)
+WHERE cur.month &gt;= '2026-01-01'
+  AND cur.rnk   &lt;= 10
+ORDER BY cur.month, cur.rnk;
+</code></pre></div>
+<p><strong>Assumptions</strong></p>
+<ul>
+<li><code>RANK()</code> keeps ties, so a tie at 10th returns 11 rows. <code>places_moved</code> &gt; 0 means moved up.</li>
+<li>November 2026 is month-to-date.</li>
+</ul>
+<p><strong>Keeping it fast on 500 million orders</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Snowflake</th>
+<th>Other database (PostgreSQL, SQL Server, MySQL)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Read only 13 months</strong></td>
+<td>Cluster <code>orders</code> on <code>executed_at</code>; the date filter prunes micro-partitions</td>
+<td>Partition <code>orders</code> by month; only 13 partitions are read</td>
+</tr>
+<tr>
+<td><strong>Read fewer columns</strong></td>
+<td>Columnar storage already reads only the columns used</td>
+<td>Covering index on <code>(executed_at, symbol)</code> including <code>quantity</code>, <code>price_usd</code>, <code>account_id</code>, or a columnstore index</td>
+</tr>
+<tr>
+<td><strong>Pre-aggregate</strong></td>
+<td>Dynamic table of daily totals per symbol, refreshed incrementally</td>
+<td>Summary table of daily totals per symbol, loaded nightly for the previous day only</td>
+</tr>
+<tr>
+<td><strong>Compute</strong></td>
+<td>Size the warehouse for the one-off backfill, not every run</td>
+<td>Parallel query; run heavy loads off-peak or on a read replica</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>In both:</strong> total by month first, then rank; exclude test accounts with <code>NOT EXISTS</code> (a short list); save past months' ranks, since they no longer change.</p>
+<div class="sqlrun" data-q="a3"></div>
+
+</section>
+<section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p>
+<h3 class="qhead"><span>B1. Active customers</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> שלושה צוותים מגדירים "לקוח פעיל" בשלוש דרכים שונות. באיזו הגדרה להשתמש לכל מטרה?</p>
+<ul>
+<li><strong>"ביצע פעולת מסחר ב-30 הימים האחרונים" ← לתחזית הכנסות.</strong> החברה מרוויחה עמלה רק כשמישהו קונה או מוכר. כמו מוכר גלידה שמרוויח רק ממי שקנה גלידה, לא ממי שרק נכנס לחנות.</li>
+<li><strong>"מחזיק השקעה" ← לשימור לקוחות.</strong> לקוח באמת עזב רק כשהוא מוציא את הכסף. מי שקנה מניה ושומר אותה שנים לא עזב, גם אם לא לחץ על כלום חודש שלם.</li>
+<li><strong>"התחבר לאפליקציה" ← לא לשניהם.</strong> זה רק סימן אזהרה: אם אנשים מפסיקים להיכנס, אולי בקרוב הם יעזבו.</li>
+</ul></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Three teams define an active customer differently: logged in during the last 30 days, placed an order during the last 30 days, or holds any investment. Which definition would you use for revenue forecasting, which for customer retention, and why?</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Definition</th>
+<th>Use it for</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Placed an order, last 30 days</td>
+<td><strong>Revenue forecasting</strong></td>
+<td>Commission is earned only on executed orders: <em>active traders × orders per trader × commission per order</em>. Interest is forecast separately, from cash balances.</td>
+</tr>
+<tr>
+<td>Holds any investment</td>
+<td><strong>Retention</strong></td>
+<td>A customer churns when they take their money out, not when they skip a month of trading. Under the order definition, buy-and-hold investors would look churned.</td>
+</tr>
+<tr>
+<td>Logged in, last 30 days</td>
+<td>Neither; an early-warning signal</td>
+<td>Noisy and not tied to revenue, but falling logins are an early warning of churn.</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="sec page" id="p-b2" data-page="b2" data-sec="section-b" data-title="B2. Assets versus revenue" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead"><span>B2. Assets versus revenue</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמות הכסף שהלקוחות מחזיקים אצלנו גדלה ב-20%, אבל ההכנסה שלנו גדלה רק ב-5%. למה?</p>
+<p><strong>דימוי:</strong> יש לך חנות, ומספר האנשים בקניון עלה ב-20%, אבל המכירות שלך עלו רק ב-5%. צריך לפרק: כמה נכנסו לחנות? כמה מהם קנו? כמה כל אחד שילם?</p>
+<p><strong>פירוק ההכנסה לחלקים:</strong></p>
+<ul>
+<li><strong>עמלה</strong> = כמה כסף יש אצלנו × כמה פעמים סוחרים בו × כמה אחוז אנחנו לוקחים מכל עסקה.</li>
+<li><strong>ריבית</strong> = כמה כסף יש אצלנו × כמה ממנו נשאר במזומן × כמה ריבית אנחנו מרוויחים עליו.</li>
+</ul>
+<p><strong>ארבע סיבות אפשריות:</strong></p>
+<ol>
+<li><strong>המחירים בבורסה עלו.</strong> הכסף "גדל לבד" בלי שאף אחד קנה או מכר, ועל זה אין עמלה.</li>
+<li><strong>אנשים סוחרים פחות.</strong> קונים ושומרים, במקום לקנות ולמכור כל הזמן.</li>
+<li><strong>פחות מזומן או ריבית נמוכה יותר.</strong> הלקוחות השקיעו את המזומן, או שהריבית ירדה.</li>
+<li><strong>אנחנו לוקחים פחות על כל עסקה.</strong> הנחות, מבצעים, מחיר מיוחד ללקוחות גדולים.</li>
+</ol></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Total assets held by customers grew 20% this year, but revenue grew only 5%. Give four possible explanations. Then show how you would break revenue into components to find which one is true.</p>
+</blockquote>
+<p><strong>Breaking revenue into components:</strong> Revenue = Commission + Interest, where <strong>Commission = Assets × Turnover × Take rate</strong> and <strong>Interest = Assets × Cash share × Net interest margin</strong>.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Explanation</th>
+<th>What happened</th>
+<th>Component that tests it</th>
+<th>If true</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Market gains</strong></td>
+<td>Prices rose; holding assets earns no commission</td>
+<td>Asset growth = Net deposits + Market performance</td>
+<td>Most of the +20% is market performance</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Lower turnover</strong></td>
+<td>More buy-and-hold (ETFs, funds)</td>
+<td>Turnover = Traded volume ÷ Average assets</td>
+<td>Turnover falls</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Less cash or lower rates</strong></td>
+<td>Cash moved into investments, or the interest margin fell</td>
+<td>Cash share = Cash ÷ Average assets; Net interest margin = Interest revenue ÷ Cash</td>
+<td>Either ratio falls</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Lower take rate</strong></td>
+<td>Price cuts, promotions, discounts for large clients</td>
+<td>Take rate = Commission ÷ Traded volume</td>
+<td>Take rate falls</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="sec page" id="p-b3" data-page="b3" data-sec="section-b" data-title="B3. Country comparison" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead"><span>B3. Country comparison</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> במדינה B כל לקוח מכניס לנו פי 2.5 יותר מאשר במדינה A. למה? (אסור לענות "הלקוחות ב-B פשוט יותר טובים".)</p>
+<p><strong>שלוש סיבות:</strong></p>
+<ol>
+<li><strong>סוג הלקוחות.</strong> אולי ב-B יש יותר לקוחות ותיקים ועשירים, או כמה "לווייתנים" ענקיים שמקפיצים את הממוצע. כמו כיתה שבה ילד אחד גובהו 2 מטר: הגובה הממוצע קופץ.</li>
+<li><strong>הדרך שבה הלקוחות הגיעו.</strong> אולי ב-B הרבה לקוחות מגיעים מהמלצה של חבר (Referral) או מחיפוש בגוגל (Search). הם כבר הגיעו עם כוונה להשקיע. וב-A רוב הלקוחות מגיעים ממבצעים ברשתות החברתיות (Paid social), שמביאים לקוחות קטנים שסוחרים מדי פעם. זה לא שהלקוחות ב-B "טובים יותר": החברה פשוט מגייסת אחרת בכל מדינה. ויש עמודה <code>signup_channel</code> שמאפשרת לבדוק את זה.</li>
+<li><strong>רגולציה ומיסים.</strong> בכל מדינה יש חוקים אחרים. למשל, באיחוד האירופי משקיע פרטי לא יכול לקנות קרני סל (ETF) אמריקאיות, כי אין להן מסמך מידע מיוחד שהחוק שם דורש (KID). ובבריטניה יש מס של 0.5% על כל קניית מניה. כשיש פחות מוצרים וכל קנייה עולה יותר, הלקוחות מבצעים פחות פקודות, ולכן משלמים פחות עמלות.</li>
+</ol>
+<p><strong>איך בודקים כל סיבה:</strong></p>
+<ul>
+<li><strong>סוג הלקוחות:</strong> מחלקים את שתי המדינות לאותן קבוצות (ותיקים או חדשים, עשירים או לא). שואלים: "מה היה קורה אם ב-B היו בדיוק אותם סוגי לקוחות כמו ב-A?" אם הפער נעלם, זו הסיבה. בודקים גם מה קורה כשמוציאים את 1% הלקוחות הכי גדולים.</li>
+<li><strong>הדרך שבה הגיעו:</strong> משווים לקוחות שהגיעו מאותו ערוץ בשתי המדינות (המלצה מול המלצה, מבצע מול מבצע). אם בכל ערוץ הם דומים, הפער נובע מזה שב-B יש יותר לקוחות מהערוצים ה"חזקים".</li>
+<li><strong>רגולציה ומיסים:</strong> משווים כמה פקודות כל לקוח מבצע ובאילו מוצרים הוא מחזיק בכל מדינה. אם ב-A מבצעים פחות פקודות ומחזיקים פחות ETF אמריקאיות, אבל העמלה על כל פקודה דומה, החוקים הם ההסבר.</li>
+</ul></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Revenue per active customer is 2.5 times higher in Country B than in Country A. Give three explanations other than "customers in Country B are simply better", and describe how you would test one of them.</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Possible cause</th>
+<th>What it means</th>
+<th>How to test it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer mix</strong></td>
+<td>B has more tenured or wealthier customers, or a few very large clients lifting the average.</td>
+<td>Split both countries into the same groups (tenure × deposit size) and recalculate B's average using A's revenue per group. If the gap closes, the mix explains it. Also compare medians, and recheck without the top 1% of clients.</td>
+</tr>
+<tr>
+<td><strong>Acquisition channel</strong></td>
+<td>In B, more customers may come through Referral and Search, arriving already intending to invest; in A, through Paid social promotions that bring smaller, occasional traders.</td>
+<td>Compare the channel mix (<code>signup_channel</code>) in each country, then revenue per customer within the same channel. If B and A are close channel by channel, the mix of channels explains the gap.</td>
+</tr>
+<tr>
+<td><strong>Regulation and tax</strong></td>
+<td>Rules differ by country: EU retail investors can't buy US-listed ETFs without a KID, and the UK charges 0.5% stamp duty on share purchases. Fewer products and costlier trades mean fewer orders.</td>
+<td>Compare orders per customer and the asset-type mix in each country. If A's customers place fewer orders and hold fewer US ETFs while commission per order is similar, rules explain the gap.</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="sec page" id="p-c1" data-page="c1" data-sec="section-c" data-title="C1. Sudden drop" hidden><p class="crumb"><b>C</b><span>Section C · Data quality</span><span class="crumb-pts">10 pts</span></p>
+<h3 class="qhead"><span>C1. Sudden drop</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בגרף "כמה לקוחות היו פעילים היום" רואים ירידה של 30% ביום שלישי, אבל כמות הקניות וההפקדות נראית רגילה. מה קרה?</p>
+<p><strong>ההיגיון:</strong> אם אנשים קנו והפקידו כרגיל, לפחות הסוחרים היו פעילים. כנראה שהבעיה היא <strong>במדידה</strong> ולא בלקוחות. בשאלה לא כתוב מה קרה ביום רביעי, ולכן הדבר הראשון הוא לבדוק את רביעי. התשובה מחלקת את הסיבות לשתי קבוצות.</p>
+<p><strong>אם ברביעי הכול חזר לרגיל (זו ההנחה שלי, ואני כותב אותה במפורש):</strong> שום דבר לא השתנה לתמיד. כנראה שפשוט <strong>חסרים נתונים של יום שלישי</strong>. הקניות וההפקדות מגיעות ממערכת אחת, והכניסות לאפליקציה ממערכת אחרת, ורק השנייה נתקעה. כמו יומן נוכחות שבו המורה שכחה למלא דף אחד: התלמידים היו בכיתה, רק לא נרשמו. בודקים לפי הסדר:</p>
+<ol>
+<li><strong>הנתונים הגיעו באיחור או רק בחלקם?</strong> סופרים שוב את יום שלישי היום. אם עכשיו המספר רגיל, הדוח פשוט רץ מוקדם מדי.</li>
+<li><strong>המערכת שרושמת כניסות נפלה לכמה שעות?</strong> בודקים את יומן התקלות של אותו יום.</li>
+<li><strong>בעיה של שעון.</strong> אולי חלק מהפעילות נספר ביום שני או ברביעי בגלל אזור זמן. בודקים אם אחד מהם גבוה מהרגיל.</li>
+</ol>
+<p><strong>אם המספר נשאר נמוך:</strong> משהו השתנה לתמיד. בודקים אם מישהו שינה את הנוסחה שסופרת לקוחות פעילים, ואם יצאה גרסה חדשה של האפליקציה. מפצלים לפי סוג מכשיר וגרסה.</p>
+<p><strong>ירידה אמיתית:</strong> לא סבירה בשום מקרה, כי הקניות וההפקדות היו רגילות.</p>
+<p><strong>בדיקה מהירה:</strong> סופרים כמה אנשים קנו משהו ביום שלישי אבל לא נספרו כפעילים. זה אמור להיות כמעט 0. אם לא, הנתונים חסרים.</p>
+<p><strong>אחר כך:</strong> מעלים מחדש את הנתונים של יום שלישי, ומוסיפים התראה אוטומטית אם מגיעים פחות נתונים מהרגיל.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.</p>
+</blockquote>
+<p>Orders and deposits were normal, so trading customers were active: the problem is most likely in measurement. The first check is Wednesday, because it splits the causes in two.</p>
+<p><strong>If Wednesday was back to normal (my assumption):</strong> nothing permanent changed, and Tuesday's activity data is most likely incomplete. Orders and deposits come from the trading and payment systems, while activity comes from a separate event feed. In order:</p>
+<ol>
+<li><strong>Late or partial load.</strong> Tuesday's job ran before all events arrived, or failed partway. Re-count Tuesday from the raw event table today and look at hourly counts against previous Tuesdays; a gap of a few hours points here.</li>
+<li><strong>Event collection outage.</strong> The service that records logins and sessions was down for a few hours. Check its error logs and any incident or rolled-back release that day.</li>
+<li><strong>Day boundary.</strong> A time-zone mismatch or a job that cut the day early moved activity into Monday or Wednesday. Check whether either day is higher than usual.</li>
+</ol>
+<p><strong>If it stayed low:</strong> something permanent changed. Check recent changes to the metric logic (filters, joins, time zone), then any app release or tracking change, split by platform and app version.</p>
+<p><strong>Real drop:</strong> unlikely either way, since orders and deposits were normal.</p>
+<p><strong>Quick test:</strong> count accounts that placed an order on Tuesday but have no activity event. Normally it is near zero; if not, the activity data is missing events.</p>
+<p><strong>Then:</strong> reload Tuesday so the history is right, and add an alert on daily event volume so the next gap is caught the same day.</p>
+</section>
+<section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" hidden><p class="crumb"><b>C</b><span>Section C · Data quality</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מחלקת הכספים אומרת שההכנסה בספטמבר נמוכה ב-4% ממה שמראה הדשבורד. שני הצדדים בטוחים שהם צודקים.</p>
+<p><strong>דימוי:</strong> שני ילדים ספרו כמה סוכריות יש בשקית וקיבלו מספרים שונים. במקום לריב, בודקים: האם שניהם ספרו גם את השבורות? האם שניהם ספרו את אותה שקית?</p>
+<p><strong>הצעדים:</strong></p>
+<ol>
+<li><strong>משווים הגדרות.</strong> האם סופרים לפני הנחות או אחרי? לפי איזה תאריך? באיזה שעון (ישראל או לונדון)? לפי איזה שער דולר?</li>
+<li><strong>מפרקים לחתיכות</strong> (לפי סוג הכנסה ולפי יום) ומחפשים איפה הפער.</li>
+<li><strong>משווים שורה מול שורה.</strong> אילו עסקאות יש רק אצל אחד מהצדדים?</li>
+<li><strong>מונעים את הפער הבא.</strong> מספר אחד כולל רק אומר "יש פער", אבל לא איפה. לכן בונים בדשבורד דוח עם אותם רכיבים שיש בדוח של הכספים (עמלות לפי סוג מוצר, ריבית על מזומן, החזרים ומבצעים), ומשווים רכיב מול רכיב כל חודש. לא מחליטים מראש מי צודק: אם יש פער, רואים מיד באיזה רכיב הוא ומתקנים במקור. כמו שני הילדים: במקום לספור רק את כל השקית, סופרים לפי צבעים, ואז רואים מיד באיזה צבע הטעות.</li>
+</ol></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Finance reports September revenue that is 4% lower than the BI dashboard. Both teams say their number is right. Describe how you would reconcile the two figures, step by step, and the most common reasons for a gap like this.</p>
+</blockquote>
+<ol>
+<li><strong>Compare definitions:</strong> gross or net, which revenue types, which date (trade or booking), time zone, which accounts, FX rate.</li>
+<li><strong>Split both figures</strong> by revenue type, day and entity to find where the gap sits.</li>
+<li><strong>Match records</strong> by order or transaction ID: only in BI, only in Finance, different amounts.</li>
+<li><strong>Prevent the next gap:</strong> build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month. A total only shows that there is a gap; the lines show where, so it is fixed at the source.</li>
+</ol>
+<p><strong>Common causes:</strong> gross vs net, cut-off and time zone, scope (test or internal accounts), FX rates, duplicate rows in BI.</p>
+</section>
+<section class="sec page" id="p-d1" data-page="d1" data-sec="section-d" data-title="D1. New onboarding flow" hidden><p class="crumb"><b>D</b><span>Section D · Analytical reasoning</span><span class="crumb-pts">10 pts</span></p>
+<h3 class="qhead"><span>D1. New onboarding flow</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> ב-1 במרץ החלפנו את תהליך ההרשמה. אחוז הנרשמים שהכניסו כסף עלה מ-18% ל-22%. צוות המוצר אומר: "זה בזכותנו!" האם הם צודקים?</p>
+<p><strong>הבעיה:</strong> אי אפשר לדעת מהשוואה של פברואר מול מרץ, כי הרבה דברים השתנו באותו זמן. כמו לומר "התחלתי לאכול גזר, ובאותו חודש גבהתי". אולי פשוט גדלת.</p>
+<p><strong>מה בודקים:</strong></p>
+<ol>
+<li><strong>המכנה.</strong> אולי התהליך החדש גורם לפחות אנשים להירשם, ורק הרציניים נשארים. האחוז עולה, אבל כמות המשלמים לא. לכן בודקים את המספר עצמו, לא רק את האחוז. וסופרים את שני החודשים באותה דרך: מי שהכניס כסף בתוך 14 יום מההרשמה.</li>
+<li><strong>הרכב.</strong> אולי במרץ הגיעו יותר אנשים מערוץ טוב יותר.</li>
+<li><strong>דברים אחרים במרץ:</strong> מבצע, בורסה חמה, עונה.</li>
+<li><strong>אין קבוצת השוואה.</strong> התהליך החדש עלה לכולם באותו יום, אז אין למי להשוות. הראיה הכי טובה היא הגרף השבועי: האם הקפיצה קרתה בדיוק ב-1 במרץ. זה מחזק את הטענה, אבל לא מוכיח אותה. בגלל זה בפעם הבאה צריך ניסוי A/B.</li>
+<li><strong>איכות:</strong> האם המפקידים החדשים באמת סוחרים, או שהכניסו רק דולר אחד?</li>
+</ol>
+<p><strong>בפעם הבאה:</strong> <strong>ניסוי A/B.</strong> מטילים מטבע לכל נרשם: חצי מקבלים את התהליך הישן וחצי את החדש, באותו זמן. ככה רק התהליך שונה. ומחכים 14 יום אחרי הנרשם האחרון לפני שבודקים, כדי שגם לו יהיה זמן להפקיד.</p>
+<p><strong>כמה אנשים צריך בכל קבוצה?</strong></p>
+<ul>
+<li>כדי לזהות הפרש של 18% מול 22% צריך <strong>כ-1,570 בכל קבוצה</strong> (בערך 3,140 בסך הכול).</li>
+<li>כדי לזהות הפרש של 18% מול 20% צריך <strong>כ-6,000 בכל קבוצה</strong> (בערך 12,000 בסך הכול).</li>
+<li><strong>למה הפרש קטן צריך הרבה יותר אנשים?</strong> כמו לשמוע לחישה בחדר רועש: כמה שהקול חלש יותר, צריך להקשיב יותר זמן. כשההפרש קטן פי 2, צריך פי 4 אנשים.</li>
+<li><strong>למה בחרתי ב-6,000?</strong> חלק מהקפיצה ל-22% הגיע כנראה מדברים אחרים (עונה, מבצע), ולכן ההשפעה האמיתית של התהליך כנראה קטנה יותר. אם מתכננים ניסוי רק ל-4 נקודות וההשפעה האמיתית היא 2, יש רק כ-30% סיכוי לגלות אותה.</li>
+<li><strong>שים לב:</strong> "4%" כאן הן 4 <strong>נקודות אחוז</strong>. ביחס ל-18% זה שיפור של 22%.</li>
+</ul>
+<p><strong>איך מחשבים (למראיין):</strong> מובהקות 5% (z = 1.96), עוצמה 80% (z = 0.84):<br />
+n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² ≈ 1,569.</p>
+<p><strong>כמה זמן:</strong> תלוי בכמה נרשמים יש. עם 1,000 בשבוע, 12,000 אנשים ייקחו כ-12 שבועות. בכל מקרה לפחות שבועיים, כדי לכסות את כל ימי השבוע.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?</p>
+</blockquote>
+<p>A February-vs-March comparison can't isolate the flow. I would check:</p>
+<ol>
+<li><strong>Denominator.</strong> If the flow filters people out before they count as sign-ups, the rate rises with no more funded accounts. Check absolute funded accounts, and measure both months the same way: funded within 14 days of sign-up.</li>
+<li><strong>Mix.</strong> Compare rates within each channel and country.</li>
+<li><strong>Other March effects.</strong> Seasonality, markets, promotions. Check whether the weekly trend jumps exactly on 1 March.</li>
+<li><strong>No control group.</strong> The flow went live for everyone, so the best evidence is the weekly trend around 1 March (interrupted time series). It supports a causal claim but can't prove it, which is why next time needs an A/B test.</li>
+<li><strong>Quality.</strong> Do the extra funders deposit and trade like the others in their first 30 days?</li>
+</ol>
+<p><strong>Next time:</strong> an A/B test randomized before sign-up, with one primary metric (funded within 14 days), analyzed only once the last sign-ups have had their 14 days.</p>
+<p><strong>Sample size</strong> (two-sided α = 5%, power 80%):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Difference to detect</th>
+<th>Users per group</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18% → 22% (+4 points, the observed jump)</td>
+<td>~1,570</td>
+<td>~3,140</td>
+</tr>
+<tr>
+<td>18% → 20% (+2 points)</td>
+<td><strong>~6,000</strong></td>
+<td><strong>~12,000</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.</p>
+<div id="d1-widget"></div>
+
+</section>
+<section class="sec page" id="p-d2" data-page="d2" data-sec="section-d" data-title="D2. A/B test result" hidden><p class="crumb"><b>D</b><span>Section D · Analytical reasoning</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>D2. A/B test result</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בדקו מסך הזמנות חדש במשך שבוע. במסך החדש היו 8% יותר הזמנות, עם p = 0.04 (כלומר יש סיכוי קטן שזה מזל). בשני מדדים אחרים לא היה שינוי. האם להשיק?</p>
+<p><strong>התשובה: לא רק על סמך p = 0.04.</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי והניסוי נעשה כמו שצריך, אפשר לסמוך על התוצאה. אחרת, מריצים ניסוי חדש ומסודר שיאשר אותה.</p>
+<ol>
+<li><strong>בדקו שלושה דברים.</strong> אם זורקים מטבע שלוש פעמים, הסיכוי שלפחות פעם אחת יקרה משהו "מיוחד" במקרה גדל. כשמתקנים את זה, 0.04 כבר לא מספיק טוב. <strong>אבל:</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי, לא צריך את התיקון. לכן קודם שואלים מה הוגדר מראש.</li>
+<li><strong>שבוע זה קצר מדי.</strong> אנשים לוחצים על כל דבר חדש כי הוא חדש ומעניין, ואחרי שבועיים זה עובר. כמו צעצוע חדש.</li>
+<li><strong>יותר הזמנות זה לא בהכרח יותר כסף.</strong> אולי אנשים פשוט מחלקים קנייה אחת לשתיים. וגם כמה סוחרים גדולים יכולים להקפיץ את הממוצע.</li>
+<li><strong>סיכון רגולטורי.</strong> אם המסך דוחף אנשים לסחור יותר, הרגולטור עלול לא לאהוב את זה.</li>
+<li><strong>האם החלוקה יצאה כמתוכנן?</strong> אם תכננו חצי-חצי ויצא 55% מול 45%, משהו התקלקל: בהגרלה או במדידה. עד שמבינים מה קרה, אי אפשר לסמוך על התוצאה. כמו מטבע שנופל יותר מדי פעמים על עץ: כנראה הוא לא הוגן.</li>
+</ol>
+<p><strong>ההמלצה:</strong> לא "להאריך" את אותו ניסוי אחרי שכבר ראו תוצאה. זה כמו להמשיך לזרוק מטבע עד שיוצא מה שרוצים. אם צריך ניסוי חדש, מריצים אותו 2–3 שבועות, וקובעים <strong>מראש</strong> את המדד הראשי (כמה <strong>כסף</strong> כל משתמש מכניס), "מדדי הגנה" שאסור שייפגעו (הזמנות שבוטלו, תלונות) ואת גודל המדגם.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>A test of a redesigned order screen ran for one week. The new screen shows 8% more orders per user, with p = 0.04. The team also checked two other metrics, which showed no difference. Should they launch? Name at least three concerns.</p>
+</blockquote>
+<p><strong>Not on p = 0.04 alone.</strong> If orders per user was the pre-set primary metric and the test is sound, the result can stand. Otherwise, confirm it with a new test that is large enough.</p>
+<ol>
+<li><strong>Multiple comparisons.</strong> Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails, unless orders per user was the pre-set primary metric.</li>
+<li><strong>Too short.</strong> In one week, users may react just because the screen is new, and only one week of market conditions is covered.</li>
+<li><strong>Orders aren't value.</strong> If revenue didn't move, users may just be splitting orders; a few heavy traders can also drive the mean.</li>
+<li><strong>Customer risk.</strong> Nudging people to trade more draws regulatory attention.</li>
+<li><strong>Sample ratio.</strong> Check the split matched the plan (e.g. 50/50). A mismatch means assignment or tracking broke, and the result can't be trusted until it's explained.</li>
+</ol>
+<p><strong>Multiple comparisons in numbers</strong> (no real difference, α = 0.05 per metric, all three tested as one family):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Metrics tested</th>
+<th>Chance at least one is "significant" by luck</th>
+<th>Bonferroni threshold</th>
+<th>p = 0.04 passes?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5%</td>
+<td>0.05</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10%</td>
+<td>0.025</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>3 (this test)</strong></td>
+<td><strong>14%</strong></td>
+<td><strong>0.017</strong></td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>23%</td>
+<td>0.010</td>
+<td>No</td>
+</tr>
+<tr>
+<td>10</td>
+<td>40%</td>
+<td>0.005</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+<p>Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower chance.</p>
+<p><strong>Recommendation:</strong> don't keep this test running until the result looks good; that raises the chance of a false positive. If a confirmatory test is needed, run it for 2–3 weeks with the primary metric (revenue per user), guardrails (cancelled orders, complaints) and sample size set in advance.</p>
+</section>
+<section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" hidden><p class="crumb"><b>E</b><span>Section E · Excel model</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>E. Excel model</span><span class="pts">20 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
+<p><strong>דימוי:</strong> חדר כושר שמציע "כניסה חופשית ב-100 ש"ח לחודש" במקום 30 ש"ח לכל כניסה. מי יירשם? רק מי שמגיע הרבה. ומהם החדר מרוויח פחות.</p>
+<p><strong>מה יצא:</strong></p>
+<ul>
+<li><strong>מתחילים (Starter)</strong> משלמים היום רק $3.20 בחודש בעמלות. אם הם יעברו למנוי, הם ישלמו $9.99 ונרוויח <strong>יותר</strong>.</li>
+<li><strong>רגילים (Regular)</strong> משלמים $40 ו<strong>פעילים (Active)</strong> משלמים $360. אם הם יעברו למנוי, הם ישלמו רק $9.99 ונפסיד <strong>הרבה</strong>.</li>
+<li><strong>בסך הכול ההכנסה יורדת בחצי</strong> (בערך מינוס 1.1 מיליון דולר בחודש).</li>
+</ul>
+<p><strong>כמה המנוי צריך לעלות כדי לא להפסיד?</strong> $128.43.</p>
+<p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details>
+<p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
+<p><strong>Results (monthly)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Commission / customer</th>
+<th>Current revenue</th>
+<th>Proposed revenue</th>
+<th>Difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter</td>
+<td>$3.20</td>
+<td>$128,000</td>
+<td>$141,580</td>
+<td><strong>+$13,580</strong></td>
+</tr>
+<tr>
+<td>Regular</td>
+<td>$40.00</td>
+<td>$600,000</td>
+<td>$464,955</td>
+<td><strong>−$135,045</strong></td>
+</tr>
+<tr>
+<td>Active</td>
+<td>$360.00</td>
+<td>$1,440,000</td>
+<td>$459,972</td>
+<td><strong>−$980,028</strong></td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>$2,168,000</strong></td>
+<td><strong>$1,066,507</strong></td>
+<td><strong>−$1,101,493 (−50.8%)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div id="excel-widget"></div>
+
+<p><strong>Which segments bring more or less, and why?</strong><br />
+Only <strong>Starter</strong> brings more (+$13,580/month): its customers pay just $3.20/month in commission, less than the $9.99 fee. <strong>Regular</strong> and <strong>Active</strong> bring less, because subscribers stop paying $40 or $360 and pay $9.99.</p>
+<p><strong>Break-even price</strong><br />
+<code>SUMPRODUCT(customers, opt-in, commission) / SUMPRODUCT(customers, opt-in)</code> = $1,194,400 ÷ 9,300 = <strong>$128.43/month</strong>.</p>
+<p><strong>Why the opt-in rates won't hold</strong><br />
+Customers subscribe only when it saves them money, so at $128.43 no Starter or Regular customer would join, only Active traders. I would test a tiered plan for Active traders instead, such as $49–99/month for discounted commission or a capped number of free trades, as a randomized price test.</p>
+</section>
+<section class="sec page" id="p-f" data-page="f" data-sec="section-f" data-title="F. The Q3 numbers" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F. The Q3 numbers</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>הסיפור:</strong> ההנהלה אומרת "רבעון טוב, ההכנסה עלתה ב-6%". הטבלה מראה את המספרים מאחורי המשפט הזה.</p>
+<p><strong>הדבר הכי חשוב לראות כאן:</strong> את ההכנסה כדאי לפרק לשני חלקים: 20 הלקוחות הכי גדולים, וכל השאר. הגדולים עלו ב-60%, וכל השאר <strong>ירדו</strong> ב-7.5%. הממוצע מסתיר את זה.</p>
+<p><strong>עוד שני מספרים שחישבתי:</strong></p>
+<ul>
+<li>20 הלקוחות הגדולים היו 20% מההכנסה ועכשיו הם 30%. אנחנו תלויים בהם יותר.</li>
+<li>כמה עולה לנו להביא לקוח חדש: $500 עלה ל-$548.</li>
+</ul></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Management's summary of Q3 is "a good quarter, revenue up 6%".</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Q2</th>
+<th>Q3</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Revenue ($M)</td>
+<td>30.0</td>
+<td>31.8</td>
+<td>+6.0%</td>
+</tr>
+<tr>
+<td>Revenue from the 20 largest clients ($M)</td>
+<td>6.0</td>
+<td>9.6</td>
+<td>+60.0%</td>
+</tr>
+<tr>
+<td>Revenue from all other clients ($M)</td>
+<td>24.0</td>
+<td>22.2</td>
+<td>−7.5%</td>
+</tr>
+<tr>
+<td>Active traders</td>
+<td>50,000</td>
+<td>46,000</td>
+<td>−8.0%</td>
+</tr>
+<tr>
+<td>Traded volume ($B)</td>
+<td>100</td>
+<td>97</td>
+<td>−3.0%</td>
+</tr>
+<tr>
+<td>New funded accounts</td>
+<td>10,000</td>
+<td>11,500</td>
+<td>+15.0%</td>
+</tr>
+<tr>
+<td>Marketing spend ($M)</td>
+<td>5.0</td>
+<td>6.3</td>
+<td>+26.0%</td>
+</tr>
+<tr>
+<td>Average first deposit ($)</td>
+<td>400</td>
+<td>320</td>
+<td>−20.0%</td>
+</tr>
+<tr>
+<td>Revenue per new funded account, first 30 days ($)</td>
+<td>200</td>
+<td>150</td>
+<td>−25.0%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Derived:</strong> top-20 share of revenue 20% → 30%; cost per new funded account $500 → $548; total first deposits $4.0M → $3.68M (−8%); first-month revenue from all new accounts $2.0M → $1.73M (−14%).</p>
+<div id="f-widget"></div>
+
+</section>
+<section class="sec page" id="p-f1" data-page="f1" data-sec="section-f" data-title="F1. The real state of the business" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F1. The real state of the business</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מה המצב האמיתי?</p>
+<p><strong>דימוי:</strong> כיתה שבה הציון הממוצע עלה, אבל רק בגלל ששלושה תלמידים קיבלו 100. כל השאר ירדו.</p>
+<ul>
+<li><strong>הצמיחה הגיעה מ-20 לקוחות בלבד.</strong> בלי הצמיחה שלהם (אם היו נשארים על $6 מיליון), ההכנסה הייתה יורדת ב-6%.</li>
+<li><strong>פחות אנשים סוחרים</strong> (מינוס 8%), למרות שהגיעו 11,500 לקוחות חדשים. כלומר יותר סוחרים הפסיקו לסחור ממה שהתחילו. כמו דלי עם חור. זה חשבון פשוט: מספר הסוחרים ירד ב-4,000, אז יותר אנשים הפסיקו לסחור ממה שהתחילו או חזרו. (לא יודעים כמה בדיוק, כי אין נתוני שימור.)</li>
+<li><strong>הבאת לקוחות נהייתה יקרה יותר וגרועה יותר.</strong> שילמנו 26% יותר על פרסום, וקיבלנו רק 15% יותר לקוחות, שגם מפקידים פחות ומכניסים פחות. גם סך ההפקדות הראשונות ירד: $3.68 מיליון במקום $4 מיליון (מינוס 8%), למרות שהיו 15% יותר לקוחות חדשים. ובסך הכול, כל הלקוחות החדשים יחד הכניסו בחודש הראשון $1.73 מיליון במקום $2 מיליון: הוצאנו $1.3 מיליון יותר וקיבלנו 14% פחות. (11,500 × $150 מול 10,000 × $200.)</li>
+</ul>
+<p><strong>השורה התחתונה:</strong> זה לא רבעון טוב. זה רבעון חלש שנראה טוב בזכות כמה לקוחות גדולים.</p></div></details>
+<p>Growth came from 20 clients. Their revenue rose 60% and is now 30% of the total, while everyone else fell 7.5%. Without their growth, revenue would be down 6%.</p>
+<p>The base is shrinking: active traders fell 8% and volume 3%, despite 11,500 new accounts. <strong>That is 4,000 fewer, so more traders stopped trading than started or came back.</strong></p>
+<p>Acquisition is weaker: marketing rose 26% for 15% more accounts (cost per account $500 → $548), while first deposits fell 20% and first-month revenue 25%. <strong>$1.3M more spend bought 14% less first-month revenue.</strong></p>
+<p>It is a weak quarter that looks good because of 20 clients.</p>
+</section>
+<section class="sec page" id="p-f2" data-page="f2" data-sec="section-f" data-title="F2. The number that worries me most" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F2. The number that worries me most</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> איזה מספר הכי מדאיג?</p>
+<p><strong>התשובה:</strong> ההכנסה מכל הלקוחות <strong>חוץ</strong> מ-20 הגדולים, שירדה ב-7.5%.</p>
+<p><strong>למה דווקא הוא?</strong></p>
+<ul>
+<li>זה 70% מההכנסה וכמעט כל הלקוחות. זה <strong>הבסיס</strong> של החברה.</li>
+<li>20 הגדולים לא יציבים: אם ברבעון הבא הם יחזרו לרמה של Q2, וכל השאר יישאר אותו דבר, ההכנסה תרד ל-$28.2 מיליון, 11% פחות מ-Q3. (מול Q2 זה 6% פחות. חשוב להגיד מול מה משווים.)</li>
+<li>את בעיית הפרסום אפשר לתקן מהר. בסיס שמתכווץ קשה הרבה יותר לתקן.</li>
+</ul>
+<p>כמו גוף: פצע קטן מטפלים בו מהר. אבל אם השרירים נחלשים, זו בעיה גדולה יותר.</p></div></details>
+<p><strong>Revenue from all other clients: $24.0M → $22.2M (−7.5%).</strong></p>
+<p>It covers 70% of revenue and almost every customer, and it already reflects the lost traders and weaker new cohorts. Top-20 revenue is volatile: if it returns to Q2 levels and the rest stays flat, Q4 falls to $28.2M, −11% on Q3. Active traders is only a headcount, and marketing efficiency can be fixed within a quarter. A shrinking core cannot.</p>
+</section>
+<section class="sec page" id="p-f3" data-page="f3" data-sec="section-f" data-title="F3. Three cuts of data I would ask for next" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F3. Three cuts of data I would ask for next</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> אילו נתונים הייתי מבקש עכשיו כדי להבין יותר?</p>
+<ol>
+<li><strong>מה בדיוק קרה עם 20 הגדולים.</strong> לפי לקוח, לפי חודש ולפי סוג הכנסה. האם זה קרה פעם אחת בגלל אירוע מיוחד בשוק, או שזה ימשיך?</li>
+<li><strong>פירוק של הלקוחות הפעילים, מ-Q2 ל-Q3.</strong> כמה נשארו, כמה עזבו, כמה חזרו וכמה חדשים. ואיפה העזיבה הכי גדולה: לפי ותק, לפי מדינה ולפי סוג השקעה.</li>
+<li><strong>לקוחות חדשים לפי ערוץ פרסום.</strong> כמה עלה להביא כל אחד, כמה הוא הפקיד וכמה הרוויח לנו. ככה יודעים איזה פרסום לעצור.</li>
+</ol></div></details>
+<ol>
+<li><strong>Top-20 revenue by client, month and revenue type.</strong> Confirms or rules out a one-off driven by a few clients or one market event.</li>
+<li><strong>Active-trader breakdown, Q2 → Q3, for everyone else</strong> (retained, churned, reactivated, new), split by tenure, country and asset type. Confirms whether the decline is churn, and where it sits.</li>
+<li><strong>New accounts by channel and country:</strong> cost per account, first deposit and 30/90-day revenue. Shows which channel absorbed the extra $1.3M and which spend to cut.</li>
+</ol>
+</section>
+<section class="sec page" id="p-f4" data-page="f4" data-sec="section-f" data-title="F4. What management should decide differently next quarter" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F4. What management should decide differently next quarter</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מה ההנהלה צריכה לעשות אחרת ברבעון הבא?</p>
+<p>הטבלה בנויה כך: לכל בעיה שמצאנו ב-F1 יש החלטה אחת, וסיבה למה היא חשובה.</p>
+<ol>
+<li><strong>הכותרת "+6%" הסתירה ירידה</strong> ← <strong>לשנות את לוח התוצאות:</strong> להסתכל גם על ההכנסה בלי 20 הגדולים, על מספר הסוחרים הפעילים ועל כמה זמן לוקח לכל ערוץ פרסום להחזיר את עצמו.</li>
+<li><strong>הצמיחה תלויה ב-20 לקוחות</strong> ← <strong>צוות ייעודי ל-20 הגדולים:</strong> מנהל לקוח אישי לכל אחד ובדיקה של החשיפה לסיכון שלהם. הם 30% מההכנסה, אז אם אחד עוזב רואים את זה מיד בדוח.</li>
+<li><strong>הסוחרים הפעילים ירדו ב-8% למרות 11,500 חדשים</strong> ← <strong>למנות אחראי על שימור</strong>, עם יעד, ולנסות להחזיר את מי שעזב לאחרונה. להחזיר לקוח בדרך כלל זול יותר מלהביא חדש ב-$548.</li>
+<li><strong>הפרסום יקר יותר ומביא פחות</strong> ← <strong>לבדוק איזה פרסום עבד ואיזה לא:</strong> לכל ערוץ וקמפיין מחשבים כמה כסף הלקוחות שהוא הביא הכניסו ב-90 יום, לכל דולר פרסום. מעבירים תקציב מהחלשים לחזקים. הממוצע מסתיר שיש קמפיינים שעדיין משתלמים ויש כאלה שלא.</li>
+<li><strong>הלקוחות החדשים קטנים יותר</strong> ← <strong>לשפר את החודש הראשון:</strong> הדרכה וליווי עד העסקה הראשונה. בחודש הראשון נקבע אם הלקוח נשאר.</li>
+</ol></div></details>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Problem (from F1)</th>
+<th>Decision</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The +6% headline hid a shrinking core</td>
+<td><strong>Change the scorecard.</strong> Report revenue excluding the top 20, active traders and payback per channel.</td>
+<td>Management called it a good quarter while the core fell 7.5%.</td>
+</tr>
+<tr>
+<td>Growth depends on 20 clients</td>
+<td><strong>Manage the top 20 as a portfolio.</strong> Give each an account manager and review our risk exposure to them.</td>
+<td>They are 30% of revenue: losing one shows in the results at once, and back at Q2 levels Q4 falls to $28.2M, −11% on Q3.</td>
+</tr>
+<tr>
+<td>Active traders fell 8% despite 11,500 new accounts</td>
+<td><strong>Own retention.</strong> Give churn an owner and a target, act on early-warning signals, and win back recent leavers.</td>
+<td>Keeping or winning back a trader usually costs less than a $548 new account.</td>
+</tr>
+<tr>
+<td>Marketing costs more and brings less</td>
+<td><strong>Fund marketing by value.</strong> Check which channels and campaigns worked by 90-day revenue per dollar, not account count, and move budget from the weakest to the strongest.</td>
+<td>Cost per account rose to $548 while first-month revenue fell 25%. The average hides which campaigns still pay back.</td>
+</tr>
+<tr>
+<td>New accounts are smaller</td>
+<td><strong>Improve the first 30 days.</strong> Education and support up to the first trade.</td>
+<td>The first month decides whether a new customer stays.</td>
+</tr>
+</tbody>
+</table></div></section>
+    <nav class="pager" id="pager" aria-label="Previous and next question"></nav>
+    <footer class="end">Gilad Cohen-Tal · November 2026. Sample data is generated in the browser, not company data.</footer>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+/* Runnable SQL: a synthetic dataset generated in the browser, loaded into SQLite (sql.js, asm build). */
+window.SQLDEMO = (function () {
+  const SQLJS_URL = "https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-asm.js";
+
+  // ---- deterministic PRNG so every visitor sees the same sample
+  function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const rnd = mulberry32(20261118);
+  const pick = (arr, w) => { let r = rnd() * w.reduce((a, b) => a + b, 0); for (let i = 0; i < arr.length; i++) { r -= w[i]; if (r <= 0) return arr[i]; } return arr[arr.length - 1]; };
+  const DAY = 86400000;
+  const pad = n => String(n).padStart(2, "0");
+  const ts = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`; };
+  const ds = ms => ts(ms).slice(0, 10);
+  const lognorm = (mu, sigma) => Math.exp(mu + sigma * Math.sqrt(-2 * Math.log(rnd() + 1e-12)) * Math.cos(2 * Math.PI * rnd()));
+
+  const START = Date.UTC(2025, 6, 1), END = Date.UTC(2026, 10, 17, 23, 0, 0);
+  const COUNTRIES = [["US", "USD"], ["UK", "GBP"], ["DE", "EUR"], ["FR", "EUR"], ["IT", "EUR"], ["AU", "AUD"]];
+  const CHANNELS = ["Paid social", "Search", "Referral", "Content"];
+  const SYMBOLS = [
+    ["AAPL", "Stock", 190], ["MSFT", "Stock", 420], ["NVDA", "Stock", 120], ["AMZN", "Stock", 185], ["TSLA", "Stock", 240], ["META", "Stock", 500],
+    ["GOOGL", "Stock", 170], ["AMD", "Stock", 150], ["NFLX", "Stock", 640], ["JPM", "Stock", 200], ["KO", "Stock", 62], ["DIS", "Stock", 98],
+    ["SPY", "ETF", 540], ["QQQ", "ETF", 470], ["VOO", "ETF", 495], ["IWM", "ETF", 210], ["ARKK", "ETF", 48], ["GLD", "ETF", 215],
+    ["VTI", "ETF", 270], ["XLE", "ETF", 92], ["VFIAX", "Fund", 500], ["FXAIX", "Fund", 190], ["VTSAX", "Fund", 130], ["SWPPX", "Fund", 80]];
+
+  function generate() {
+    const accounts = [], tx = [], orders = [], fx = [];
+    // FX rates: weekdays only, so the "latest earlier rate" fallback is exercised on weekends
+    const fxBase = { EUR: 1.08, GBP: 1.27, AUD: 0.66 };
+    for (const cur of Object.keys(fxBase)) {
+      let r = fxBase[cur];
+      for (let t = START - 10 * DAY; t <= END; t += DAY) {
+        const dow = new Date(t).getUTCDay();
+        r *= 1 + (rnd() - 0.5) * 0.008;
+        if (dow !== 0 && dow !== 6) fx.push([ds(t), cur, +r.toFixed(5)]);
+      }
+    }
+    const symW = SYMBOLS.map((s, i) => 1 / (1 + i * 0.18));
+    const phase = SYMBOLS.map(() => rnd() * 6.28);
+    let txId = 1, ordId = 1;
+    const N = 4000;
+    for (let id = 1; id <= N; id++) {
+      const signup = START + rnd() * (END - START);
+      const [country, cur] = pick(COUNTRIES, [40, 15, 15, 10, 8, 12]);
+      const channel = pick(CHANNELS, [35, 30, 15, 20]);
+      const isTest = rnd() < 0.02 ? 1 : 0;
+      accounts.push([id, ds(signup), country, channel, isTest]);
+      const fundP = { "Paid social": 0.33, "Search": 0.45, "Referral": 0.62, "Content": 0.40 }[channel];
+      if (rnd() > fundP) {
+        if (rnd() < 0.3) tx.push([txId++, id, ts(signup + rnd() * 5 * DAY), "Deposit", "Failed", +(lognorm(5.6, 0.6)).toFixed(2), cur]);
+        continue;
+      }
+      let t = signup + rnd() * 18 * DAY;
+      if (t > END) continue;
+      if (rnd() < 0.15) { tx.push([txId++, id, ts(t), "Deposit", rnd() < 0.5 ? "Failed" : "Pending", +(lognorm(5.8, 0.6)).toFixed(2), cur]); t += rnd() * 3 * DAY; if (t > END) continue; }
+      const mu = { "Paid social": 5.5, "Search": 6.0, "Referral": 6.6, "Content": 6.1 }[channel];
+      const fundedAt = t;
+      tx.push([txId++, id, ts(fundedAt), "Deposit", "Completed", +lognorm(mu, 0.7).toFixed(2), cur]);
+      // later money movement
+      let tt = fundedAt;
+      while (rnd() < 0.55) { tt += (5 + rnd() * 60) * DAY; if (tt > END) break; tx.push([txId++, id, ts(tt), rnd() < 0.75 ? "Deposit" : "Withdrawal", pick(["Completed", "Failed", "Pending"], [90, 7, 3]), +lognorm(mu - 0.2, 0.7).toFixed(2), cur]); }
+      // trading activity, decaying month by month
+      if (rnd() > 0.78) continue;
+      const intensity = lognorm(0.6, 0.6);
+      const size = lognorm(6.4, 0.9);
+      for (let m = 0; m < 17; m++) {
+        const mStart = fundedAt + m * 30 * DAY;
+        if (mStart > END) break;
+        if (rnd() > 0.82 * Math.pow(0.86, m)) continue;
+        const n = Math.max(1, Math.round(intensity * (0.5 + rnd() * 2)));
+        for (let k = 0; k < n; k++) {
+          const et = mStart + rnd() * 30 * DAY;
+          if (et > END) continue;
+          const dd = new Date(et), mi = (dd.getUTCFullYear() - 2025) * 12 + dd.getUTCMonth();
+          const w = symW.map((x, i) => x * (1.5 + 0.7 * Math.sin(mi * 0.7 + phase[i])));
+          const si = SYMBOLS.indexOf(pick(SYMBOLS, w));
+          const [sym, type, base] = SYMBOLS[si];
+          const price = +(base * (1 + 0.12 * Math.sin(mi / 2 + phase[si])) * (1 + (rnd() - 0.5) * 0.02)).toFixed(2);
+          const qty = Math.max(1, Math.round(size * (0.5 + rnd()) / price * 10) / 10);
+          const value = qty * price;
+          orders.push([ordId++, id, ts(et), sym, type, rnd() < 0.62 ? "Buy" : "Sell", qty, price, +Math.max(0.002 * value, 1).toFixed(2)]);
+        }
+      }
+    }
+    return { accounts, tx, orders, fx };
+  }
+
+  let dbPromise = null;
+  function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("Could not load the SQL engine from the CDN.")); document.head.appendChild(s); }); }
+  function getDb() {
+    if (dbPromise) return dbPromise;
+    dbPromise = (async () => {
+      if (!window.initSqlJs) await loadScript(SQLJS_URL);
+      const SQL = await window.initSqlJs();
+      const db = new SQL.Database();
+      db.run(`CREATE TABLE accounts (account_id INTEGER PRIMARY KEY, signup_date TEXT, country TEXT, signup_channel TEXT, is_test INTEGER);
+              CREATE TABLE transactions (transaction_id INTEGER PRIMARY KEY, account_id INTEGER, created_at TEXT, type TEXT, status TEXT, amount REAL, currency TEXT);
+              CREATE TABLE orders (order_id INTEGER PRIMARY KEY, account_id INTEGER, executed_at TEXT, symbol TEXT, asset_type TEXT, side TEXT, quantity REAL, price_usd REAL, commission_usd REAL);
+              CREATE TABLE fx_rates (rate_date TEXT, currency TEXT, usd_rate REAL, PRIMARY KEY (currency, rate_date));`);
+      const d = generate();
+      const load = (sql, rows) => { const st = db.prepare(sql); for (const r of rows) st.run(r); st.free(); };
+      db.run("BEGIN");
+      load("INSERT INTO accounts VALUES (?,?,?,?,?)", d.accounts);
+      load("INSERT INTO transactions VALUES (?,?,?,?,?,?,?)", d.tx);
+      load("INSERT INTO orders VALUES (?,?,?,?,?,?,?,?,?)", d.orders);
+      load("INSERT INTO fx_rates VALUES (?,?,?)", d.fx);
+      db.run("COMMIT");
+      db.run("CREATE INDEX ix_tx_acc ON transactions(account_id, created_at); CREATE INDEX ix_ord_acc ON orders(account_id, executed_at); CREATE INDEX ix_ord_time ON orders(executed_at);");
+      db.counts = { accounts: d.accounts.length, transactions: d.tx.length, orders: d.orders.length, fx_rates: d.fx.length };
+      return db;
+    })();
+    dbPromise.catch(() => { dbPromise = null; });
+    return dbPromise;
+  }
+
+  // ---- SQLite translations of the submitted PostgreSQL (same logic; date functions and LATERAL differ)
+  const Q = {};
+  Q.a1 = `-- SQLite translation of A1. DISTINCT ON -> ROW_NUMBER(); LATERAL -> correlated subquery;
+-- GENERATE_SERIES -> recursive CTE; DATE_TRUNC -> strftime.
+WITH RECURSIVE ranked AS (
+    SELECT t.account_id, a.signup_channel, t.created_at AS funded_at, t.amount, t.currency,
+           ROW_NUMBER() OVER (PARTITION BY t.account_id
+                              ORDER BY t.created_at, t.transaction_id) AS rn
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type = 'Deposit' AND t.status = 'Completed' AND COALESCE(a.is_test, 0) = 0
+),
+first_deposit_usd AS (
+    SELECT account_id, signup_channel,
+           strftime('%Y-%m-01', funded_at) AS funding_month,
+           amount * CASE WHEN currency = 'USD' THEN 1 ELSE
+               (SELECT r.usd_rate FROM fx_rates r
+                WHERE r.currency = ranked.currency AND r.rate_date <= date(ranked.funded_at)
+                ORDER BY r.rate_date DESC LIMIT 1) END AS amount_usd
+    FROM ranked
+    WHERE rn = 1 AND funded_at >= '2026-01-01' AND funded_at < '2026-11-01'
+),
+months(month) AS (
+    SELECT '2026-01-01' UNION ALL
+    SELECT date(month, '+1 month') FROM months WHERE month < '2026-10-01'
+),
+grid AS (
+    SELECT month, signup_channel FROM months
+    CROSS JOIN (SELECT 'Paid social' AS signup_channel UNION ALL SELECT 'Search'
+                UNION ALL SELECT 'Referral' UNION ALL SELECT 'Content')
+)
+SELECT g.month, g.signup_channel,
+       COUNT(f.account_id)                         AS new_funded_accounts,
+       ROUND(COALESCE(SUM(f.amount_usd), 0), 2)    AS first_deposit_usd,
+       COUNT(f.account_id) - COUNT(f.amount_usd)   AS rows_missing_fx_rate
+FROM grid g
+LEFT JOIN first_deposit_usd f
+       ON f.funding_month = g.month AND f.signup_channel = g.signup_channel
+GROUP BY g.month, g.signup_channel
+ORDER BY g.month, g.signup_channel;`;
+
+  Q.a2 = `-- SQLite translation of A2. INTERVAL arithmetic -> date(x, '+n months'); GREATEST -> MAX(a, b).
+WITH ranked AS (
+    SELECT t.account_id, date(t.created_at) AS funding_date,
+           ROW_NUMBER() OVER (PARTITION BY t.account_id
+                              ORDER BY t.created_at, t.transaction_id) AS rn
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type = 'Deposit' AND t.status = 'Completed' AND COALESCE(a.is_test, 0) = 0
+),
+cohort AS (
+    SELECT account_id, funding_date, strftime('%Y-%m-01', funding_date) AS funding_month
+    FROM ranked
+    WHERE rn = 1 AND funding_date >= '2026-01-01' AND funding_date < '2026-07-01'
+),
+per_account AS (
+    SELECT c.account_id, c.funding_month,
+           MAX(CASE WHEN o.executed_at >= c.funding_month
+                     AND o.executed_at <  date(c.funding_month, '+1 month')  THEN 1 ELSE 0 END) AS traded_m0,
+           MAX(CASE WHEN o.executed_at >= date(c.funding_month, '+1 month')
+                     AND o.executed_at <  date(c.funding_month, '+2 months') THEN 1 ELSE 0 END) AS traded_m1,
+           MAX(CASE WHEN o.executed_at >= date(c.funding_month, '+2 months')
+                     AND o.executed_at <  date(c.funding_month, '+3 months') THEN 1 ELSE 0 END) AS traded_m2,
+           COALESCE(SUM(CASE WHEN o.executed_at >= c.funding_date
+                              AND o.executed_at <  date(c.funding_date, '+90 days')
+                             THEN o.commission_usd END), 0) AS commission_90d
+    FROM cohort c
+    LEFT JOIN orders o
+           ON o.account_id = c.account_id
+          AND o.executed_at >= c.funding_month
+          AND o.executed_at <  MAX(date(c.funding_month, '+3 months'), date(c.funding_date, '+90 days'))
+    GROUP BY c.account_id, c.funding_month
+)
+SELECT funding_month,
+       COUNT(*)                                        AS funded_accounts,
+       ROUND(AVG(traded_m0), 3)                        AS share_traded_m0,
+       ROUND(AVG(traded_m1), 3)                        AS share_traded_m1,
+       ROUND(AVG(traded_m2), 3)                        AS share_traded_m2,
+       ROUND(AVG(commission_90d), 2)                   AS avg_commission_90d_usd
+FROM per_account
+GROUP BY funding_month
+ORDER BY funding_month;`;
+
+  Q.a3 = `-- SQLite translation of A3. DATE_TRUNC -> strftime; month arithmetic -> date(x, '-1 month').
+WITH monthly AS (
+    SELECT strftime('%Y-%m-01', o.executed_at) AS month,
+           o.symbol,
+           SUM(o.quantity * o.price_usd)       AS traded_value_usd
+    FROM orders o
+    WHERE o.executed_at >= '2025-12-01' AND o.executed_at < '2027-01-01'
+      AND NOT EXISTS (SELECT 1 FROM accounts a WHERE a.account_id = o.account_id AND a.is_test = 1)
+    GROUP BY strftime('%Y-%m-01', o.executed_at), o.symbol
+),
+ranked AS (
+    SELECT month, symbol, traded_value_usd,
+           RANK() OVER (PARTITION BY month ORDER BY traded_value_usd DESC) AS rnk
+    FROM monthly
+)
+SELECT cur.month, cur.rnk AS rank, cur.symbol,
+       ROUND(cur.traded_value_usd, 0) AS traded_value_usd,
+       prev.rnk                       AS previous_rank,
+       prev.rnk - cur.rnk             AS places_moved,
+       CASE WHEN prev.rnk IS NULL THEN 'New: not traded last month'
+            WHEN prev.rnk > 10    THEN 'Entered top 10' END AS note
+FROM ranked cur
+LEFT JOIN ranked prev
+       ON prev.symbol = cur.symbol AND prev.month = date(cur.month, '-1 month')
+WHERE cur.month >= '2026-01-01' AND cur.rnk <= 10
+ORDER BY cur.month, cur.rnk;`;
+
+  const DATA_END = "2026-11-17";
+  return { getDb, Q, DATA_END };
+})();
+
+</script>
+<script>
+(function () {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const fmt$ = (v, d = 0) => (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtSigned$ = v => (v > 0 ? "+" : "") + fmt$(v);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const NS = "http://www.w3.org/2000/svg";
+
+  // ---------- syntax highlighting
+  if (window.hljs) $$("pre code.language-sql").forEach(el => window.hljs.highlightElement(el));
+
+  // ---------- one question per page (hash routing: #a2, #e, #f1 ...)
+  const pages = $$("section.page");
+  const ids = pages.map(p => p.dataset.page);
+  const LEGACY = { "section-a": "a1", "section-b": "b1", "section-c": "c1", "section-d": "d1", "section-e": "e", "section-f": "f" };
+  const pager = $("#pager");
+  let current = null;
+  function resolve(h) {
+    h = decodeURIComponent((h || "").replace(/^#/, "")).toLowerCase().replace(/^p-|^q-/, "");
+    if (LEGACY[h]) h = LEGACY[h];
+    return ids.includes(h) ? h : "overview";
+  }
+  function show(id, fromHistory) {
+    id = resolve(id);
+    if (id === current) return;
+    current = id;
+    const page = pages.find(p => p.dataset.page === id);
+    pages.forEach(p => (p.hidden = p !== page));
+    $$(".rail [data-page]").forEach(a => a.classList.toggle("on", a.dataset.page === id));
+    $$(".rail .r-head").forEach(a => a.classList.toggle("on", a.dataset.sec === page.dataset.sec));
+    const chip = $('.rail [data-page="' + id + '"]');
+    if (chip && innerWidth <= 900) chip.scrollIntoView({ block: "nearest", inline: "center" });
+    const i = ids.indexOf(id), prev = pages[i - 1], next = pages[i + 1];
+    const link = (p, cls, label) => p ? '<a class="' + cls + '" href="#' + p.dataset.page + '"><small>' + label + '</small><span>' + esc(p.dataset.title) + '</span></a>' : "";
+    pager.innerHTML = link(prev, "prev", "&larr; Previous") + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", "Next &rarr;");
+    if (!fromHistory) { try { history.pushState(null, "", "#" + id); } catch (e) {} }
+    window.scrollTo({ top: 0, behavior: "instant" });
+    tip.hidden = true;
+  }
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    show(a.getAttribute("href"));
+  });
+  addEventListener("popstate", () => show(location.hash, true));
+  addEventListener("hashchange", () => show(location.hash, true));
+  document.addEventListener("keydown", e => {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.target.closest("input, select, textarea, button, [contenteditable]")) return;
+    const i = ids.indexOf(current);
+    if (e.key === "ArrowRight" && i < ids.length - 1) show(ids[i + 1]);
+    if (e.key === "ArrowLeft" && i > 0) show(ids[i - 1]);
+  });
+
+  // ---------- tooltip
+  const tip = $("#tip");
+  function showTip(html, ev) {
+    tip.innerHTML = html; tip.hidden = false;
+    const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = ev.clientX + pad, y = ev.clientY + pad;
+    if (x + w > innerWidth - 8) x = ev.clientX - w - pad;
+    if (y + h > innerHeight - 8) y = ev.clientY - h - pad;
+    tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
+  }
+  const hideTip = () => (tip.hidden = true);
+  show(location.hash, true);
+
+  function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+
+  // ---------- SQL runners
+  const NUMERIC_HINT = /(count|accounts|usd|share|rank|moved|value|commission|rows)/i;
+  // Output example: the query's first rows on generated sample data, filled in when its page is shown
+  const SHOW_ROWS = { a1: 8, a2: 6, a3: 10 };
+  const fillExample = async box => {
+    const q = box.dataset.q, status = $(".status", box), result = $(".result", box);
+    status.textContent = "Loading the example…";
+    try {
+      const db = await SQLDEMO.getDb();
+      const res = db.exec(SQLDEMO.Q[q]);
+      if (!res.length) { status.textContent = "No rows."; return; }
+      const { columns, values } = res[res.length - 1];
+      const n = Math.min(SHOW_ROWS[q] || 10, values.length);
+      renderResult(result, columns, values.slice(0, n), q);
+      status.textContent = n < values.length ? `First ${n} of ${values.length} rows.` : `${values.length} rows.`;
+    } catch (err) {
+      status.classList.add("err"); status.textContent = "Example unavailable: " + err.message;
+    }
+  };
+  const exampleIO = "IntersectionObserver" in window ? new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { exampleIO.unobserve(e.target); fillExample(e.target); }
+  })) : null;
+  $$(".sqlrun").forEach(box => {
+    box.innerHTML = `
+      <div class="bar"><span class="label">Output example</span></div>
+      <p class="note">Generated sample data, not company data.</p>
+      <div class="result"></div>
+      <div class="status" aria-live="polite"></div>`;
+    exampleIO ? exampleIO.observe(box) : fillExample(box);
+  });
+  function renderResult(el, cols, rows, q) {
+    const isNum = v => typeof v === "number";
+    let h = '<div class="tablewrap"><table><thead><tr>' + cols.map(c => `<th>${esc(c)}</th>`).join("") + "</tr></thead><tbody>";
+    for (const r of rows) {
+      h += "<tr>" + r.map((v, i) => {
+        if (v === null) return '<td class="num">–</td>';
+        if (cols[i] === "places_moved" && isNum(v)) {
+          const cls = v > 0 ? "mv-up" : v < 0 ? "mv-dn" : "";
+          return `<td class="num ${cls}">${v > 0 ? "▲ " + v : v < 0 ? "▼ " + Math.abs(v) : "="}</td>`;
+        }
+        if (isNum(v)) {
+          const s = /share/.test(cols[i]) ? (v * 100).toFixed(1) + "%" : v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+          return `<td class="num">${s}</td>`;
+        }
+        return `<td>${esc(v)}</td>`;
+      }).join("") + "</tr>";
+    }
+    el.innerHTML = h + "</tbody></table></div>";
+  }
+
+  // ---------- Section E: pricing model
+  const SEG = [
+    { name: "Starter", customers: 40000, trades: 2, value: 800, opt: 0.05 },
+    { name: "Regular", customers: 15000, trades: 8, value: 2500, opt: 0.30 },
+    { name: "Active", customers: 4000, trades: 30, value: 6000, opt: 0.70 }];
+  const E = { rate: 0.002, min: 1, price: 9.99, filter: "All", rational: false, opt: SEG.map(s => s.opt) };
+  function model(price, rational, filter = E.filter) {
+    const rows = SEG.map((s, i) => {
+      const cpt = Math.max(E.rate * s.value, E.min), cpc = s.trades * cpt;
+      const opt = rational ? (cpc > price ? E.opt[i] : 0) : E.opt[i];
+      const subs = s.customers * opt, cur = s.customers * cpc, prop = subs * price + (s.customers - subs) * cpc;
+      return { name: s.name, cpt, cpc, opt, subs, cur, prop, diff: prop - cur, lost: subs * cpc, optStated: E.opt[i], customers: s.customers };
+    });
+    const sel = rows.filter(r => filter === "All" || r.name === filter);
+    const sum = k => sel.reduce((a, r) => a + r[k], 0);
+    const subsStated = sel.reduce((a, r) => a + r.customers * r.optStated, 0);
+    const lostStated = sel.reduce((a, r) => a + r.customers * r.optStated * r.cpc, 0);
+    return { rows, sel, cur: sum("cur"), prop: sum("prop"), subs: sum("subs"), breakeven: subsStated ? lostStated / subsStated : 0 };
+  }
+  const ew = $("#excel-widget");
+  if (ew) {
+    ew.className = "widget";
+    ew.innerHTML = `
+      <h4>Pricing model, live</h4>
+      <p class="sub">Same logic as the workbook. Defaults are the assignment's figures.</p>
+      <div class="controls">
+        <div class="ctl"><label for="e-price">Subscription price <output id="o-price"></output></label><input id="e-price" type="range" min="0" max="200" step="0.01"></div>
+        <div class="ctl"><label for="e-rate">Commission rate <output id="o-rate"></output></label><input id="e-rate" type="range" min="0.0005" max="0.005" step="0.0001"></div>
+        <div class="ctl"><label for="e-min">Minimum per trade <output id="o-min"></output></label><input id="e-min" type="range" min="0" max="5" step="0.25"></div>
+        <div class="ctl"><label for="e-filter">Segment filter</label><select id="e-filter"><option>All</option><option>Starter</option><option>Regular</option><option>Active</option></select></div>
+        <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="e-reset">Reset to assignment figures</button></div>
+      </div>
+      <div class="controls opt-row">
+        ${SEG.map((s, i) => `<div class="ctl"><label for="e-opt${i}">${s.name} opt-in <output id="o-opt${i}"></output></label><input id="e-opt${i}" type="range" min="0" max="1" step="0.01"></div>`).join("")}
+      </div>
+      <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
+      <div class="tiles" id="e-tiles"></div>
+      <div class="tablewrap"><table id="e-table"></table></div>
+      <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
+      <p class="chart-sub" id="e-chart-sub"></p>
+      <div class="legend" id="e-legend"></div>
+      <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="Monthly revenue by subscription price"></svg>`;
+    const setInputs = () => {
+      $("#e-price").value = E.price; $("#e-rate").value = E.rate; $("#e-min").value = E.min; $("#e-filter").value = E.filter; $("#e-rational").checked = E.rational;
+      E.opt.forEach((v, i) => ($("#e-opt" + i).value = v));
+    };
+    setInputs();
+    ew.addEventListener("input", e => {
+      const id = e.target.id;
+      if (id === "e-price") E.price = +e.target.value;
+      else if (id === "e-rate") E.rate = +e.target.value;
+      else if (id === "e-min") E.min = +e.target.value;
+      else if (id === "e-filter") E.filter = e.target.value;
+      else if (id === "e-rational") E.rational = e.target.checked;
+      else if (id.startsWith("e-opt")) E.opt[+id.slice(5)] = +e.target.value;
+      renderE();
+    });
+    $("#e-reset").addEventListener("click", () => { Object.assign(E, { rate: 0.002, min: 1, price: 9.99, filter: "All", rational: false, opt: SEG.map(s => s.opt) }); setInputs(); renderE(); });
+    renderE();
+  }
+  function renderE() {
+    $("#o-price").textContent = fmt$(E.price, 2); $("#o-rate").textContent = (E.rate * 100).toFixed(2) + "%"; $("#o-min").textContent = fmt$(E.min, 2);
+    E.opt.forEach((v, i) => ($("#o-opt" + i).textContent = Math.round(v * 100) + "%"));
+    const m = model(E.price, E.rational);
+    const d = m.prop - m.cur;
+    $("#e-tiles").innerHTML = [
+      ["Current pricing", fmt$(m.cur)], ["With subscription", fmt$(m.prop)],
+      ["Difference", `<span class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</span>${m.cur ? ` <small style="font-size:14px;color:var(--ink-3)">${(d / m.cur * 100).toFixed(1)}%</small>` : ""}`],
+      ["Break-even price*", fmt$(m.breakeven, 2)]].map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+    let h = "<thead><tr><th>Segment</th><th>Commission / customer</th><th>Opt-in used</th><th>Current ($/mo)</th><th>With subscription ($/mo)</th><th>Difference</th></tr></thead><tbody>";
+    for (const r of m.rows) {
+      const dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
+      h += `<tr${dim}><td>${r.name}</td><td>${fmt$(r.cpc, 2)}</td><td>${Math.round(r.opt * 100)}%</td><td>${fmt$(r.cur)}</td><td>${fmt$(r.prop)}</td><td class="${r.diff >= 0 ? "pos" : "neg"}">${fmtSigned$(r.diff)}</td></tr>`;
+    }
+    $("#e-table").innerHTML = h + `</tbody>`;
+    $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
+    drawPriceChart();
+  }
+  function drawPriceChart() {
+    const svg = $("#e-chart"); svg.innerHTML = "";
+    const W = 720, H = 300, L = 64, R = 150, T = 14, B = 36, pw = W - L - R, ph = H - T - B;
+    const xs = []; for (let p = 0; p <= 200; p += 0.5) xs.push(p);
+    const cur = model(0, false).cur;
+    const stated = xs.map(p => model(p, false).prop), rational = xs.map(p => model(p, true).prop);
+    const ymax = Math.max(cur, ...stated, ...rational) * 1.08 || 1;
+    const sx = p => L + p / 200 * pw, sy = v => T + ph - v / ymax * ph;
+    const step = niceStep(ymax / 4);
+    for (let v = 0; v <= ymax; v += step) {
+      svgEl("line", { x1: L, x2: L + pw, y1: sy(v), y2: sy(v), class: "grid" }, svg);
+      svgEl("text", { x: L - 8, y: sy(v) + 4, "text-anchor": "end" }, svg).textContent = shortMoney(v);
+    }
+    for (let p = 0; p <= 200; p += 25) svgEl("text", { x: sx(p), y: H - 14, "text-anchor": "middle" }, svg).textContent = "$" + p;
+    svgEl("line", { x1: L, x2: L + pw, y1: sy(0), y2: sy(0), class: "axis" }, svg);
+    const series = [
+      { name: "Current pricing", vals: xs.map(() => cur), color: "var(--ink-3)", dash: "5 4" },
+      { name: "Subscription, stated opt-in", vals: stated, color: "var(--series-1)" },
+      { name: "Subscription, opt in only if it saves money", vals: rational, color: "var(--series-2)" }];
+    $("#e-legend").innerHTML = series.map(s => `<span><i style="background:${s.color}"></i>${s.name}</span>`).join("");
+    const be = model(0, false).breakeven;
+    if (be > 0 && be <= 200) {
+      svgEl("line", { x1: sx(be), x2: sx(be), y1: T, y2: T + ph, stroke: "var(--ink-3)", "stroke-width": 1, "stroke-dasharray": "2 3" }, svg);
+      svgEl("text", { x: sx(be) + 5, y: T + 10, class: "lbl" }, svg).textContent = "break-even " + fmt$(be, 2);
+    }
+    const labelYs = [];
+    series.forEach(s => {
+      const d = s.vals.map((v, i) => (i ? "L" : "M") + sx(xs[i]).toFixed(1) + " " + sy(v).toFixed(1)).join(" ");
+      svgEl("path", { d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-dasharray": s.dash || "", "stroke-linejoin": "round" }, svg);
+      let y = sy(s.vals[s.vals.length - 1]) + 4;
+      for (const o of labelYs) if (Math.abs(o - y) < 14) y = o + 14;
+      labelYs.push(y);
+      svgEl("text", { x: L + pw + 8, y, class: "lbl" }, svg).textContent = shortMoney(s.vals[s.vals.length - 1]) + " " + s.name.split(",")[0].replace("Subscription", "sub.") + (s.name.includes("saves") ? " (self-select)" : s.name.includes("stated") ? " (stated)" : "");
+    });
+    // selected price marker
+    if (E.price <= 200) {
+      const v = model(E.price, false).prop;
+      svgEl("circle", { cx: sx(E.price), cy: sy(v), r: 5, fill: "var(--series-1)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+    }
+    // hover layer
+    const cross = svgEl("line", { y1: T, y2: T + ph, stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0 }, svg);
+    const hit = svgEl("rect", { x: L, y: T, width: pw, height: ph, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", ev => {
+      const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+      const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const p = Math.max(0, Math.min(200, Math.round((loc.x - L) / pw * 200 * 2) / 2));
+      cross.setAttribute("x1", sx(p)); cross.setAttribute("x2", sx(p)); cross.setAttribute("opacity", 0.5);
+      const a = model(p, false).prop, b = model(p, true).prop;
+      showTip(`Price <b>${fmt$(p, 2)}</b>/mo<br>Current: <b>${fmt$(cur)}</b><br>Stated opt-in: <b>${fmt$(a)}</b><br>Self-selecting: <b>${fmt$(b)}</b>`, ev);
+    });
+    hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
+  }
+  function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * p; }
+  function shortMoney(v) { return Math.abs(v) >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : Math.abs(v) >= 1e3 ? "$" + Math.round(v / 1e3) + "k" : "$" + Math.round(v); }
+
+  // ---------- D1 sample-size calculator
+  const dw = $("#d1-widget");
+  if (dw) {
+    const D = { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 };
+    const Z = { 0.8: 0.8416, 0.9: 1.2816 };
+    const nPer = (p1, d, pw) => {
+      const p2 = p1 + d, pb = (p1 + p2) / 2;
+      const a = 1.96 * Math.sqrt(2 * pb * (1 - pb)), b = Z[pw] * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
+      return Math.ceil((a + b) ** 2 / (d * d));
+    };
+    dw.className = "widget";
+    dw.innerHTML = `
+      <h4>Sample size, live</h4>
+      <p class="sub">Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
+      <div class="controls">
+        <div class="ctl"><label for="d-base">Current funding rate <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
+        <div class="ctl"><label for="d-diff">Improvement to detect <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.005" max="0.1" step="0.005"></div>
+        <div class="ctl"><label for="d-weekly">Sign-ups per week <output id="o-weekly"></output></label><input id="d-weekly" type="range" min="200" max="10000" step="100"></div>
+        <div class="ctl"><label for="d-power">Power <span class="info-tip" tabindex="0" role="button" aria-label="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users." data-tip="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users.">ⓘ</span></label><select id="d-power"><option value="0.8">80%</option><option value="0.9">90%</option></select></div>
+        <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
+      </div>
+      <div class="tiles" id="d-tiles"></div>
+      <p class="chart-title">Users needed per group, by improvement to detect</p>
+      <p class="chart-sub">Halving the improvement needs about four times the users. Hover to read values.</p>
+      <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="Users needed per group by improvement to detect"></svg>`;
+    const setD = () => { $("#d-base").value = D.base; $("#d-diff").value = D.diff; $("#d-weekly").value = D.weekly; $("#d-power").value = String(D.power); };
+    setD();
+    dw.querySelectorAll(".info-tip").forEach(el => {
+      const on = ev => { const r = el.getBoundingClientRect(); showTip(el.dataset.tip, ev.clientX ? ev : { clientX: r.left + r.width / 2, clientY: r.bottom }); };
+      el.addEventListener("pointerenter", on); el.addEventListener("pointermove", on); el.addEventListener("focus", on);
+      el.addEventListener("pointerleave", hideTip); el.addEventListener("blur", hideTip);
+    });
+    dw.addEventListener("input", e => {
+      const id = e.target.id;
+      if (id === "d-base") D.base = +e.target.value;
+      else if (id === "d-diff") D.diff = +e.target.value;
+      else if (id === "d-weekly") D.weekly = +e.target.value;
+      else if (id === "d-power") D.power = +e.target.value;
+      renderD();
+    });
+    $("#d-reset").addEventListener("click", () => { Object.assign(D, { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 }); setD(); renderD(); });
+    const pct = v => (Math.round(v * 1000) / 10).toString() + "%";
+    const num = v => Math.round(v).toLocaleString("en-US");
+    function renderD() {
+      $("#o-base").textContent = pct(D.base);
+      $("#o-diff").textContent = "+" + (Math.round(D.diff * 1000) / 10) + " pts → " + pct(D.base + D.diff);
+      $("#o-weekly").textContent = num(D.weekly);
+      const n = nPer(D.base, D.diff, D.power), total = 2 * n;
+      const weeks = Math.max(2, Math.ceil(total / D.weekly));
+      $("#d-tiles").innerHTML = [["Users per group", num(n)], ["Total users", num(total)], ["Weeks to run*", weeks + (weeks === 2 && total / D.weekly < 2 ? " (minimum)" : "")]]
+        .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("") +
+        `<p class="chart-sub" style="grid-column:1/-1;margin:0">*At least two full weeks, to cover every weekday.</p>`;
+      drawD();
+    }
+    function drawD() {
+      const svg = $("#d-chart"); svg.innerHTML = "";
+      const W = 720, H = 260, L = 64, R = 20, T = 14, B = 36, pw = W - L - R, ph = H - T - B;
+      const xs = []; for (let d = 0.01; d <= 0.1001; d += 0.0025) xs.push(+d.toFixed(4));
+      const ys = xs.map(d => nPer(D.base, d, D.power));
+      const ymax = Math.max(...ys) * 1.08;
+      const sx = d => L + (d - 0.01) / 0.09 * pw, sy = v => T + ph - v / ymax * ph;
+      const step = niceStep(ymax / 4);
+      for (let v = 0; v <= ymax; v += step) {
+        svgEl("line", { x1: L, x2: L + pw, y1: sy(v), y2: sy(v), class: "grid" }, svg);
+        svgEl("text", { x: L - 8, y: sy(v) + 4, "text-anchor": "end" }, svg).textContent = v >= 1000 ? Math.round(v / 1000) + "k" : v;
+      }
+      for (let d = 0.01; d <= 0.1001; d += 0.01) svgEl("text", { x: sx(d), y: H - 14, "text-anchor": "middle" }, svg).textContent = "+" + Math.round(d * 100) + " pts";
+      svgEl("line", { x1: L, x2: L + pw, y1: sy(0), y2: sy(0), class: "axis" }, svg);
+      const path = ys.map((v, i) => (i ? "L" : "M") + sx(xs[i]).toFixed(1) + " " + sy(v).toFixed(1)).join(" ");
+      svgEl("path", { d: path, fill: "none", stroke: "var(--series-1)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+      if (D.diff >= 0.01) {
+        const v = nPer(D.base, D.diff, D.power);
+        svgEl("circle", { cx: sx(D.diff), cy: sy(v), r: 5, fill: "var(--series-1)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+        svgEl("text", { x: sx(D.diff) + 9, y: Math.max(T + 10, sy(v) - 8), class: "lbl" }, svg).textContent = num(v) + " per group";
+      }
+      const cross = svgEl("line", { y1: T, y2: T + ph, stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0 }, svg);
+      const hit = svgEl("rect", { x: L, y: T, width: pw, height: ph, fill: "transparent" }, svg);
+      hit.addEventListener("pointermove", ev => {
+        const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+        const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+        const d = Math.max(0.01, Math.min(0.1, Math.round(((loc.x - L) / pw * 0.09 + 0.01) / 0.0025) * 0.0025));
+        cross.setAttribute("x1", sx(d)); cross.setAttribute("x2", sx(d)); cross.setAttribute("opacity", 0.5);
+        showTip(`${pct(D.base)} → <b>${pct(D.base + d)}</b><br>Per group: <b>${num(nPer(D.base, d, D.power))}</b>`, ev);
+      });
+      hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
+    }
+    renderD();
+  }
+
+  // ---------- Section F charts
+  const fw = $("#f-widget");
+  if (fw) {
+    fw.className = "widget";
+    fw.innerHTML = `
+      <div class="two">
+        <div>
+          <p class="chart-title">Where the +$1.8M came from ($M)</p>
+          
+          <div class="legend"><span><i class="sq" style="background:var(--ink-3)"></i>Total</span><span><i class="sq" style="background:var(--div-pos)"></i>Increase</span><span><i class="sq" style="background:var(--div-neg)"></i>Decrease</span></div>
+          <svg class="chart" id="f-bridge" viewBox="0 0 720 260" role="img" aria-label="Revenue breakdown from Q2 to Q3"></svg>
+        </div>
+        <div>
+          <p class="chart-title">Quarter-on-quarter change</p>
+          
+          <div class="legend"><span><i class="sq" style="background:var(--div-pos)"></i>Rose</span><span><i class="sq" style="background:var(--div-neg)"></i>Fell</span></div>
+          <svg class="chart" id="f-change" viewBox="0 0 720 330" role="img" aria-label="Quarter-on-quarter change by metric"></svg>
+        </div>
+      </div>`;
+    drawBridge($("#f-bridge")); drawChange();
+  }
+
+  function drawBridge(svg) {
+    const steps = [
+      { k: "Q2 revenue", v: 30.0, total: true }, { k: "Top 20 clients", v: 3.6 }, { k: "All other clients", v: -1.8 },
+      { k: "Q3 revenue", v: 31.8, total: true }, { k: "Q3 if top 20 flat", v: 28.2, total: true, ghost: true }];
+    const W = 720, H = 260, L = 44, R = 10, T = 22, B = 40, pw = W - L - R, ph = H - T - B;
+    const ymin = 24, ymax = 35;
+    const sy = v => T + ph - (v - ymin) / (ymax - ymin) * ph;
+    for (let v = 24; v <= 34; v += 2) {
+      svgEl("line", { x1: L, x2: L + pw, y1: sy(v), y2: sy(v), class: "grid" }, svg);
+      svgEl("text", { x: L - 8, y: sy(v) + 4, "text-anchor": "end" }, svg).textContent = v;
+    }
+    svgEl("text", { x: L, y: H - 2 }, svg).textContent = "Axis starts at $24M so the steps are readable.";
+    const slot = pw / steps.length, bw = Math.min(72, slot * 0.55);
+    let run = 0;
+    steps.forEach((s, i) => {
+      const cx = L + slot * i + slot / 2;
+      let y0, y1;
+      if (s.total) { y0 = ymin; y1 = s.v; if (!s.ghost) run = s.v; } else { y0 = run; y1 = run + s.v; run = y1; }
+      const top = sy(Math.max(y0, y1)), bot = sy(Math.min(y0, y1));
+      const color = s.total ? "var(--ink-3)" : s.v > 0 ? "var(--div-pos)" : "var(--div-neg)";
+      const r = svgEl("rect", { x: cx - bw / 2, y: top, width: bw, height: Math.max(2, bot - top), rx: 3, fill: color, opacity: s.ghost ? 0.45 : 1 }, svg);
+      if (s.ghost) r.setAttribute("stroke-dasharray", "4 3"), r.setAttribute("stroke", "var(--ink-3)");
+      svgEl("text", { x: cx, y: top - 6, "text-anchor": "middle", class: "lbl" }, svg).textContent = s.total ? s.v.toFixed(1) : (s.v > 0 ? "+" : "−") + Math.abs(s.v).toFixed(1);
+      const t = svgEl("text", { x: cx, y: H - 22, "text-anchor": "middle" }, svg); t.textContent = s.k;
+      const hit = svgEl("rect", { x: cx - slot / 2, y: T, width: slot, height: ph, fill: "transparent" }, svg);
+      const desc = { "Q2 revenue": "Q2 revenue: <b>$30.0M</b>", "Top 20 clients": "Top 20 clients: <b>$6.0M → $9.6M</b> (+60%)", "All other clients": "All other clients: <b>$24.0M → $22.2M</b> (−7.5%)", "Q3 revenue": "Q3 revenue: <b>$31.8M</b> (+6%)", "Q3 if top 20 flat": "If the top 20 had stayed at $6.0M: <b>$28.2M</b> (−6% vs Q2)" }[s.k];
+      hit.addEventListener("pointermove", ev => showTip(desc, ev)); hit.addEventListener("pointerleave", hideTip);
+    });
+  }
+  function drawChange() {
+    const svg = $("#f-change");
+    const rows = [
+      ["Revenue", 6.0, true, "30.0 → 31.8 $M"], ["Top 20 client revenue", 60.0, null, "6.0 → 9.6 $M (concentration risk)"], ["All other client revenue", -7.5, false, "24.0 → 22.2 $M"],
+      ["Active traders", -8.0, false, "50,000 → 46,000"], ["Traded volume", -3.0, false, "$100B → $97B"], ["New funded accounts", 15.0, true, "10,000 → 11,500"],
+      ["Marketing spend", 26.0, false, "$5.0M → $6.3M"], ["Avg first deposit", -20.0, false, "$400 → $320"], ["30-day revenue / new account", -25.0, false, "$200 → $150"]];
+    const W = 720, H = 330, L = 200, R = 96, T = 10, rowH = 34, pw = W - L - R;
+    const lo = -45, hi = 65, sx = v => L + (v - lo) / (hi - lo) * pw;
+    for (const v of [-25, 0, 25, 50]) {
+      svgEl("line", { x1: sx(v), x2: sx(v), y1: T, y2: T + rows.length * rowH, class: v === 0 ? "axis" : "grid" }, svg);
+      svgEl("text", { x: sx(v), y: T + rows.length * rowH + 16, "text-anchor": "middle" }, svg).textContent = (v > 0 ? "+" : "") + v + "%";
+    }
+    rows.forEach(([k, v, good, detail], i) => {
+      const y = T + i * rowH + 7, h = rowH - 14;
+      svgEl("text", { x: L - 10, y: y + h / 2 + 4, "text-anchor": "end", class: "lbl" }, svg).textContent = k;
+      const x0 = sx(Math.min(0, v)), x1 = sx(Math.max(0, v));
+      svgEl("rect", { x: x0, y, width: Math.max(2, x1 - x0), height: h, rx: 3, fill: v >= 0 ? "var(--div-pos)" : "var(--div-neg)" }, svg);
+      svgEl("text", { x: v >= 0 ? x1 + 6 : x0 - 6, y: y + h / 2 + 4, "text-anchor": v >= 0 ? "start" : "end" }, svg).textContent = (v > 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
+      const verdict = good === null ? "⚠ Risky" : good ? "✓ Good" : "✕ Bad";
+      svgEl("text", { x: W - 4, y: y + h / 2 + 4, "text-anchor": "end", class: "lbl" }, svg).textContent = verdict;
+      const hit = svgEl("rect", { x: 0, y: T + i * rowH, width: W, height: rowH, fill: "transparent" }, svg);
+      hit.addEventListener("pointermove", ev => showTip(`${k}: <b>${(v > 0 ? "+" : "−") + Math.abs(v).toFixed(1)}%</b><br>${detail}`, ev));
+      hit.addEventListener("pointerleave", hideTip);
+    });
+  }
+})();
+
+</script>
+<script>
+window.A2_DATA = [["2026-01-01",113,0.442,0.558,0.531,10.32],["2026-02-01",85,0.494,0.624,0.565,10.78],["2026-03-01",95,0.347,0.653,0.463,7.08],["2026-04-01",101,0.446,0.634,0.604,11.88],["2026-05-01",90,0.444,0.667,0.567,10.44],["2026-06-01",98,0.388,0.673,0.541,11.57]];
+/* A2 result as a colored table: one row per funding month (Jan–Jun 2026), exactly the columns the question asks for.
+   Starts from the A2 query's output precomputed at build time on the sample data; can re-run it live. */
+(function () {
+  const root = document.getElementById("cohort-widget");
+  if (!root) return;
+  const $ = s => root.querySelector(s);
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const STOPS = ["#a50026", "#e0402e", "#f99a58", "#fee391", "#d9ef8b", "#7cc36a", "#1a9850", "#006837"];
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  function colorAt(t) {
+    t = Math.max(0, Math.min(1, t)) * (STOPS.length - 1);
+    const i = Math.min(STOPS.length - 2, Math.floor(t)), f = t - i;
+    const a = hex(STOPS[i]), b = hex(STOPS[i + 1]);
+    const c = a.map((v, k) => Math.round(v + (b[k] - v) * f));
+    const lum = (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255;
+    return { bg: `rgb(${c.join(",")})`, ink: lum < 0.5 ? "#ffffff" : "#1b1f17" };
+  }
+  let rows = window.A2_DATA, live = false;
+
+  root.className = "widget cohort";
+  root.innerHTML = `
+    <h4>A2 result: funding-month cohorts, Jan–Jun 2026</h4>
+    <p class="sub">A2 query output on sample data.</p>
+    <div class="cohort-bar"><span style="margin-right:auto"></span><button class="btn primary" type="button" id="cohort-run">Run the query live</button></div>
+    <div class="cohort-legend" id="cohort-legend"></div>
+    <div class="tablewrap cohort-wrap"><table class="cohort-table a2-table" id="cohort-table"></table></div>
+    <p class="status" id="cohort-status"></p>`;
+
+  $("#cohort-run").addEventListener("click", async e => {
+    const btn = e.target; btn.disabled = true;
+    const st = $("#cohort-status"); st.classList.remove("err");
+    st.textContent = "Loading the SQL engine and generating sample data…";
+    try {
+      const db = await SQLDEMO.getDb();
+      const t0 = performance.now();
+      const r = db.exec(SQLDEMO.Q.a2);
+      rows = r[r.length - 1].values;
+      live = Math.round(performance.now() - t0);
+      render();
+    } catch (err) { st.classList.add("err"); st.textContent = "Error: " + err.message; }
+    finally { btn.disabled = false; }
+  });
+
+  function render() {
+    // row: funding_month, funded_accounts, share_m0, share_m1, share_m2, avg_commission_90d_usd
+    const shares = rows.flatMap(r => [r[2], r[3], r[4]]);
+    const lo = Math.min(...shares), hi = Math.max(...shares);
+    const t = v => hi > lo ? (v - lo) / (hi - lo) : 0.5;
+    let h = `<thead><tr><th class="c-name">Funding month</th><th>Accounts funded</th><th>Traded in<br>funding month</th><th>Traded<br>month after</th><th>Traded month<br>after that</th><th>Avg commission,<br>first 90 days</th></tr></thead><tbody>`;
+    for (const r of rows) {
+      const m = r[0];
+      h += `<tr><td class="c-name">${MON[+m.slice(5, 7) - 1]} ${m.slice(0, 4)}</td><td class="c-size">${r[1]}</td>`;
+      for (const v of [r[2], r[3], r[4]]) {
+        const c = colorAt(t(v));
+        h += `<td><span class="cell" style="background-color:${c.bg};color:${c.ink}">${(v * 100).toFixed(1)}%</span></td>`;
+      }
+      h += `<td class="c-size">$${(+r[5]).toFixed(2)}</td></tr>`;
+    }
+    $("#cohort-table").innerHTML = h + "</tbody>";
+    $("#cohort-legend").innerHTML = `<span class="lg-bar"><span>${(lo * 100).toFixed(0)}%</span><i style="background:linear-gradient(90deg,${STOPS.join(",")})"></i><span>${(hi * 100).toFixed(0)}%</span></span>`;
+    $("#cohort-status").textContent = live
+      ? `Computed live just now in ${live} ms from the sample data.`
+      : ``;
+  }
+  render();
+})();
+
+</script>
+</body></html>
