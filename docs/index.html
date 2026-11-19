@@ -1627,16 +1627,16 @@ ORDER BY cur.month, cur.rnk;`;
     };
     dw.className = "widget";
     dw.innerHTML = `
-      <h4>Sample size, live</h4>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><h4>Sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
       <p class="sub">Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
       <div class="controls">
         <div class="ctl"><label for="d-base">Current funding rate <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
-        <div class="ctl"><label for="d-diff">Improvement to detect <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.005" max="0.1" step="0.005"></div>
+        <div class="ctl"><label for="d-diff">Improvement <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.005" max="0.1" step="0.005"></div>
         <div class="ctl"><label for="d-weekly">Sign-ups per week <output id="o-weekly"></output></label><input id="d-weekly" type="range" min="200" max="10000" step="100"></div>
         <div class="ctl"><label for="d-power">Power <span class="info-tip" tabindex="0" role="button" aria-label="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users." data-tip="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users.">ⓘ</span></label><select id="d-power"><option value="0.8">80%</option><option value="0.9">90%</option></select></div>
-        <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
       </div>
       <div class="tiles" id="d-tiles"></div>
+      <p class="chart-sub" style="margin:-8px 0 14px">*At least two full weeks, to cover every weekday.</p>
       <p class="chart-title">Users needed per group, by improvement to detect</p>
       <p class="chart-sub">Halving the improvement needs about four times the users. Hover to read values.</p>
       <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="Users needed per group by improvement to detect"></svg>`;
@@ -1665,8 +1665,7 @@ ORDER BY cur.month, cur.rnk;`;
       const n = nPer(D.base, D.diff, D.power), total = 2 * n;
       const weeks = Math.max(2, Math.ceil(total / D.weekly));
       $("#d-tiles").innerHTML = [["Users per group", num(n)], ["Total users", num(total)], ["Weeks to run*", weeks + (weeks === 2 && total / D.weekly < 2 ? " (minimum)" : "")]]
-        .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("") +
-        `<p class="chart-sub" style="grid-column:1/-1;margin:0">*At least two full weeks, to cover every weekday.</p>`;
+        .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
       drawD();
     }
     function drawD() {
