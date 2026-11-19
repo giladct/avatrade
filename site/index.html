@@ -1622,7 +1622,7 @@ ORDER BY cur.month, cur.rnk;`;
     };
     dw.className = "widget";
     dw.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><h4>Sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">Sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
       <p class="sub">Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
       <div class="controls">
         <div class="ctl"><label for="d-base">Current funding rate <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
