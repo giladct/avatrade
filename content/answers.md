@@ -400,8 +400,6 @@ It is a weak quarter that looks good because of 20 clients.
 
 It covers 70% of revenue and almost every customer, and it already reflects the lost traders and weaker new cohorts. Top-20 revenue is volatile: if it returns to Q2 levels and the rest stays flat, Q4 falls to $28.2M, −11% on Q3. Active traders is only a headcount, and marketing efficiency can be fixed within a quarter. A shrinking core cannot.
 
-<!-- widget:q4 -->
-
 ## F3. Three cuts of data I would ask for next (6 points)
 
 1. **Top-20 revenue by client, month and revenue type.** Confirms or rules out a one-off driven by a few clients or one market event.

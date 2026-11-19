@@ -56,7 +56,6 @@ for k in range(1, len(parts), 2):
     content = content.replace("<!-- widget:cohort -->", "")  # A2 cohort table: Word only, not on the site
     content = content.replace("<!-- widget:excel -->", '<div id="excel-widget"></div>')
     content = content.replace("<!-- widget:samplesize -->", '<div id="d1-widget"></div>')
-    content = content.replace("<!-- widget:q4 -->", '<div id="f2-widget"></div>')
     content = content.replace("<!-- widget:section-f -->", '<div id="f-widget"></div>')
     content = content.replace("<!-- note -->", '<div class="callout">').replace("<!-- /note -->", "</div>")
     # sql code blocks get a header bar
