@@ -351,7 +351,7 @@ Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trad
 
 Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.
 
-The model also holds trades per month fixed. Free trading may make subscribers trade more: that adds no commission, but it could change who signs up and how much cash they keep with us (interest income).
+The model also holds trades per month fixed, though free trading may make subscribers trade more.
 
 **Results (monthly)**
 
