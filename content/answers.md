@@ -11,7 +11,7 @@
 
 > For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.
 
-**Approach.** Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0.
+**Approach.** Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0; channels come from the accounts table, with a missing one shown as Unknown.
 
 <!-- note -->
 
@@ -24,7 +24,7 @@
 WITH first_deposit AS (
     -- First COMPLETED deposit per account, over all history
     SELECT t.account_id,
-           a.signup_channel,
+           COALESCE(a.signup_channel, 'Unknown') AS signup_channel,  -- empty channel shows as Unknown
            t.created_at        AS funded_at,
            t.created_at::DATE  AS funded_date,   -- plain column for the ASOF match condition
            t.amount,
@@ -60,8 +60,10 @@ grid AS (
     -- Every month x channel, so empty ones show 0
     SELECT m.month, c.signup_channel
     FROM months m
-    CROSS JOIN (SELECT column1 AS signup_channel
-                FROM VALUES ('Paid social'), ('Search'), ('Referral'), ('Content')) c
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts
+                WHERE COALESCE(is_test, 0) = 0) c
 )
 SELECT g.month,
        g.signup_channel,
@@ -151,6 +153,8 @@ ORDER BY funding_month;
 
 - Average commission is divided by **all** funded accounts, including those that never traded.
 - The 90 days can end after the third month (funded 31 Jan → ends 1 May), so the join uses `GREATEST` to read far enough.
+- Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.
+- `orders` holds only executed orders (per the brief), so no status filter is needed.
 - All six cohorts are complete as of today.
 
 <!-- widget:sql-a2 -->
@@ -346,6 +350,8 @@ Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower
 Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trade = `MAX(rate × value, minimum)`; subscribers pay the fee and trade free.
 
 Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.
+
+The model also holds trades per month fixed. Free trading may make subscribers trade more: that adds no commission, but it could change who signs up and how much cash they keep with us (interest income).
 
 **Results (monthly)**
 

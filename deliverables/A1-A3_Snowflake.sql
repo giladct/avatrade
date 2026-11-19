@@ -11,7 +11,7 @@
 WITH first_deposit AS (
     -- First COMPLETED deposit per account, over all history
     SELECT t.account_id,
-           a.signup_channel,
+           COALESCE(a.signup_channel, 'Unknown') AS signup_channel,  -- empty channel shows as Unknown
            t.created_at        AS funded_at,
            t.created_at::DATE  AS funded_date,   -- plain column for the ASOF match condition
            t.amount,
@@ -47,8 +47,10 @@ grid AS (
     -- Every month x channel, so empty ones show 0
     SELECT m.month, c.signup_channel
     FROM months m
-    CROSS JOIN (SELECT column1 AS signup_channel
-                FROM VALUES ('Paid social'), ('Search'), ('Referral'), ('Content')) c
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts
+                WHERE COALESCE(is_test, 0) = 0) c
 )
 SELECT g.month,
        g.signup_channel,

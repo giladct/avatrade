@@ -142,10 +142,13 @@ print("site/index.html", len(page) // 1024, "KB")
 
 # local preview copy with the skeleton the artifact host adds; docs/ is the GitHub Pages copy
 os.makedirs("docs", exist_ok=True)
+title_m = re.search(r"<title>.*?</title>", page)  # a full page keeps its title in <head>
+title = title_m.group(0) if title_m else "<title>BA Assessment Answers</title>"
+body = page.replace(title, "", 1) if title_m else page
 full = (
-    '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+    '<!doctype html><html lang="en"><head><meta charset="utf-8">' + title +
     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
     '<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>'
-    '</head><body>' + page + '</body></html>')
+    '</head><body>' + body + '</body></html>')
 for path in ("site/preview.html", "docs/index.html"):
     open(path, "w", encoding="utf-8").write(full)

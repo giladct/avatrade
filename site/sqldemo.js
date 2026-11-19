@@ -116,7 +116,7 @@ window.SQLDEMO = (function () {
   Q.a1 = `-- SQLite translation of A1. DISTINCT ON -> ROW_NUMBER(); LATERAL -> correlated subquery;
 -- GENERATE_SERIES -> recursive CTE; DATE_TRUNC -> strftime.
 WITH RECURSIVE ranked AS (
-    SELECT t.account_id, a.signup_channel, t.created_at AS funded_at, t.amount, t.currency,
+    SELECT t.account_id, COALESCE(a.signup_channel, 'Unknown') AS signup_channel, t.created_at AS funded_at, t.amount, t.currency,
            ROW_NUMBER() OVER (PARTITION BY t.account_id
                               ORDER BY t.created_at, t.transaction_id) AS rn
     FROM transactions t
@@ -139,8 +139,9 @@ months(month) AS (
 ),
 grid AS (
     SELECT month, signup_channel FROM months
-    CROSS JOIN (SELECT 'Paid social' AS signup_channel UNION ALL SELECT 'Search'
-                UNION ALL SELECT 'Referral' UNION ALL SELECT 'Content')
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts WHERE COALESCE(is_test, 0) = 0)
 )
 SELECT g.month, g.signup_channel,
        COUNT(f.account_id)                         AS new_funded_accounts,

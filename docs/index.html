@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style></head><body><title>BA Assessment Answers</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>BA Assessment Answers</title><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style></head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
@@ -342,7 +342,7 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.</p>
 </blockquote>
-<p><strong>Approach.</strong> Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0.</p>
+<p><strong>Approach.</strong> Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0; channels come from the accounts table, with a missing one shown as Unknown.</p>
 <div class="callout">
 
 <p><strong>Why Snowflake.</strong> I chose Snowflake for two features many databases lack: <code>QUALIFY</code> keeps the first deposit per account without a subquery, and <code>ASOF JOIN</code> finds the latest FX rate on or before each deposit date in one join.</p>
@@ -352,7 +352,7 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 WITH first_deposit AS (
     -- First COMPLETED deposit per account, over all history
     SELECT t.account_id,
-           a.signup_channel,
+           COALESCE(a.signup_channel, 'Unknown') AS signup_channel,  -- empty channel shows as Unknown
            t.created_at        AS funded_at,
            t.created_at::DATE  AS funded_date,   -- plain column for the ASOF match condition
            t.amount,
@@ -388,8 +388,10 @@ grid AS (
     -- Every month x channel, so empty ones show 0
     SELECT m.month, c.signup_channel
     FROM months m
-    CROSS JOIN (SELECT column1 AS signup_channel
-                FROM VALUES ('Paid social'), ('Search'), ('Referral'), ('Content')) c
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts
+                WHERE COALESCE(is_test, 0) = 0) c
 )
 SELECT g.month,
        g.signup_channel,
@@ -482,6 +484,8 @@ ORDER BY funding_month;
 <ul>
 <li>Average commission is divided by <strong>all</strong> funded accounts, including those that never traded.</li>
 <li>The 90 days can end after the third month (funded 31 Jan → ends 1 May), so the join uses <code>GREATEST</code> to read far enough.</li>
+<li>Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.</li>
+<li><code>orders</code> holds only executed orders (per the brief), so no status filter is needed.</li>
 <li>All six cohorts are complete as of today.</li>
 </ul>
 <div class="sqlrun" data-q="a2"></div>
@@ -901,6 +905,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </section>
 <section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" hidden><p class="crumb"><b>E</b><span>Section E · Excel model</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>E. Excel model</span><span class="pts">20 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
 <p><strong>דימוי:</strong> חדר כושר שמציע "כניסה חופשית ב-100 ש"ח לחודש" במקום 30 ש"ח לכל כניסה. מי יירשם? רק מי שמגיע הרבה. ומהם החדר מרוויח פחות.</p>
+<p><strong>ועוד דבר שהמודל לא כולל:</strong> מי שמנוי סוחר בחינם, אז אולי יסחור יותר. זה לא מכניס עמלה, אבל יכול לשנות מי נרשם וכמה כסף הוא משאיר אצלנו (ומזה מגיעה ריבית).</p>
 <p><strong>שים לב למינימום:</strong> החישוב לפי עסקה ממוצעת. אבל עסקה קטנה מ-$500 משלמת את המינימום של $1, יותר מ-0.2% שלה. לכן העמלה האמיתית כנראה קצת גבוהה יותר ממה שחישבנו, והחישוב הוא הערכה מלמטה.</p>
 <p><strong>מה יצא:</strong></p>
 <ul>
@@ -912,6 +917,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details>
 <p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.</p>
+<p>The model also holds trades per month fixed. Free trading may make subscribers trade more: that adds no commission, but it could change who signs up and how much cash they keep with us (interest income).</p>
 <p><strong>Results (monthly)</strong></p>
 <div class="tablewrap"><table>
 <thead>
@@ -1250,7 +1256,7 @@ window.SQLDEMO = (function () {
   Q.a1 = `-- SQLite translation of A1. DISTINCT ON -> ROW_NUMBER(); LATERAL -> correlated subquery;
 -- GENERATE_SERIES -> recursive CTE; DATE_TRUNC -> strftime.
 WITH RECURSIVE ranked AS (
-    SELECT t.account_id, a.signup_channel, t.created_at AS funded_at, t.amount, t.currency,
+    SELECT t.account_id, COALESCE(a.signup_channel, 'Unknown') AS signup_channel, t.created_at AS funded_at, t.amount, t.currency,
            ROW_NUMBER() OVER (PARTITION BY t.account_id
                               ORDER BY t.created_at, t.transaction_id) AS rn
     FROM transactions t
@@ -1273,8 +1279,9 @@ months(month) AS (
 ),
 grid AS (
     SELECT month, signup_channel FROM months
-    CROSS JOIN (SELECT 'Paid social' AS signup_channel UNION ALL SELECT 'Search'
-                UNION ALL SELECT 'Referral' UNION ALL SELECT 'Content')
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts WHERE COALESCE(is_test, 0) = 0)
 )
 SELECT g.month, g.signup_channel,
        COUNT(f.account_id)                         AS new_funded_accounts,
