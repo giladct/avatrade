@@ -205,6 +205,7 @@ ORDER BY cur.month, cur.rnk;
 
 - `RANK()` keeps ties, so a tie at 10th returns 11 rows. `places_moved` > 0 means moved up.
 - November 2026 is month-to-date.
+- Traded value counts both buys and sells.
 
 **Keeping it fast on 500 million orders**
 
@@ -344,6 +345,8 @@ Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower
 
 Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trade = `MAX(rate × value, minimum)`; subscribers pay the fee and trade free.
 
+Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.
+
 **Results (monthly)**
 
 | Segment | Commission / customer | Current revenue | Proposed revenue | Difference |
@@ -403,8 +406,8 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 ## F3. Three cuts of data I would ask for next (6 points)
 
 1. **Top-20 revenue by client, month and revenue type.** Confirms or rules out a one-off driven by a few clients or one market event.
-2. **Active-trader breakdown, Q2 → Q3, for everyone else** (retained, churned, reactivated, new), split by tenure, country and asset type. Confirms whether the decline is churn, and where it sits.
-3. **New accounts by channel and country:** cost per account, first deposit and 30/90-day revenue. Shows which channel absorbed the extra $1.3M and which spend to cut.
+2. **Active-trader breakdown, Q2 → Q3, for everyone else** (retained, churned, reactivated, new), split by tenure, country and asset type, and against Q3 last year to rule out summer seasonality. Confirms whether the decline is churn, and where it sits.
+3. **New accounts by channel and country:** cost per account, first deposit and 30/90-day revenue, counting only accounts old enough to have a full window. Shows which channel absorbed the extra $1.3M and which spend to cut.
 
 ## F4. What management should decide differently next quarter (4 points)
 
