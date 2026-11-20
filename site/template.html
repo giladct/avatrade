@@ -277,6 +277,17 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
   .pager a.next { grid-column: 2; }
   .page > .qhead { font-size: 21px; }
 }
+@media print { @page { size: A4; margin: 12mm; } }
+html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }
+html.print .shell { display: block; max-width: none; padding: 0; }
+html.print .page { break-before: page; }
+html.print #p-overview { display: none !important; }
+html.print #p-assumptions { break-before: auto; }
+html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
+html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
+html.print .codebox, html.print .tablewrap { overflow: visible !important; }
+html.print h3, html.print h4 { break-after: avoid; }
 </style>
 
 <div class="shell">

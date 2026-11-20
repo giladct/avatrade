@@ -5,6 +5,8 @@
   const fmtSigned$ = v => (v > 0 ? "+" : "") + fmt$(v);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const NS = "http://www.w3.org/2000/svg";
+  const PRINT = /[?&]print/.test(location.search); // ?print shows every page in one long document, for the PDF
+  if (PRINT) document.documentElement.classList.add("print");
 
   // ---------- syntax highlighting
   if (window.hljs) $$("pre code.language-sql").forEach(el => window.hljs.highlightElement(el));
@@ -63,7 +65,7 @@
     tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
   }
   const hideTip = () => (tip.hidden = true);
-  show(location.hash, true);
+  if (PRINT) { pages.forEach(p => (p.hidden = false)); } else show(location.hash, true);
 
   function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
 
@@ -95,7 +97,7 @@
       <p class="note">Generated sample data, not company data.</p>
       <div class="result"></div>
       <div class="status" aria-live="polite"></div>`;
-    exampleIO ? exampleIO.observe(box) : fillExample(box);
+    exampleIO && !PRINT ? exampleIO.observe(box) : fillExample(box);
   });
   function renderResult(el, cols, rows, q) {
     const isNum = v => typeof v === "number";
