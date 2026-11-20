@@ -7,6 +7,9 @@ import os
 import shutil
 import subprocess
 
+# The Hebrew version (content/answers_he.md + the language button) is built but switched off: the submission is English only.
+# Set HEBREW = True to bring it back.
+HEBREW = False
 SQLJS_DIR = os.environ.get("SQLJS_DIR")
 if SQLJS_DIR:
     subprocess.run(["node", "build/cohort_data.js", SQLJS_DIR], check=True)
@@ -48,6 +51,8 @@ WIDGET_RE = re.compile(r'(<div class="sqlrun"[^>]*></div>|<div id="(?:excel-widg
 
 def EN_L(en, he_text):
     """Inline text in both languages; CSS shows the one that matches <html lang>."""
+    if not HEBREW:
+        return en
     return f'<span class="l-en">{en}</span><span class="l-he">{he_text}</span>'
 
 
@@ -90,6 +95,8 @@ def bilingual(en, he_text):
     """Text is written twice (one block per language); widgets between the text blocks are shared and drawn by app.js."""
     pe, ph = WIDGET_RE.split(en), WIDGET_RE.split(he_text)
     assert pe[1::2] == ph[1::2], f"widgets differ between English and Hebrew: {pe[1::2]} vs {ph[1::2]}"
+    if not HEBREW:
+        return en
     res = []
     for k, (a, b) in enumerate(zip(pe, ph)):
         if k % 2:
@@ -144,7 +151,7 @@ for k in range(1, len(parts_en), 2):
             def pill(lang):
                 return f'<span class="pts">{pts} {LANGS[lang]["pts"]}</span>' if pts else ""
             qhtml = (f'<h3 class="qhead l-en"><span>{ptitle}</span>{pill("en")}</h3>'
-                     f'<h3 class="qhead l-he"><span>{ptitle_he}</span>{pill("he")}</h3>')
+                     + (f'<h3 class="qhead l-he"><span>{ptitle_he}</span>{pill("he")}</h3>' if HEBREW else ""))
             body_html = bilingual(intro, intro_he)
             rtl = ""
         out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" '
@@ -167,22 +174,25 @@ for k in range(1, len(parts_en), 2):
             if j == 0:  # the section's lead-in (Section F's case data) goes right under the first question's heading
                 rest_en, rest_he = intro + rest_en, intro_he + rest_he
             out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" '
-                       f'data-title-he="{html.escape(ptitle_he)}" hidden>{crumb}{h_en}{h_he}{bilingual(rest_en, rest_he)}</section>')
+                       f'data-title-he="{html.escape(ptitle_he)}" hidden>{crumb}{h_en}{h_he if HEBREW else ""}{bilingual(rest_en, rest_he)}</section>')
             pages.append((pid, ptitle, ptitle_he, qpts.group(1) if qpts else ""))
             chips.append(f'<a href="#{pid}" data-page="{pid}">{pid.upper()}</a>')
             first = first or pid
     first_page[sid] = first
     single = " single" if not qs else ""
     nav.append(f'<div class="r-sec{single}" data-sec="{sid}"><a class="r-head" href="#{first}" data-sec="{sid}"><b>{letter if letter != "·" else sym}</b>'
-               f'<span class="l-en">{short}</span><span class="l-he">{short_he}</span>'
+               f'<span class="l-en">{short}</span>' + (f'<span class="l-he">{short_he}</span>' if HEBREW else "")
                + (f'<em>{pts}</em>' if pts else "") + f'</a><div class="r-qs">{"".join(chips)}</div></div>')
 
 toc = "".join(f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
-              f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span><span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>'
+              f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span>' + (f'<span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>' if HEBREW else "")
               + (f'<em>{EN_L(p + " pts", p + " נק׳")}</em>' if p else "") + '</a>' for pid, t, th, p in pages)
 
 tpl = open("site/template.html", encoding="utf-8").read()
-js = open("site/app.js", encoding="utf-8").read()
+if not HEBREW:  # no language button and no Hebrew twins of the static text
+    tpl = re.sub(r'\s*<button class="langbtn".*?</button>', "", tpl, flags=re.S)
+    tpl = re.sub(r'<span class="l-he">[^<]*</span>', "", tpl)
+js = open("site/app.he.js" if HEBREW else "site/app.js", encoding="utf-8").read()
 sqljs = open("site/sqldemo.js", encoding="utf-8").read()
 cohortjs = open("site/cohort.js", encoding="utf-8").read()
 a2_json = open("site/a2_data.json", encoding="utf-8").read()
@@ -192,6 +202,8 @@ page = (tpl.replace("{{LOGO}}", logo).replace("{{NAV}}", "\n".join(nav)).replace
            .replace("{{APP_JS}}", js)
            .replace("{{SQL_JS}}", sqljs)
            .replace("{{COHORT_JS}}", "window.A2_DATA = " + a2_json + ";\n" + cohortjs))
+if not HEBREW:
+    page = re.sub(r' data-title-he="[^"]*"', "", page)
 open("site/index.html", "w", encoding="utf-8").write(page)
 print("site/index.html", len(page) // 1024, "KB")
 
