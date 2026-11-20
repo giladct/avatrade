@@ -245,12 +245,6 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 .crumb-pts { margin-left: auto; }
 .callout { margin: 0 0 20px; padding: 14px 18px 4px; background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--radius); }
 .callout p, .callout ul { margin: 0 0 10px; max-width: none; }
-.kid { margin: 0 0 22px; border: 1px dashed var(--accent); border-radius: var(--radius); background: var(--accent-soft); text-align: right;
-  font-family: "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif; }
-.kid summary { cursor: pointer; padding: 10px 16px; font-weight: 600; font-size: 14px; color: var(--accent); }
-.kid-body { padding: 0 18px 12px; font-size: 15.5px; line-height: 1.7; color: var(--ink); }
-.kid-body p, .kid-body ul, .kid-body ol { margin: 0 0 10px; max-width: none; }
-.kid-body ul, .kid-body ol { padding-right: 22px; padding-left: 0; }
 .page > .qhead { font-size: 30px; font-weight: 700; line-height: 1.15; }
 .page > .crumb + .qhead { border-top: 0; padding-top: 0; margin-top: 4px; }
 .page > .crumb + blockquote, .page > .crumb + p { margin-top: 18px; }
@@ -290,7 +284,7 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 .dl:hover { background: var(--accent); color: var(--bg); }
 @media print { @page { size: A4; margin: 12mm; } }
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }
+html.print .rail, html.print .pager, html.print .toc-title, html.print .toc { display: none !important; }
 html.print .shell { display: block; max-width: none; padding: 0; }
 html.print .page { break-before: auto; margin-top: 30px; }
 html.print .page.sec-first { break-before: page; margin-top: 0; }
@@ -371,13 +365,7 @@ html[lang="he"] .eq { text-align: center; }
 <li><strong>קבצים מצורפים.</strong> מצורפים גם קובץ ה-PDF וקובץ האקסל, אך אין בהם צורך: הכל קיים באתר (web), כולל המודל האינטראקטיבי.</li>
 </ol>
 </section>
-<section class="sec page" id="p-assumptions" data-page="assumptions" data-sec="assumptions" data-title="General assumptions" data-title-he="הנחות כלליות" hidden><p class="crumb"><b>•</b><span><span class="l-en">Read first</span><span class="l-he">קראו קודם</span></span></p><h3 class="qhead l-en"><span>General assumptions</span></h3><h3 class="qhead l-he"><span>הנחות כלליות</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p>לפני שעונים על השאלות, קובעים חוקים, כמו לפני משחק כדורגל.</p>
-<ul>
-<li><strong>חשבונות בדיקה</strong> (חשבונות "מזויפים" שהחברה פותחת כדי לבדוק את המערכת) לא נספרים אף פעם.</li>
-<li><strong>"חשבון ממומן"</strong> = הפעם הראשונה שמישהו באמת הכניס כסף, וההפקדה הצליחה.</li>
-<li><strong>מטבעות:</strong> אם מישהו הפקיד ביורו, ממירים לדולר לפי השער של אותו יום. אם אין שער לאותו יום (למשל שבת), לוקחים את השער האחרון שהיה לפני.</li>
-<li><strong>הכנסה</strong> = עמלה שהחברה לוקחת על כל קנייה או מכירה, ועוד ריבית שהיא מרוויחה על הכסף שהלקוחות משאירים במזומן.</li>
-</ul></div></details><div class="l-en">
+<section class="sec page" id="p-assumptions" data-page="assumptions" data-sec="assumptions" data-title="General assumptions" data-title-he="הנחות כלליות" hidden><p class="crumb"><b>•</b><span><span class="l-en">Read first</span><span class="l-he">קראו קודם</span></span></p><h3 class="qhead l-en"><span>General assumptions</span></h3><h3 class="qhead l-he"><span>הנחות כלליות</span></h3><div class="l-en">
 <ul>
 <li><strong>SQL is Snowflake.</strong></li>
 <li><strong>Test accounts are excluded everywhere.</strong></li>
@@ -394,15 +382,7 @@ html[lang="he"] .eq { text-align: center; }
 <li><strong>הכנסות</strong> = עמלות + ריבית על מזומן.</li>
 </ul>
 </div></section>
-<section class="sec page" id="p-a1" data-page="a1" data-sec="section-a" data-title="A1. New funded accounts" data-title-he="A1. חשבונות חדשים שמומנו" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A1. New funded accounts</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>A1. חשבונות חדשים שמומנו</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמה לקוחות חדשים הכניסו כסף בפעם הראשונה בכל חודש, וכמה כסף הם הכניסו, לפי הדרך שבה הם הגיעו אלינו (פייסבוק, גוגל, חבר שהמליץ, תוכן).</p>
-<p><strong>איך פתרתי, צעד אחרי צעד:</strong></p>
-<ol>
-<li>לכל לקוח מוצאים את <strong>ההפקדה הראשונה</strong> שלו שהצליחה. כמו לחפש באלבום את התמונה הראשונה של כל ילד.</li>
-<li>ממירים את הסכום ל<strong>דולרים</strong>, כדי שאפשר יהיה לחבר הכול יחד.</li>
-<li>בונים <strong>טבלה ריקה</strong> של כל החודשים מול כל הערוצים, כמו לוח משבצות. ככה, גם אם בחודש מסוים אף אחד לא הגיע מגוגל, יופיע 0 ולא תהיה משבצת חסרה.</li>
-<li>סופרים ומחברים לכל משבצת.</li>
-</ol>
-<p><strong>המלכודת:</strong> אם לקוח הפקיד לראשונה ב-2025 והפקיד שוב ב-2026, הוא <strong>לא</strong> חדש ב-2026. לכן קודם מוצאים את ההפקדה הראשונה מכל הזמנים, ורק אחר כך מסננים ל-2026.</p></div></details><div class="l-en">
+<section class="sec page" id="p-a1" data-page="a1" data-sec="section-a" data-title="A1. New funded accounts" data-title-he="A1. חשבונות חדשים שמומנו" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A1. New funded accounts</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>A1. חשבונות חדשים שמומנו</span><span class="pts">6 נק׳</span></h3><div class="l-en">
 
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.</p>
@@ -573,14 +553,7 @@ ORDER BY g.month, g.signup_channel;
 <li><code>rows_missing_fx_rate</code> מסמן הפקדות בלי שער חליפין; הערך אמור להיות 0.</li>
 </ul>
 </div><div class="sqlrun" data-q="a1"></div></section>
-<section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" data-title-he="A2. פעילות קוהורטים" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3><h3 class="qhead l-he"><span>A2. פעילות קוהורטים</span><span class="pts">10 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> לוקחים את כל מי שהצטרף בינואר וקוראים לזה "קבוצת ינואר". אותו דבר לפברואר, וכך עד יוני. לכל קבוצה בודקים:</p>
-<ul>
-<li>כמה אחוז מהם קנו או מכרו משהו בחודש שבו הצטרפו, בחודש שאחריו ובחודש שאחרי זה;</li>
-<li>כמה עמלה החברה הרוויחה בממוצע מכל אחד ב-90 הימים הראשונים.</li>
-</ul>
-<p><strong>דימוי:</strong> כמו מורה שבודקת כמה מתלמידי כיתה ז' עדיין מגיעים לחוג אחרי חודש, אחרי חודשיים ואחרי שלושה.</p>
-<p><strong>איך פתרתי:</strong> לכל לקוח רושמים שלוש "וי או איקס" (סחר בחודש 0? בחודש 1? בחודש 2?) ואת סך העמלה שלו. אחר כך עושים ממוצע לכל קבוצה. ממוצע של "וי=1, איקס=0" הוא בדיוק האחוז.</p>
-<p><strong>המלכודת:</strong> לקוח שלא סחר אף פעם חייב להישאר בחישוב, עם 0. אם מוחקים אותו, נראה כאילו כולם פעילים ומרוויחים יותר ממה שבאמת.</p></div></details><div class="l-en">
+<section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" data-title-he="A2. פעילות קוהורטים" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3><h3 class="qhead l-he"><span>A2. פעילות קוהורטים</span><span class="pts">10 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Build a table with one row per funding month, January to June 2026, with: the number of accounts funded in that month; the share of those accounts that placed at least one order in the funding month, the month after, and the month after that; and the average commission per funded account in the first 90 days after its funding date.</p>
 </blockquote>
@@ -721,21 +694,7 @@ ORDER BY funding_month;
 <li><code>orders</code> מכילה רק פקודות שבוצעו (לפי המטלה), ולכן אין צורך בסינון לפי סטטוס.</li>
 </ul>
 </div><div class="sqlrun" data-q="a2"></div></section>
-<section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" data-title-he="A3. הסימולים הנסחרים ביותר" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3><h3 class="qhead l-he"><span>A3. הסימולים הנסחרים ביותר</span><span class="pts">9 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בכל חודש של 2026, מהן 10 המניות (או המטבעות) שסחרו בהן בהכי הרבה כסף, ובכמה מקומות כל אחת עלתה או ירדה לעומת החודש הקודם. כמו מצעד הפזמונים.</p>
-<p><strong>איך פתרתי:</strong></p>
-<ol>
-<li>לכל חודש ולכל מניה מחשבים כמה כסף עבר (כמות × מחיר).</li>
-<li>מדרגים את <strong>כל</strong> המניות, לא רק את ה-10 הראשונות. למה? אם מניה הייתה במקום 15 בחודש שעבר ועכשיו היא במקום 3, אני רוצה לדעת שהיא קפצה 12 מקומות.</li>
-<li>מתחילים מדצמבר 2025, כדי שלינואר יהיה חודש קודם להשוות אליו.</li>
-</ol>
-<p><strong>איך שומרים על מהירות עם 500 מיליון שורות?</strong> הרעיון זהה בכל מסד נתונים, רק הכלים שונים. דמיין ספרייה ענקית:</p>
-<ul>
-<li><strong>קוראים רק 13 חודשים.</strong> ב-Snowflake מסדרים את הספרים לפי תאריך, והמערכת מדלגת לבד על מדפים לא רלוונטיים. במסד רגיל (כמו PostgreSQL) מחלקים את הספרייה לחדרים, חדר לכל חודש, ונכנסים רק ל-13 חדרים.</li>
-<li><strong>קוראים רק את העמודות שצריך.</strong> Snowflake כבר שומר כל עמודה בנפרד. במסד רגיל בונים <strong>אינדקס</strong>, כמו תוכן עניינים שיש בו כבר את כל המידע, כך שלא צריך לפתוח את הספר עצמו.</li>
-<li><strong>מכינים סיכום יומי מראש.</strong> כמו לסכם כל פרק פעם אחת ולא לקרוא את כולו מחדש. ב-Snowflake זה מתעדכן לבד, ובמסד רגיל מעדכנים כל לילה רק את היום האחרון.</li>
-<li><strong>כוח מחשוב.</strong> ב-Snowflake קונים מחשב גדול יותר רק לזמן קצר. במסד רגיל מריצים בלילה או על עותק של המסד, כדי לא להאט את כולם.</li>
-<li><strong>בשניהם:</strong> קודם מסכמים, אחר כך מדרגים.</li>
-</ul></div></details><div class="l-en">
+<section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" data-title-he="A3. הסימולים הנסחרים ביותר" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3><h3 class="qhead l-he"><span>A3. הסימולים הנסחרים ביותר</span><span class="pts">9 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month of 2026, return the 10 symbols with the highest traded value (quantity × price), their rank, and how many places each one moved compared with the previous month. Explain how you would keep this query fast on 500 million orders.</p>
 </blockquote>
@@ -898,12 +857,7 @@ ORDER BY cur.month, cur.rnk;
 </table></div>
 <p><strong>בשניהם:</strong> מסכמים לפי חודש ואז מדרגים; מחריגים חשבונות בדיקה עם <code>NOT EXISTS</code> (רשימה קצרה); שומרים את הדירוגים של חודשים שחלפו, כי הם כבר לא משתנים.</p>
 </div><div class="sqlrun" data-q="a3"></div></section>
-<section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" data-title-he="B1. לקוחות פעילים" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B1. Active customers</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B1. לקוחות פעילים</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> שלושה צוותים מגדירים "לקוח פעיל" בשלוש דרכים שונות. באיזו הגדרה להשתמש לכל מטרה?</p>
-<ul>
-<li><strong>"ביצע פעולת מסחר ב-30 הימים האחרונים" ← לתחזית הכנסות.</strong> החברה מרוויחה עמלה רק כשמישהו קונה או מוכר. כמו מוכר גלידה שמרוויח רק ממי שקנה גלידה, לא ממי שרק נכנס לחנות.</li>
-<li><strong>"מחזיק השקעה" ← לשימור לקוחות.</strong> לקוח באמת עזב רק כשהוא מוציא את הכסף. מי שקנה מניה ושומר אותה שנים לא עזב, גם אם לא לחץ על כלום חודש שלם.</li>
-<li><strong>"התחבר לאפליקציה" ← לא לשניהם.</strong> זה רק סימן אזהרה: אם אנשים מפסיקים להיכנס, אולי בקרוב הם יעזבו.</li>
-</ul></div></details><div class="l-en">
+<section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" data-title-he="B1. לקוחות פעילים" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B1. Active customers</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B1. לקוחות פעילים</span><span class="pts">5 נק׳</span></h3><div class="l-en">
 
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Three teams define an active customer differently: logged in during the last 30 days, placed an order during the last 30 days, or holds any investment. Which definition would you use for revenue forecasting, which for customer retention, and why?</p>
@@ -966,20 +920,7 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 </div></section>
-<section class="sec page" id="p-b2" data-page="b2" data-sec="section-b" data-title="B2. Assets versus revenue" data-title-he="B2. נכסים מול הכנסות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B2. Assets versus revenue</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B2. נכסים מול הכנסות</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמות הכסף שהלקוחות מחזיקים אצלנו גדלה ב-20%, אבל ההכנסה שלנו גדלה רק ב-5%. למה?</p>
-<p><strong>דימוי:</strong> יש לך חנות, ומספר האנשים בקניון עלה ב-20%, אבל המכירות שלך עלו רק ב-5%. צריך לפרק: כמה נכנסו לחנות? כמה מהם קנו? כמה כל אחד שילם?</p>
-<p><strong>פירוק ההכנסה לחלקים:</strong></p>
-<ul>
-<li><strong>עמלה</strong> = כמה כסף יש אצלנו × כמה פעמים סוחרים בו × כמה אחוז אנחנו לוקחים מכל עסקה.</li>
-<li><strong>ריבית</strong> = כמה כסף יש אצלנו × כמה ממנו נשאר במזומן × כמה ריבית אנחנו מרוויחים עליו.</li>
-</ul>
-<p><strong>ארבע סיבות אפשריות:</strong></p>
-<ol>
-<li><strong>המחירים בבורסה עלו.</strong> הכסף "גדל לבד" בלי שאף אחד קנה או מכר, ועל זה אין עמלה.</li>
-<li><strong>אנשים סוחרים פחות.</strong> קונים ושומרים, במקום לקנות ולמכור כל הזמן.</li>
-<li><strong>פחות מזומן או ריבית נמוכה יותר.</strong> הלקוחות השקיעו את המזומן, או שהריבית ירדה.</li>
-<li><strong>אנחנו לוקחים פחות על כל עסקה.</strong> הנחות, מבצעים, מחיר מיוחד ללקוחות גדולים.</li>
-</ol></div></details><div class="l-en">
+<section class="sec page" id="p-b2" data-page="b2" data-sec="section-b" data-title="B2. Assets versus revenue" data-title-he="B2. נכסים מול הכנסות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B2. Assets versus revenue</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B2. נכסים מול הכנסות</span><span class="pts">5 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Total assets held by customers grew 20% this year, but revenue grew only 5%. Give four possible explanations. Then show how you would break revenue into components to find which one is true.</p>
 </blockquote>
@@ -1072,19 +1013,7 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 </div></section>
-<section class="sec page" id="p-b3" data-page="b3" data-sec="section-b" data-title="B3. Country comparison" data-title-he="B3. השוואה בין מדינות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B3. Country comparison</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B3. השוואה בין מדינות</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> במדינה B כל לקוח מכניס לנו פי 2.5 יותר מאשר במדינה A. למה? (אסור לענות "הלקוחות ב-B פשוט יותר טובים".)</p>
-<p><strong>שלוש סיבות:</strong></p>
-<ol>
-<li><strong>סוג הלקוחות.</strong> אולי ב-B יש יותר לקוחות ותיקים ועשירים, או כמה "לווייתנים" ענקיים שמקפיצים את הממוצע. כמו כיתה שבה ילד אחד גובהו 2 מטר: הגובה הממוצע קופץ.</li>
-<li><strong>הדרך שבה הלקוחות הגיעו.</strong> אולי ב-B הרבה לקוחות מגיעים מהמלצה של חבר (Referral) או מחיפוש בגוגל (Search). הם כבר הגיעו עם כוונה להשקיע. וב-A רוב הלקוחות מגיעים ממבצעים ברשתות החברתיות (Paid social), שמביאים לקוחות קטנים שסוחרים מדי פעם. זה לא שהלקוחות ב-B "טובים יותר": החברה פשוט מגייסת אחרת בכל מדינה. ויש עמודה <code>signup_channel</code> שמאפשרת לבדוק את זה.</li>
-<li><strong>רגולציה ומיסים.</strong> בכל מדינה יש חוקים אחרים. למשל, באיחוד האירופי משקיע פרטי לא יכול לקנות קרני סל (ETF) אמריקאיות, כי אין להן מסמך מידע מיוחד שהחוק שם דורש (KID). ובבריטניה יש מס של 0.5% על כל קניית מניה. כשיש פחות מוצרים וכל קנייה עולה יותר, הלקוחות מבצעים פחות פקודות, ולכן משלמים פחות עמלות.</li>
-</ol>
-<p><strong>איך בודקים כל סיבה:</strong></p>
-<ul>
-<li><strong>סוג הלקוחות:</strong> מחלקים את שתי המדינות לאותן קבוצות (ותיקים או חדשים, עשירים או לא). שואלים: "מה היה קורה אם ב-B היו בדיוק אותם סוגי לקוחות כמו ב-A?" אם הפער נעלם, זו הסיבה. בודקים גם מה קורה כשמוציאים את 1% הלקוחות הכי גדולים.</li>
-<li><strong>הדרך שבה הגיעו:</strong> משווים לקוחות שהגיעו מאותו ערוץ בשתי המדינות (המלצה מול המלצה, מבצע מול מבצע). אם בכל ערוץ הם דומים, הפער נובע מזה שב-B יש יותר לקוחות מהערוצים ה"חזקים".</li>
-<li><strong>רגולציה ומיסים:</strong> משווים כמה פקודות כל לקוח מבצע ובאילו מוצרים הוא מחזיק בכל מדינה. אם ב-A מבצעים פחות פקודות ומחזיקים פחות ETF אמריקאיות, אבל העמלה על כל פקודה דומה, החוקים הם ההסבר.</li>
-</ul></div></details><div class="l-en">
+<section class="sec page" id="p-b3" data-page="b3" data-sec="section-b" data-title="B3. Country comparison" data-title-he="B3. השוואה בין מדינות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B3. Country comparison</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B3. השוואה בין מדינות</span><span class="pts">5 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Revenue per active customer is 2.5 times higher in Country B than in Country A. Give three explanations other than "customers in Country B are simply better", and describe how you would test one of them.</p>
 </blockquote>
@@ -1145,18 +1074,7 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 </div></section>
-<section class="sec page" id="p-c1" data-page="c1" data-sec="section-c" data-title="C1. Sudden drop" data-title-he="C1. ירידה פתאומית" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C1. Sudden drop</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C1. ירידה פתאומית</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בגרף "כמה לקוחות היו פעילים היום" רואים ירידה של 30% ביום שלישי, אבל כמות הקניות וההפקדות נראית רגילה. מה קרה?</p>
-<p><strong>ההיגיון:</strong> אם אנשים קנו והפקידו כרגיל, לפחות הסוחרים היו פעילים. כנראה שהבעיה היא <strong>במדידה</strong> ולא בלקוחות. בשאלה לא כתוב מה קרה ביום רביעי, ולכן הדבר הראשון הוא לבדוק את רביעי. התשובה מחלקת את הסיבות לשתי קבוצות.</p>
-<p><strong>אם ברביעי הכול חזר לרגיל (זו ההנחה שלי, ואני כותב אותה במפורש):</strong> שום דבר לא השתנה לתמיד. כנראה שפשוט <strong>חסרים נתונים של יום שלישי</strong>. הקניות וההפקדות מגיעות ממערכת אחת, והכניסות לאפליקציה ממערכת אחרת, ורק השנייה נתקעה. כמו יומן נוכחות שבו המורה שכחה למלא דף אחד: התלמידים היו בכיתה, רק לא נרשמו. בודקים לפי הסדר:</p>
-<ol>
-<li><strong>הנתונים הגיעו באיחור או רק בחלקם?</strong> סופרים שוב את יום שלישי היום. אם עכשיו המספר רגיל, הדוח פשוט רץ מוקדם מדי.</li>
-<li><strong>המערכת שרושמת כניסות נפלה לכמה שעות?</strong> בודקים את יומן התקלות של אותו יום.</li>
-<li><strong>בעיה של שעון.</strong> אולי חלק מהפעילות נספר ביום שני או ברביעי בגלל אזור זמן. בודקים אם אחד מהם גבוה מהרגיל.</li>
-</ol>
-<p><strong>אם המספר נשאר נמוך:</strong> משהו השתנה לתמיד. בודקים אם מישהו שינה את הנוסחה שסופרת לקוחות פעילים, ואם יצאה גרסה חדשה של האפליקציה. מפצלים לפי סוג מכשיר וגרסה.</p>
-<p><strong>ירידה אמיתית:</strong> לא סבירה בשום מקרה, כי הקניות וההפקדות היו רגילות.</p>
-<p><strong>בדיקה מהירה:</strong> סופרים כמה אנשים קנו משהו ביום שלישי אבל לא נספרו כפעילים. זה אמור להיות כמעט 0. אם לא, הנתונים חסרים.</p>
-<p><strong>אחר כך:</strong> מעלים מחדש את הנתונים של יום שלישי, ומוסיפים התראה אוטומטית אם מגיעים פחות נתונים מהרגיל.</p></div></details><div class="l-en">
+<section class="sec page" id="p-c1" data-page="c1" data-sec="section-c" data-title="C1. Sudden drop" data-title-he="C1. ירידה פתאומית" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C1. Sudden drop</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C1. ירידה פתאומית</span><span class="pts">5 נק׳</span></h3><div class="l-en">
 
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.</p>
@@ -1189,15 +1107,7 @@ ORDER BY cur.month, cur.rnk;
 <p><strong>בדיקה מהירה:</strong> סופרים חשבונות שביצעו פקודה ביום שלישי אבל אין להם אירוע פעילות. בדרך כלל זה קרוב לאפס; אם לא, בנתוני הפעילות חסרים אירועים.</p>
 <p><strong>אחר כך:</strong> טוענים מחדש את יום שלישי כדי שההיסטוריה תהיה נכונה, ומוסיפים התראה על נפח האירועים היומי כדי שהפער הבא ייתפס באותו יום.</p>
 </div></section>
-<section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" data-title-he="C2. שני מספרים לחודש אחד" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C2. שני מספרים לחודש אחד</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מחלקת הכספים אומרת שההכנסה בספטמבר נמוכה ב-4% ממה שמראה הדשבורד. שני הצדדים בטוחים שהם צודקים.</p>
-<p><strong>דימוי:</strong> שני ילדים ספרו כמה סוכריות יש בשקית וקיבלו מספרים שונים. במקום לריב, בודקים: האם שניהם ספרו גם את השבורות? האם שניהם ספרו את אותה שקית?</p>
-<p><strong>הצעדים:</strong></p>
-<ol>
-<li><strong>משווים הגדרות.</strong> האם סופרים לפני הנחות או אחרי? לפי איזה תאריך? באיזה שעון (ישראל או לונדון)? לפי איזה שער דולר?</li>
-<li><strong>מפרקים לחתיכות</strong> (לפי סוג הכנסה ולפי יום) ומחפשים איפה הפער.</li>
-<li><strong>משווים שורה מול שורה.</strong> אילו עסקאות יש רק אצל אחד מהצדדים?</li>
-<li><strong>מונעים את הפער הבא.</strong> מספר אחד כולל רק אומר "יש פער", אבל לא איפה. לכן בונים בדשבורד דוח עם אותם רכיבים שיש בדוח של הכספים (עמלות לפי סוג מוצר, ריבית על מזומן, החזרים ומבצעים), ומשווים רכיב מול רכיב כל חודש. לא מחליטים מראש מי צודק: אם יש פער, רואים מיד באיזה רכיב הוא ומתקנים במקור. כמו שני הילדים: במקום לספור רק את כל השקית, סופרים לפי צבעים, ואז רואים מיד באיזה צבע הטעות.</li>
-</ol></div></details><div class="l-en">
+<section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" data-title-he="C2. שני מספרים לחודש אחד" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C2. שני מספרים לחודש אחד</span><span class="pts">5 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Finance reports September revenue that is 4% lower than the BI dashboard. Both teams say their number is right. Describe how you would reconcile the two figures, step by step, and the most common reasons for a gap like this.</p>
 </blockquote>
@@ -1220,28 +1130,7 @@ ORDER BY cur.month, cur.rnk;
 </ol>
 <p><strong>סיבות נפוצות:</strong> ברוטו מול נטו, מועד סגירה ואזור זמן, היקף (חשבונות בדיקה או פנימיים), שערי חליפין, שורות כפולות ב-BI.</p>
 </div></section>
-<section class="sec page" id="p-d1" data-page="d1" data-sec="section-d" data-title="D1. New onboarding flow" data-title-he="D1. תהליך הרשמה חדש" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D1. New onboarding flow</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>D1. תהליך הרשמה חדש</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> ב-1 במרץ החלפנו את תהליך ההרשמה. אחוז הנרשמים שהכניסו כסף עלה מ-18% ל-22%. צוות המוצר אומר: "זה בזכותנו!" האם הם צודקים?</p>
-<p><strong>הבעיה:</strong> אי אפשר לדעת מהשוואה של פברואר מול מרץ, כי הרבה דברים השתנו באותו זמן. כמו לומר "התחלתי לאכול גזר, ובאותו חודש גבהתי". אולי פשוט גדלת.</p>
-<p><strong>מה בודקים:</strong></p>
-<ol>
-<li><strong>המכנה.</strong> אולי התהליך החדש גורם לפחות אנשים להירשם, ורק הרציניים נשארים. האחוז עולה, אבל כמות המשלמים לא. לכן בודקים את המספר עצמו, לא רק את האחוז. וסופרים את שני החודשים באותה דרך: מי שהכניס כסף בתוך 14 יום מההרשמה.</li>
-<li><strong>הרכב.</strong> אולי במרץ הגיעו יותר אנשים מערוץ טוב יותר.</li>
-<li><strong>דברים אחרים במרץ:</strong> מבצע, בורסה חמה, עונה.</li>
-<li><strong>אין קבוצת השוואה.</strong> התהליך החדש עלה לכולם באותו יום, אז אין למי להשוות. הראיה הכי טובה היא הגרף השבועי: האם הקפיצה קרתה בדיוק ב-1 במרץ. זה מחזק את הטענה, אבל לא מוכיח אותה. בגלל זה בפעם הבאה צריך ניסוי A/B.</li>
-<li><strong>איכות:</strong> האם המפקידים החדשים באמת סוחרים, או שהכניסו רק דולר אחד?</li>
-</ol>
-<p><strong>בפעם הבאה:</strong> <strong>ניסוי A/B.</strong> מטילים מטבע לכל נרשם: חצי מקבלים את התהליך הישן וחצי את החדש, באותו זמן. ככה רק התהליך שונה. ומחכים 14 יום אחרי הנרשם האחרון לפני שבודקים, כדי שגם לו יהיה זמן להפקיד.</p>
-<p><strong>כמה אנשים צריך בכל קבוצה?</strong></p>
-<ul>
-<li>כדי לזהות הפרש של 18% מול 22% צריך <strong>כ-1,570 בכל קבוצה</strong> (בערך 3,140 בסך הכול).</li>
-<li>כדי לזהות הפרש של 18% מול 20% צריך <strong>כ-6,000 בכל קבוצה</strong> (בערך 12,000 בסך הכול).</li>
-<li><strong>למה הפרש קטן צריך הרבה יותר אנשים?</strong> כמו לשמוע לחישה בחדר רועש: כמה שהקול חלש יותר, צריך להקשיב יותר זמן. כשההפרש קטן פי 2, צריך פי 4 אנשים.</li>
-<li><strong>למה בחרתי ב-6,000?</strong> חלק מהקפיצה ל-22% הגיע כנראה מדברים אחרים (עונה, מבצע), ולכן ההשפעה האמיתית של התהליך כנראה קטנה יותר. אם מתכננים ניסוי רק ל-4 נקודות וההשפעה האמיתית היא 2, יש רק כ-30% סיכוי לגלות אותה.</li>
-<li><strong>שים לב:</strong> "4%" כאן הן 4 <strong>נקודות אחוז</strong>. ביחס ל-18% זה שיפור של 22%.</li>
-</ul>
-<p><strong>איך מחשבים (למראיין):</strong> מובהקות 5% (z = 1.96), עוצמה 80% (z = 0.84):<br />
-n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² ≈ 1,569.</p>
-<p><strong>כמה זמן:</strong> תלוי בכמה נרשמים יש. עם 1,000 בשבוע, 12,000 אנשים ייקחו כ-12 שבועות. בכל מקרה לפחות שבועיים, כדי לכסות את כל ימי השבוע.</p></div></details><div class="l-en">
+<section class="sec page" id="p-d1" data-page="d1" data-sec="section-d" data-title="D1. New onboarding flow" data-title-he="D1. תהליך הרשמה חדש" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D1. New onboarding flow</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>D1. תהליך הרשמה חדש</span><span class="pts">6 נק׳</span></h3><div class="l-en">
 
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?</p>
@@ -1318,16 +1207,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </table></div>
 <p>הייתי מתכנן ל-+2 נקודות: חלק מהקפיצה שנצפתה כנראה נובע מעונתיות או הרכב, ולכן ההשפעה האמיתית כנראה קטנה יותר. חצי מההפרש דורש פי ארבעה מהמדגם. מריצים לפחות שני שבועות מלאים.</p>
 </div><div id="d1-widget"></div></section>
-<section class="sec page" id="p-d2" data-page="d2" data-sec="section-d" data-title="D2. A/B test result" data-title-he="D2. תוצאת בדיקת A/B" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D2. A/B test result</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>D2. תוצאת בדיקת A/B</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בדקו מסך הזמנות חדש במשך שבוע. במסך החדש היו 8% יותר הזמנות, עם p = 0.04 (כלומר יש סיכוי קטן שזה מזל). בשני מדדים אחרים לא היה שינוי. האם להשיק?</p>
-<p><strong>התשובה: לא רק על סמך p = 0.04.</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי והניסוי נעשה כמו שצריך, אפשר לסמוך על התוצאה. אחרת, מריצים ניסוי חדש ומסודר שיאשר אותה.</p>
-<ol>
-<li><strong>בדקו שלושה דברים.</strong> אם זורקים מטבע שלוש פעמים, הסיכוי שלפחות פעם אחת יקרה משהו "מיוחד" במקרה גדל. כשמתקנים את זה, 0.04 כבר לא מספיק טוב. <strong>אבל:</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי, לא צריך את התיקון. לכן קודם שואלים מה הוגדר מראש.</li>
-<li><strong>שבוע זה קצר מדי.</strong> אנשים לוחצים על כל דבר חדש כי הוא חדש ומעניין, ואחרי שבועיים זה עובר. כמו צעצוע חדש.</li>
-<li><strong>יותר הזמנות זה לא בהכרח יותר כסף.</strong> אולי אנשים פשוט מחלקים קנייה אחת לשתיים. וגם כמה סוחרים גדולים יכולים להקפיץ את הממוצע.</li>
-<li><strong>סיכון רגולטורי.</strong> אם המסך דוחף אנשים לסחור יותר, הרגולטור עלול לא לאהוב את זה.</li>
-<li><strong>האם החלוקה יצאה כמתוכנן?</strong> אם תכננו חצי-חצי ויצא 55% מול 45%, משהו התקלקל: בהגרלה או במדידה. עד שמבינים מה קרה, אי אפשר לסמוך על התוצאה. כמו מטבע שנופל יותר מדי פעמים על עץ: כנראה הוא לא הוגן.</li>
-</ol>
-<p><strong>ההמלצה:</strong> לא "להאריך" את אותו ניסוי אחרי שכבר ראו תוצאה. זה כמו להמשיך לזרוק מטבע עד שיוצא מה שרוצים. אם צריך ניסוי חדש, מריצים אותו 2–3 שבועות, וקובעים <strong>מראש</strong> את המדד הראשי (כמה <strong>כסף</strong> כל משתמש מכניס), "מדדי הגנה" שאסור שייפגעו (הזמנות שבוטלו, תלונות) ואת גודל המדגם.</p></div></details><div class="l-en">
+<section class="sec page" id="p-d2" data-page="d2" data-sec="section-d" data-title="D2. A/B test result" data-title-he="D2. תוצאת בדיקת A/B" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D2. A/B test result</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>D2. תוצאת בדיקת A/B</span><span class="pts">4 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>A test of a redesigned order screen ran for one week. The new screen shows 8% more orders per user, with p = 0.04. The team also checked two other metrics, which showed no difference. Should they launch? Name at least three concerns.</p>
 </blockquote>
@@ -1442,18 +1322,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <p>הסיכוי = 1 − 0.95^k עבור k מדדים בלתי תלויים; מדדים מתואמים נותנים סיכוי נמוך יותר.</p>
 <p><strong>המלצה:</strong> לא מאריכים את הבדיקה הזו עד שהיא נראית טוב; זה מגדיל תוצאות חיוביות שגויות. אם צריך בדיקה מאשרת, מריצים אותה 2–3 שבועות עם הכנסה למשתמש כמדד ראשי, מדדי הגנה (פקודות שבוטלו, תלונות) וגודל מדגם שנקבעים מראש.</p>
 </div></section>
-<section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" data-title-he="E. מודל אקסל" hidden><p class="crumb"><b>E</b><span><span class="l-en">Section E · Excel model</span><span class="l-he">חלק E · מודל אקסל</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>E. Excel model</span><span class="pts">20 pts</span></h3><h3 class="qhead l-he"><span>E. מודל אקסל</span><span class="pts">20 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
-<p><strong>דימוי:</strong> חדר כושר שמציע "כניסה חופשית ב-100 ש"ח לחודש" במקום 30 ש"ח לכל כניסה. מי יירשם? רק מי שמגיע הרבה. ומהם החדר מרוויח פחות.</p>
-<p><strong>ועוד דבר שהמודל לא כולל:</strong> המודל מניח שמספר העסקאות לא משתנה. אבל מי שסוחר בחינם אולי יסחור יותר.</p>
-<p><strong>שים לב למינימום:</strong> החישוב לפי עסקה ממוצעת. אבל עסקה קטנה מ-$500 משלמת את המינימום של $1, יותר מ-0.2% שלה. לכן העמלה האמיתית כנראה קצת גבוהה יותר ממה שחישבנו, והחישוב הוא הערכה מלמטה.</p>
-<p><strong>מה יצא:</strong></p>
-<ul>
-<li><strong>מתחילים (Starter)</strong> משלמים היום רק $3.20 בחודש בעמלות. אם הם יעברו למנוי, הם ישלמו $9.99 ונרוויח <strong>יותר</strong>.</li>
-<li><strong>רגילים (Regular)</strong> משלמים $40 ו<strong>פעילים (Active)</strong> משלמים $360. אם הם יעברו למנוי, הם ישלמו רק $9.99 ונפסיד <strong>הרבה</strong>.</li>
-<li><strong>בסך הכול ההכנסה יורדת בחצי</strong> (בערך מינוס 1.1 מיליון דולר בחודש).</li>
-</ul>
-<p><strong>כמה המנוי צריך לעלות כדי לא להפסיד?</strong> $128.43.</p>
-<p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details><div class="l-en">
+<section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" data-title-he="E. מודל אקסל" hidden><p class="crumb"><b>E</b><span><span class="l-en">Section E · Excel model</span><span class="l-he">חלק E · מודל אקסל</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>E. Excel model</span><span class="pts">20 pts</span></h3><h3 class="qhead l-he"><span>E. מודל אקסל</span><span class="pts">20 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>The platform charges 0.20% commission on the value of each trade, with a minimum of $1 per trade. Management is considering an optional $9.99 monthly subscription that includes unlimited commission-free trades. Which segments bring more revenue under the subscription, and which bring less? What price keeps total revenue unchanged at these opt-in rates? Why are these opt-in rates unlikely to hold, and what pricing would you test instead?</p>
 </blockquote>
@@ -1554,20 +1423,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <p><strong>למה שיעורי ההצטרפות לא יחזיקו</strong><br />
 לקוחות מצטרפים למנוי רק כשזה חוסך להם כסף, ולכן ב-$128.43 אף לקוח Starter או Regular לא יצטרף, רק סוחרי Active. הייתי בודק במקום זה תוכנית מדורגת לסוחרי Active, למשל $49–99 לחודש תמורת עמלה מופחתת או מספר מוגבל של עסקאות חינם, כבדיקת מחיר אקראית.</p>
 </div></section>
-<section class="sec page" id="p-f1" data-page="f1" data-sec="section-f" data-title="F1. The real state of the business" data-title-he="F1. המצב האמיתי של העסק" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F1. The real state of the business</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F1. המצב האמיתי של העסק</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>הסיפור:</strong> ההנהלה אומרת "רבעון טוב, ההכנסה עלתה ב-6%". הטבלה מראה את המספרים מאחורי המשפט הזה.</p>
-<p><strong>הדבר הכי חשוב לראות כאן:</strong> את ההכנסה כדאי לפרק לשני חלקים: 20 הלקוחות הכי גדולים, וכל השאר. הגדולים עלו ב-60%, וכל השאר <strong>ירדו</strong> ב-7.5%. הממוצע מסתיר את זה.</p>
-<p><strong>עוד שני מספרים שחישבתי:</strong></p>
-<ul>
-<li>20 הלקוחות הגדולים היו 20% מההכנסה ועכשיו הם 30%. אנחנו תלויים בהם יותר.</li>
-<li>כמה עולה לנו להביא לקוח חדש: $500 עלה ל-$548.</li>
-</ul><p><strong>השאלה:</strong> מה המצב האמיתי?</p>
-<p><strong>דימוי:</strong> כיתה שבה הציון הממוצע עלה, אבל רק בגלל ששלושה תלמידים קיבלו 100. כל השאר ירדו.</p>
-<ul>
-<li><strong>הצמיחה הגיעה מ-20 לקוחות בלבד.</strong> בלי הצמיחה שלהם (אם היו נשארים על $6 מיליון), ההכנסה הייתה יורדת ב-6%.</li>
-<li><strong>פחות אנשים סוחרים</strong> (מינוס 8%), למרות שהגיעו 11,500 לקוחות חדשים. כלומר יותר סוחרים הפסיקו לסחור ממה שהתחילו. כמו דלי עם חור. זה חשבון פשוט: מספר הסוחרים ירד ב-4,000, אז יותר אנשים הפסיקו לסחור ממה שהתחילו או חזרו. (לא יודעים כמה בדיוק, כי אין נתוני שימור.)</li>
-<li><strong>הבאת לקוחות נהייתה יקרה יותר וגרועה יותר.</strong> שילמנו 26% יותר על פרסום, וקיבלנו רק 15% יותר לקוחות, שגם מפקידים פחות ומכניסים פחות. גם סך ההפקדות הראשונות ירד: $3.68 מיליון במקום $4 מיליון (מינוס 8%), למרות שהיו 15% יותר לקוחות חדשים. ובסך הכול, כל הלקוחות החדשים יחד הכניסו בחודש הראשון $1.73 מיליון במקום $2 מיליון: הוצאנו $1.3 מיליון יותר וקיבלנו 14% פחות. (11,500 × $150 מול 10,000 × $200.)</li>
-</ul>
-<p><strong>השורה התחתונה:</strong> זה לא רבעון טוב. זה רבעון חלש שנראה טוב בזכות כמה לקוחות גדולים.</p></div></details><div class="l-en">
+<section class="sec page" id="p-f1" data-page="f1" data-sec="section-f" data-title="F1. The real state of the business" data-title-he="F1. המצב האמיתי של העסק" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F1. The real state of the business</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F1. המצב האמיתי של העסק</span><span class="pts">6 נק׳</span></h3><div class="l-en">
 <p>Management's summary of Q3 is "a good quarter, revenue up 6%". These are the figures:</p>
 <div class="tablewrap"><table>
 <thead>
@@ -1724,15 +1580,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <p>הגיוס חלש יותר: השיווק עלה ב-26% בעבור 15% יותר חשבונות (עלות לחשבון $500 ← $548), בעוד ההפקדות הראשונות ירדו ב-20% וההכנסה בחודש הראשון ב-25%. <strong>$1.3M הוצאה נוספת קנו 14% פחות הכנסה בחודש הראשון.</strong></p>
 <p>זה רבעון חלש שנראה טוב בזכות 20 לקוחות.</p>
 </div></section>
-<section class="sec page" id="p-f2" data-page="f2" data-sec="section-f" data-title="F2. The number that worries me most" data-title-he="F2. המספר שמדאיג אותי ביותר" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F2. The number that worries me most</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F2. המספר שמדאיג אותי ביותר</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> איזה מספר הכי מדאיג?</p>
-<p><strong>התשובה:</strong> ההכנסה מכל הלקוחות <strong>חוץ</strong> מ-20 הגדולים, שירדה ב-7.5%.</p>
-<p><strong>למה דווקא הוא?</strong></p>
-<ul>
-<li>זה 70% מההכנסה וכמעט כל הלקוחות. זה <strong>הבסיס</strong> של החברה.</li>
-<li>20 הגדולים לא יציבים: אם ברבעון הבא הם יחזרו לרמה של Q2, וכל השאר יישאר אותו דבר, ההכנסה תרד ל-$28.2 מיליון, 11% פחות מ-Q3. (מול Q2 זה 6% פחות. חשוב להגיד מול מה משווים.)</li>
-<li>את בעיית הפרסום אפשר לתקן מהר. בסיס שמתכווץ קשה הרבה יותר לתקן.</li>
-</ul>
-<p>כמו גוף: פצע קטן מטפלים בו מהר. אבל אם השרירים נחלשים, זו בעיה גדולה יותר.</p></div></details><div class="l-en">
+<section class="sec page" id="p-f2" data-page="f2" data-sec="section-f" data-title="F2. The number that worries me most" data-title-he="F2. המספר שמדאיג אותי ביותר" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F2. The number that worries me most</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F2. המספר שמדאיג אותי ביותר</span><span class="pts">4 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Which single number worries you most, and why that one over the others?</p>
 </blockquote>
@@ -1745,12 +1593,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <p><strong>הכנסות מכל שאר הלקוחות: $24.0M ← $22.2M (−7.5%).</strong></p>
 <p>הוא מכסה 70% מההכנסות ואת כמעט כל הלקוחות, והוא כבר משקף את הסוחרים שאבדו ואת הקוהורטים החלשים יותר. ההכנסה מ-20 הגדולים תנודתית: אם היא חוזרת לרמות Q2 ושאר הלקוחות נשארים ללא שינוי, Q4 נופל ל-$28.2M, −11% לעומת Q3. סוחרים פעילים הוא רק ספירת ראשים, ואת יעילות השיווק אפשר לתקן בתוך רבעון. ליבה מצטמקת אי אפשר.</p>
 </div></section>
-<section class="sec page" id="p-f3" data-page="f3" data-sec="section-f" data-title="F3. Three cuts of data I would ask for next" data-title-he="F3. שלושה חתכי נתונים שהייתי מבקש בהמשך" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F3. Three cuts of data I would ask for next</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F3. שלושה חתכי נתונים שהייתי מבקש בהמשך</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> אילו נתונים הייתי מבקש עכשיו כדי להבין יותר?</p>
-<ol>
-<li><strong>מה בדיוק קרה עם 20 הגדולים.</strong> לפי לקוח, לפי חודש ולפי סוג הכנסה. האם זה קרה פעם אחת בגלל אירוע מיוחד בשוק, או שזה ימשיך?</li>
-<li><strong>פירוק של הלקוחות הפעילים, מ-Q2 ל-Q3.</strong> כמה נשארו, כמה עזבו, כמה חזרו וכמה חדשים. ואיפה העזיבה הכי גדולה: לפי ותק, לפי מדינה ולפי סוג השקעה. ומשווים גם ל-Q3 בשנה שעברה: Q3 הוא רבעון של קיץ וחופשות, ואולי אנשים פשוט סוחרים פחות בקיץ כל שנה.</li>
-<li><strong>לקוחות חדשים לפי ערוץ פרסום.</strong> כמה עלה להביא כל אחד, כמה הוא הפקיד וכמה הרוויח לנו. ככה יודעים איזה פרסום לעצור. סופרים רק לקוחות שעברו להם כבר 30 יום מלאים: מי שנרשם בסוף ספטמבר עוד לא הספיק לסחור חודש שלם, ואם סופרים אותו, הממוצע נראה נמוך יותר ממה שהוא באמת.</li>
-</ol></div></details><div class="l-en">
+<section class="sec page" id="p-f3" data-page="f3" data-sec="section-f" data-title="F3. Three cuts of data I would ask for next" data-title-he="F3. שלושה חתכי נתונים שהייתי מבקש בהמשך" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F3. Three cuts of data I would ask for next</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F3. שלושה חתכי נתונים שהייתי מבקש בהמשך</span><span class="pts">6 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Name the three cuts of data you would ask for next, and what each would confirm or rule out.</p>
 </blockquote>
@@ -1811,15 +1654,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 </tbody>
 </table></div>
 </div></section>
-<section class="sec page" id="p-f4" data-page="f4" data-sec="section-f" data-title="F4. What management should decide differently next quarter" data-title-he="F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F4. What management should decide differently next quarter</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מה ההנהלה צריכה לעשות אחרת ברבעון הבא?</p>
-<p>הטבלה בנויה כך: לכל בעיה שמצאנו ב-F1 יש החלטה אחת, וסיבה למה היא חשובה.</p>
-<ol>
-<li><strong>הכותרת "+6%" הסתירה ירידה</strong> ← <strong>לשנות את לוח התוצאות:</strong> להסתכל גם על ההכנסה בלי 20 הגדולים, על מספר הסוחרים הפעילים ועל כמה זמן לוקח לכל ערוץ פרסום להחזיר את עצמו.</li>
-<li><strong>הצמיחה תלויה ב-20 לקוחות</strong> ← <strong>צוות ייעודי ל-20 הגדולים:</strong> מנהל לקוח אישי לכל אחד ובדיקה של החשיפה לסיכון שלהם. הם 30% מההכנסה, אז אם אחד עוזב רואים את זה מיד בדוח.</li>
-<li><strong>הסוחרים הפעילים ירדו ב-8% למרות 11,500 חדשים</strong> ← <strong>למנות אחראי על שימור</strong>, עם יעד, ולנסות להחזיר את מי שעזב לאחרונה. להחזיר לקוח בדרך כלל זול יותר מלהביא חדש ב-$548.</li>
-<li><strong>הפרסום יקר יותר ומביא פחות</strong> ← <strong>לבדוק איזה פרסום עבד ואיזה לא:</strong> לכל ערוץ וקמפיין מחשבים כמה כסף הלקוחות שהוא הביא הכניסו ב-90 יום, לכל דולר פרסום. מעבירים תקציב מהחלשים לחזקים. הממוצע מסתיר שיש קמפיינים שעדיין משתלמים ויש כאלה שלא.</li>
-<li><strong>הלקוחות החדשים קטנים יותר</strong> ← <strong>לשפר את החודש הראשון:</strong> הדרכה וליווי עד העסקה הראשונה. בחודש הראשון נקבע אם הלקוח נשאר.</li>
-</ol></div></details><div class="l-en">
+<section class="sec page" id="p-f4" data-page="f4" data-sec="section-f" data-title="F4. What management should decide differently next quarter" data-title-he="F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F4. What management should decide differently next quarter</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא</span><span class="pts">4 נק׳</span></h3><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>What should management decide differently next quarter?</p>
 </blockquote>

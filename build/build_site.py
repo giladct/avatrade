@@ -103,31 +103,6 @@ def split_head(q):
     return m.group(1), m.group(2)
 
 
-# Hebrew prep notes (site only; delete content/explain_he.md to remove them)
-he = {}
-if os.path.exists("content/explain_he.md"):
-    he_src = open("content/explain_he.md", encoding="utf-8").read()
-    for blk in re.split(r"^## ", he_src, flags=re.M)[1:]:
-        key, txt = blk.split("\n", 1)
-        lines, prev = [], ""
-        for ln in txt.strip().split("\n"):
-            is_li = bool(re.match(r"(- |\d+\. )", ln))
-            if is_li and prev and not re.match(r"(- |\d+\. )", prev):
-                lines.append("")  # markdown needs a blank line before a list
-            lines.append(ln)
-            prev = ln
-        he[key.strip()] = markdown.markdown("\n".join(lines), extensions=["nl2br"])
-    if "f" in he and "f1" in he:  # the F data note now opens the F1 note
-        he["f1"] = he.pop("f") + he["f1"]
-
-
-def kid(pid):
-    if pid not in he:
-        return ""
-    return (f'<details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary>'
-            f'<div class="kid-body">{he[pid]}</div></details>')
-
-
 he_iter = iter(he_sections)
 for k in range(1, len(parts_en), 2):
     title = parts_en[k]
@@ -172,7 +147,7 @@ for k in range(1, len(parts_en), 2):
             body_html = bilingual(intro, intro_he)
             rtl = ""
         out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" '
-                   f'data-title-he="{html.escape(ptitle_he)}"{rtl} hidden>{crumb}{qhtml}{kid(pid)}{body_html}</section>')
+                   f'data-title-he="{html.escape(ptitle_he)}"{rtl} hidden>{crumb}{qhtml}{body_html}</section>')
         pages.append((pid, ptitle, ptitle_he, pts))
         chips.append(f'<a href="#{pid}" data-page="{pid}">{letter if letter != "·" else sym}</a>')
         first = pid
@@ -191,7 +166,7 @@ for k in range(1, len(parts_en), 2):
             if j == 0:  # the section's lead-in (Section F's case data) goes right under the first question's heading
                 rest_en, rest_he = intro + rest_en, intro_he + rest_he
             out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" '
-                       f'data-title-he="{html.escape(ptitle_he)}" hidden>{crumb}{h_en}{h_he}{kid(pid)}{bilingual(rest_en, rest_he)}</section>')
+                       f'data-title-he="{html.escape(ptitle_he)}" hidden>{crumb}{h_en}{h_he}{bilingual(rest_en, rest_he)}</section>')
             pages.append((pid, ptitle, ptitle_he, qpts.group(1) if qpts else ""))
             chips.append(f'<a href="#{pid}" data-page="{pid}">{pid.upper()}</a>')
             first = first or pid
