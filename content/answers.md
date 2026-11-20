@@ -349,7 +349,7 @@ I would plan for +2 points: part of the observed jump is probably seasonality or
 
 **Not on p = 0.04 alone.** If orders per user was the pre-set primary metric and the test is sound, the result can stand. Otherwise, confirm it with a new test that is large enough.
 
-1. **Multiple comparisons.** Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails.
+1. **Multiple comparisons.** If the three metrics are treated equally, or orders per user was picked after seeing the data, the chance that one looks significant by luck is about 14%. With Bonferroni (0.017), p = 0.04 fails. If it was the single pre-set primary metric, no correction is needed for it, but p = 0.04 is still weak evidence after one week.
 2. **Too short.** In one week, users may react just because the screen is new, and only one week of market conditions is covered.
 3. **Orders aren't value.** If revenue didn't move, users may just be splitting orders; a few heavy traders can also drive the mean.
 4. **Customer risk.** Nudging people to trade more draws regulatory attention.

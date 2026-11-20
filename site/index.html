@@ -894,7 +894,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </blockquote>
 <p><strong>Not on p = 0.04 alone.</strong> If orders per user was the pre-set primary metric and the test is sound, the result can stand. Otherwise, confirm it with a new test that is large enough.</p>
 <ol>
-<li><strong>Multiple comparisons.</strong> Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails.</li>
+<li><strong>Multiple comparisons.</strong> If the three metrics are treated equally, or orders per user was picked after seeing the data, the chance that one looks significant by luck is about 14%. With Bonferroni (0.017), p = 0.04 fails. If it was the single pre-set primary metric, no correction is needed for it, but p = 0.04 is still weak evidence after one week.</li>
 <li><strong>Too short.</strong> In one week, users may react just because the screen is new, and only one week of market conditions is covered.</li>
 <li><strong>Orders aren't value.</strong> If revenue didn't move, users may just be splitting orders; a few heavy traders can also drive the mean.</li>
 <li><strong>Customer risk.</strong> Nudging people to trade more draws regulatory attention.</li>
