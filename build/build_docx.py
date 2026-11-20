@@ -12,7 +12,7 @@ from docx.shared import Pt, RGBColor, Cm
 SRC = "content/answers.md"
 OUT = sys.argv[1] if len(sys.argv) > 1 else "deliverables/BA_Assessment_Gilad_Cohen-Tal.docx"
 NAME = "Gilad Cohen-Tal"
-DATE = "November 2026"
+DATE = "21 November 2026"
 
 NAVY = RGBColor(0x1F, 0x2A, 0x44)
 ACCENT = RGBColor(0x2B, 0x5C, 0xD6)
@@ -157,7 +157,7 @@ r = p.add_run("BUSINESS ANALYST ASSESSMENT"); r.font.size = Pt(10); r.bold = Tru
 p = doc.add_paragraph()
 r = p.add_run("Answers and analysis"); r.font.size = Pt(30); r.bold = True; r.font.color.rgb = NAVY
 p = doc.add_paragraph()
-r = p.add_run(f"{NAME}  ·  {DATE}"); r.font.size = Pt(12); r.font.color.rgb = MUTED
+r = p.add_run(f"{NAME}  ·  Business Analyst assessment, application to AvaTrade  ·  {DATE}"); r.font.size = Pt(12); r.font.color.rgb = MUTED
 p.paragraph_format.space_after = Pt(36)
 
 contents = [("הערות אישיות על הפרויקט", ""), ("General assumptions", ""), ("A", "SQL (25)"), ("B", "Metrics (15)"), ("C", "Data quality (10)"),
