@@ -447,9 +447,11 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 
 ## F3. Three cuts of data I would ask for next (6 points)
 
-1. **Top-20 revenue by client, month and revenue type.** Confirms or rules out a one-off driven by a few clients or one market event.
-2. **Active-trader breakdown, Q2 → Q3, for everyone else** (retained, churned, reactivated, new), by tenure, country and asset type, and against Q3 last year to rule out seasonality. Shows whether the decline is churn, and where.
-3. **New accounts by channel and country:** cost per account, first deposit and 30/90-day revenue, counting only accounts old enough to have a full window. Shows which channel absorbed the extra $1.3M and which spend to cut.
+| Data cut | Broken down by | What it shows |
+|---|---|---|
+| **Top-20 revenue** | Client, month and revenue type | Confirms or rules out a one-off driven by a few clients or one market event. |
+| **Active traders, Q2 → Q3, for everyone else** | Retained, churned, reactivated, new; by tenure, country and asset type; against Q3 last year to rule out seasonality | Whether the decline is churn, and where. |
+| **New accounts** | Channel and country: cost per account, first deposit and 30/90-day revenue (only accounts old enough for a full window) | Which channel absorbed the extra $1.3M and which spend to cut. |
 
 ## F4. What management should decide differently next quarter (4 points)
 

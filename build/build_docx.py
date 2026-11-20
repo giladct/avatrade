@@ -217,6 +217,8 @@ def flush_table(rows):
         widths = [3.0, 6.4, 7.2]
     if header[0] == "Problem (from F1)":
         widths = [3.4, 7.6, 5.6]
+    if header[0] == "Data cut":
+        widths = [3.8, 6.4, 6.4]
     if header[0] == "Step":
         widths = [3.2, 6.4, 7.0]
     if header[0] == "Definition":
