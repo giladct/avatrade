@@ -74,7 +74,7 @@ for k in range(1, len(parts), 2):
     content = content.replace("<table>", '<div class="tablewrap"><table>').replace("</table>", "</table></div>")
     # Section E: the live model below shows the same results table, so the static copy stays in Word only
     # same for "How it is calculated": the live model has its own version that reacts to the sliders
-    content = re.sub(r'<p><strong>How it is calculated</strong></p>\s*<ul>.*?</ul>\s*<div class="tablewrap">.*?</div>\s*', "", content, flags=re.S)
+    content = re.sub(r'<p><strong>How it is calculated</strong></p>\s*<ul>.*?</ul>\s*<div class="tablewrap">.*?</div>\s*', '<div id="e-calc-box"></div>', content, flags=re.S)
     content = re.sub(r'<p><strong>Results \(monthly\)</strong></p>\s*<div class="tablewrap">.*?</div>\s*', "", content, flags=re.S)
 
     # one page per question; text before the first question stays on the first page

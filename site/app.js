@@ -157,16 +157,18 @@
       <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
       <div class="tiles" id="e-tiles"></div>
       <div class="tablewrap"><table id="e-table"></table></div>
-      <p class="chart-title" style="margin-top:18px">How it is calculated</p>
-      <ul class="calc-notes" style="margin:6px 0 10px;padding-left:22px">
-        <li><b>Current revenue</b> = customers × commission per customer.</li>
-        <li><b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
-      </ul>
-      <div class="tablewrap"><table id="e-calc"></table></div>
       <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
       <p class="chart-sub" id="e-chart-sub"></p>
       <div class="legend" id="e-legend"></div>
       <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="Monthly revenue by subscription price"></svg>`;
+    // "How it is calculated" sits under the question's data table and reacts to the sliders below
+    const cbox = $("#e-calc-box");
+    if (cbox) cbox.innerHTML = `<p class="chart-title" style="margin-top:0">How it is calculated</p>
+      <ul class="calc-notes" style="margin:6px 0 10px;padding-left:22px">
+        <li><b>Current revenue</b> = customers × commission per customer.</li>
+        <li><b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
+      </ul>
+      <div class="tablewrap"><table id="e-calc"></table></div>`;
     const setInputs = () => {
       $("#e-price").value = E.price; $("#e-rate").value = E.rate; $("#e-min").value = E.min; $("#e-filter").value = E.filter; $("#e-rational").checked = E.rational;
       E.opt.forEach((v, i) => ($("#e-opt" + i).value = v));
@@ -212,7 +214,7 @@
         + `<td>${n0(r.subs)} × ${fmt$(E.price, 2)} + ${n0(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$(r.prop)}</td></tr>`;
     });
     c += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${n0(m.subs)}</td><td>${fmt$(m.prop)}</td></tr>`;
-    $("#e-calc").innerHTML = c + "</tbody>";
+    if ($("#e-calc")) $("#e-calc").innerHTML = c + "</tbody>";
     $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
     drawPriceChart();
   }
