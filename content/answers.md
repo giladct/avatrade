@@ -263,7 +263,11 @@ ORDER BY cur.month, cur.rnk;
 
 > Total assets held by customers grew 20% this year, but revenue grew only 5%. Give four possible explanations. Then show how you would break revenue into components to find which one is true.
 
-**Breaking revenue into components:** Revenue = Commission + Interest, where **Commission = Assets × Turnover × Take rate** and **Interest = Assets × Cash share × Net interest margin**.
+**Breaking revenue into components:**
+
+- **Revenue** = Commission + Interest
+- **Commission** = Assets × Turnover × Take rate
+- **Interest** = Assets × Cash share × Net interest margin
 
 | # | Explanation | What happened | Component that tests it | If true |
 |---|---|---|---|---|
