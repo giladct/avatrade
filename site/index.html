@@ -281,6 +281,8 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
   .pager a.next { grid-column: 2; }
   .page > .qhead { font-size: 21px; }
 }
+.dl { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; margin: 0 2px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: .92em; text-decoration: none; }
+.dl:hover { background: var(--accent); color: var(--bg); }
 @media print { @page { size: A4; margin: 12mm; } }
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }
@@ -974,7 +976,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </tr>
 </tbody>
 </table></div>
-<p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
+<p>Model in the attached <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; Download Section_E_Subscription_Model.xlsx</a>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
 <p><strong>How it is calculated</strong></p>
 <ul>

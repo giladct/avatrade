@@ -281,6 +281,8 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
   .pager a.next { grid-column: 2; }
   .page > .qhead { font-size: 21px; }
 }
+.dl { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; margin: 0 2px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: .92em; text-decoration: none; }
+.dl:hover { background: var(--accent); color: var(--bg); }
 @media print { @page { size: A4; margin: 12mm; } }
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }

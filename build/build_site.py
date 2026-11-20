@@ -58,6 +58,10 @@ for k in range(1, len(parts), 2):
     content = re.sub(r"<!-- widget:(sql-a\d) -->", lambda m: f'<div class="sqlrun" data-q="{m.group(1)[4:]}"></div>', content)
     content = content.replace("<!-- widget:cohort -->", "")  # A2 cohort table: Word only, not on the site
     content = content.replace("<!-- widget:excel -->", '<div id="excel-widget"></div>')
+    # Excel download: GitHub Pages serves the file (copied into docs/ below), so the artifact can link to it too
+    content = content.replace("<strong>Section_E_Subscription_Model.xlsx</strong>",
+        '<a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">'
+        '&#x2B07; Download Section_E_Subscription_Model.xlsx</a>')
     content = content.replace("<!-- widget:samplesize -->", '<div id="d1-widget"></div>')
     content = content.replace("<!-- widget:section-f -->", "")  # F charts: removed from the site
     content = content.replace("<!-- note -->", '<div class="callout">').replace("<!-- /note -->", "</div>")
@@ -142,6 +146,8 @@ print("site/index.html", len(page) // 1024, "KB")
 
 # local preview copy with the skeleton the artifact host adds; docs/ is the GitHub Pages copy
 os.makedirs("docs", exist_ok=True)
+import shutil
+shutil.copy("deliverables/Section_E_Subscription_Model.xlsx", "docs/Section_E_Subscription_Model.xlsx")
 title_m = re.search(r"<title>.*?</title>", page)  # a full page keeps its title in <head>
 title = title_m.group(0) if title_m else "<title>BA Assessment Answers</title>"
 body = page.replace(title, "", 1) if title_m else page
