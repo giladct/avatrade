@@ -1536,7 +1536,6 @@ ORDER BY cur.month, cur.rnk;`;
         <div class="ctl"><label for="e-price">Subscription price <output id="o-price"></output></label><input id="e-price" type="range" min="0" max="200" step="0.01"></div>
         <div class="ctl"><label for="e-rate">Commission rate <output id="o-rate"></output></label><input id="e-rate" type="range" min="0.0005" max="0.005" step="0.0001"></div>
         <div class="ctl"><label for="e-min">Minimum per trade <output id="o-min"></output></label><input id="e-min" type="range" min="0" max="5" step="0.25"></div>
-        <div class="ctl"><label for="e-filter">Segment filter</label><select id="e-filter"><option>All</option><option>Starter</option><option>Regular</option><option>Active</option></select></div>
         <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="e-reset">Reset to assignment figures</button></div>
       </div>
       <div class="controls opt-row">
@@ -1558,7 +1557,7 @@ ORDER BY cur.month, cur.rnk;`;
       </ul>
       <div class="tablewrap"><table id="e-calc"></table></div>`;
     const setInputs = () => {
-      $("#e-price").value = E.price; $("#e-rate").value = E.rate; $("#e-min").value = E.min; $("#e-filter").value = E.filter; $("#e-rational").checked = E.rational;
+      $("#e-price").value = E.price; $("#e-rate").value = E.rate; $("#e-min").value = E.min; $("#e-rational").checked = E.rational;
       E.opt.forEach((v, i) => ($("#e-opt" + i).value = v));
     };
     setInputs();
@@ -1567,7 +1566,6 @@ ORDER BY cur.month, cur.rnk;`;
       if (id === "e-price") E.price = +e.target.value;
       else if (id === "e-rate") E.rate = +e.target.value;
       else if (id === "e-min") E.min = +e.target.value;
-      else if (id === "e-filter") E.filter = e.target.value;
       else if (id === "e-rational") E.rational = e.target.checked;
       else if (id.startsWith("e-opt")) E.opt[+id.slice(5)] = +e.target.value;
       renderE();
