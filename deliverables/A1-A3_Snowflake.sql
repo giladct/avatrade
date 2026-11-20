@@ -1,15 +1,15 @@
--- Section A in Snowflake SQL. Same logic as the PostgreSQL answers; only dialect-specific parts change:
---   DISTINCT ON        -> QUALIFY ROW_NUMBER() ... = 1
---   LEFT JOIN LATERAL  -> ASOF JOIN (latest FX rate on or before the deposit date)
---   GENERATE_SERIES    -> TABLE(GENERATOR(...))
---   + INTERVAL         -> DATEADD
+-- Section A in Snowflake SQL. Rules used by all three queries:
+--   * Funding = first COMPLETED deposit over all history (ties broken by transaction_id).
+--   * Months are UTC calendar months.
+--   * Test accounts are excluded; a missing is_test flag counts as a real account.
 
 
 -- =====================================================================
 -- A1. Newly funded accounts and first-deposit USD, by month and signup channel, Jan–Oct 2026
 -- =====================================================================
 WITH first_deposit AS (
-    -- First COMPLETED deposit per account, over all history
+    -- First COMPLETED deposit per account, over ALL history (not only 2026),
+    -- so an account funded in 2025 is never counted as new in 2026
     SELECT t.account_id,
            COALESCE(a.signup_channel, 'Unknown') AS signup_channel,  -- empty channel shows as Unknown
            t.created_at        AS funded_at,
@@ -20,14 +20,15 @@ WITH first_deposit AS (
     JOIN accounts a ON a.account_id = t.account_id
     WHERE t.type   = 'Deposit'
       AND t.status = 'Completed'
-      AND COALESCE(a.is_test, 0) = 0
+      AND COALESCE(a.is_test, 0) = 0   -- real accounts only (a missing flag counts as real)
     QUALIFY ROW_NUMBER() OVER (PARTITION BY t.account_id
-                               ORDER BY t.created_at, t.transaction_id) = 1   -- tie-break on id
+                               ORDER BY t.created_at, t.transaction_id) = 1
 ),
 first_deposit_usd AS (
     SELECT fd.account_id,
            fd.signup_channel,
            DATE_TRUNC('month', fd.funded_at)::DATE AS funding_month,
+           -- usd_rate = how many USD one unit of the currency is worth
            fd.amount * CASE WHEN fd.currency = 'USD' THEN 1 ELSE fx.usd_rate END AS amount_usd
     FROM first_deposit fd
     -- ASOF JOIN = "as of" join: for each deposit it picks ONE fx_rates row of the same
@@ -37,6 +38,7 @@ first_deposit_usd AS (
     ASOF JOIN fx_rates fx
          MATCH_CONDITION (fd.funded_date >= fx.rate_date)
          ON fx.currency = fd.currency
+    -- Filter to 2026 only now, after the first deposit was chosen
     WHERE fd.funded_at >= '2026-01-01'
       AND fd.funded_at <  '2026-11-01'
 ),
@@ -71,7 +73,7 @@ ORDER BY g.month, g.signup_channel;
 -- A2. Funding-month cohorts, Jan–Jun 2026
 -- =====================================================================
 WITH funded AS (
-    -- Funding date = date of first COMPLETED deposit (real accounts only)
+    -- Funding date = date of first COMPLETED deposit (real accounts only; missing is_test = real)
     SELECT t.account_id,
            t.created_at::DATE AS funding_date
     FROM transactions t
@@ -83,6 +85,7 @@ WITH funded AS (
                                ORDER BY t.created_at, t.transaction_id) = 1
 ),
 cohort AS (
+    -- Accounts first funded Jan–Jun 2026. Month 0 = the calendar month of funding.
     SELECT account_id,
            funding_date,
            DATE_TRUNC('month', funding_date) AS funding_month
@@ -94,6 +97,7 @@ per_account AS (
     -- One row per account; the LEFT JOIN keeps non-traders as 0
     SELECT c.account_id,
            c.funding_month,
+           -- traded_m0 / m1 / m2 = traded in the funding month / next month / the month after (1 or 0)
            MAX(CASE WHEN o.executed_at >= c.funding_month
                      AND o.executed_at <  DATEADD(month, 1, c.funding_month) THEN 1 ELSE 0 END) AS traded_m0,
            MAX(CASE WHEN o.executed_at >= DATEADD(month, 1, c.funding_month)
@@ -115,6 +119,7 @@ per_account AS (
 )
 SELECT funding_month,
        COUNT(*)                        AS funded_accounts,
+       -- AVG of a 0/1 flag = share of the cohort that traded
        ROUND(AVG(traded_m0), 3)        AS share_traded_m0,
        ROUND(AVG(traded_m1), 3)        AS share_traded_m1,
        ROUND(AVG(traded_m2), 3)        AS share_traded_m2,
@@ -133,8 +138,8 @@ WITH monthly AS (
            SUM(o.quantity * o.price_usd)            AS traded_value_usd
     FROM orders o
     WHERE o.executed_at >= '2025-12-01'          -- December 2025 gives January a baseline
-      AND o.executed_at <  '2027-01-01'
-      AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts
+      AND o.executed_at <  '2027-01-01'          -- November 2026 is month-to-date
+      AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts (missing flag = real)
                       WHERE a.account_id = o.account_id AND a.is_test = 1)
     GROUP BY DATE_TRUNC('month', o.executed_at)::DATE, o.symbol
 ),
@@ -150,6 +155,7 @@ SELECT cur.month,
        ROUND(cur.traded_value_usd, 0)  AS traded_value_usd,
        prev.rnk                        AS previous_rank,
        prev.rnk - cur.rnk              AS places_moved,     -- positive = moved up
+       -- note: no rank last month = not traded then; rank > 10 last month = newly in the top 10
        CASE WHEN prev.rnk IS NULL THEN 'New: not traded last month'
             WHEN prev.rnk > 10    THEN 'Entered top 10'
             ELSE NULL END              AS note
