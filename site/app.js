@@ -65,7 +65,7 @@
     tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
   }
   const hideTip = () => (tip.hidden = true);
-  if (PRINT) { pages.forEach(p => (p.hidden = false)); } else show(location.hash, true);
+  if (PRINT) { const seen = {}; pages.forEach(p => { p.hidden = false; if (!seen[p.dataset.sec]) { seen[p.dataset.sec] = 1; p.classList.add("sec-first"); } }); } else show(location.hash, true);
 
   function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
 

@@ -281,7 +281,9 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }
 html.print .shell { display: block; max-width: none; padding: 0; }
-html.print .page { break-before: page; }
+html.print .page { break-before: auto; margin-top: 30px; }
+html.print .page.sec-first { break-before: page; margin-top: 0; }
+html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
 html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }

@@ -281,7 +281,9 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html.print .rail, html.print .pager, html.print .kid, html.print .toc-title, html.print .toc { display: none !important; }
 html.print .shell { display: block; max-width: none; padding: 0; }
-html.print .page { break-before: page; }
+html.print .page { break-before: auto; margin-top: 30px; }
+html.print .page.sec-first { break-before: page; margin-top: 0; }
+html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
 html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
@@ -344,7 +346,7 @@ html.print h3, html.print h4 { break-after: avoid; }
 <p><strong>Approach.</strong> Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0; channels come from the accounts table, with a missing one shown as Unknown.</p>
 <div class="callout">
 
-<p><strong>Why Snowflake.</strong> I chose Snowflake for two features many databases lack: <code>QUALIFY</code> keeps the first deposit per account without a subquery, and <code>ASOF JOIN</code> finds the latest FX rate on or before each deposit date in one join.</p>
+<p><strong>Why Snowflake.</strong> <code>QUALIFY</code> keeps the first deposit per account without a subquery, and <code>ASOF JOIN</code> finds the latest FX rate on or before each date in one join.</p>
 </div>
 
 <div class="codebox"><div class="codebar"><span>Snowflake SQL · submitted answer</span></div><pre><code class="language-sql">-- A1. Newly funded accounts and first-deposit USD, by month and signup channel, Jan–Oct 2026
@@ -490,10 +492,9 @@ ORDER BY funding_month;
 <p><strong>Notes</strong></p>
 <ul>
 <li>Average commission is divided by <strong>all</strong> funded accounts, including those that never traded.</li>
-<li>The 90 days can end after the third month (funded 31 Jan → ends 1 May), so the join uses <code>GREATEST</code> to read far enough.</li>
+<li>The 90 days can run past the third month (funded 31 Jan → ends 1 May), so the join uses <code>GREATEST</code>.</li>
 <li>Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.</li>
 <li><code>orders</code> holds only executed orders (per the brief), so no status filter is needed.</li>
-<li>All six cohorts are complete as of today.</li>
 </ul>
 <div class="sqlrun" data-q="a2"></div>
 
@@ -722,7 +723,7 @@ ORDER BY cur.month, cur.rnk;
 <tr>
 <td><strong>Customer mix</strong></td>
 <td>B has more tenured or wealthier customers, or a few very large clients lifting the average.</td>
-<td>Split both countries into the same groups (tenure × deposit size) and recalculate B's average using A's revenue per group. If the gap closes, the mix explains it. Also compare medians, and recheck without the top 1% of clients.</td>
+<td>Compare groups of the same tenure and deposit size across countries. If the gap closes, mix explains it. Also compare medians and recheck without the top 1% of clients.</td>
 </tr>
 <tr>
 <td><strong>Acquisition channel</strong></td>
@@ -732,7 +733,7 @@ ORDER BY cur.month, cur.rnk;
 <tr>
 <td><strong>Regulation and tax</strong></td>
 <td>Rules differ by country: EU retail investors can't buy US-listed ETFs without a KID, and the UK charges 0.5% stamp duty on share purchases. Fewer products and costlier trades mean fewer orders.</td>
-<td>Compare orders per customer and the asset-type mix in each country. If A's customers place fewer orders and hold fewer US ETFs while commission per order is similar, rules explain the gap.</td>
+<td>Compare orders per customer and asset-type mix. If A places fewer orders and holds fewer US ETFs at a similar commission per order, rules explain the gap.</td>
 </tr>
 </tbody>
 </table></div>
@@ -753,9 +754,9 @@ ORDER BY cur.month, cur.rnk;
 <p>The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.</p>
 </blockquote>
 <p>Orders and deposits were normal, so trading customers were active: the problem is most likely in measurement. The first check is Wednesday, because it splits the causes in two.</p>
-<p><strong>If Wednesday was back to normal (my assumption):</strong> nothing permanent changed, and Tuesday's activity data is most likely incomplete. Orders and deposits come from the trading and payment systems, while activity comes from a separate event feed. In order:</p>
+<p><strong>If Wednesday was back to normal (my assumption):</strong> nothing permanent changed, and Tuesday's activity data is most likely incomplete. Activity comes from a separate event feed, unlike orders and deposits. In order:</p>
 <ol>
-<li><strong>Late or partial load.</strong> Tuesday's job ran before all events arrived, or failed partway. Re-count Tuesday from the raw event table today and look at hourly counts against previous Tuesdays; a gap of a few hours points here.</li>
+<li><strong>Late or partial load.</strong> Tuesday's job ran before all events arrived, or failed partway. Compare hourly counts with previous Tuesdays; a gap of a few hours points here.</li>
 <li><strong>Event collection outage.</strong> The service that records logins and sessions was down for a few hours. Check its error logs and any incident or rolled-back release that day.</li>
 <li><strong>Day boundary.</strong> A time-zone mismatch or a job that cut the day early moved activity into Monday or Wednesday. Check whether either day is higher than usual.</li>
 </ol>
@@ -780,7 +781,7 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>Compare definitions:</strong> gross or net, which revenue types, which date (trade or booking), time zone, which accounts, FX rate.</li>
 <li><strong>Split both figures</strong> by revenue type, day and entity to find where the gap sits.</li>
 <li><strong>Match records</strong> by order or transaction ID: only in BI, only in Finance, different amounts.</li>
-<li><strong>Prevent the next gap:</strong> build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month. A total only shows that there is a gap; the lines show where, so it is fixed at the source.</li>
+<li><strong>Prevent the next gap:</strong> build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month.</li>
 </ol>
 <p><strong>Common causes:</strong> gross vs net, cut-off and time zone, scope (test or internal accounts), FX rates, duplicate rows in BI.</p>
 </section>
@@ -859,7 +860,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </blockquote>
 <p><strong>Not on p = 0.04 alone.</strong> If orders per user was the pre-set primary metric and the test is sound, the result can stand. Otherwise, confirm it with a new test that is large enough.</p>
 <ol>
-<li><strong>Multiple comparisons.</strong> Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails, unless orders per user was the pre-set primary metric.</li>
+<li><strong>Multiple comparisons.</strong> Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails.</li>
 <li><strong>Too short.</strong> In one week, users may react just because the screen is new, and only one week of market conditions is covered.</li>
 <li><strong>Orders aren't value.</strong> If revenue didn't move, users may just be splitting orders; a few heavy traders can also drive the mean.</li>
 <li><strong>Customer risk.</strong> Nudging people to trade more draws regulatory attention.</li>
@@ -909,7 +910,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </tbody>
 </table></div>
 <p>Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower chance.</p>
-<p><strong>Recommendation:</strong> don't keep this test running until the result looks good; that raises the chance of a false positive. If a confirmatory test is needed, run it for 2–3 weeks with the primary metric (revenue per user), guardrails (cancelled orders, complaints) and sample size set in advance.</p>
+<p><strong>Recommendation:</strong> don't extend this test until it looks good; that raises false positives. If a confirmatory test is needed, run it 2–3 weeks with revenue per user as the primary metric, guardrails (cancelled orders, complaints) and sample size set in advance.</p>
 </section>
 <section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" hidden><p class="crumb"><b>E</b><span>Section E · Excel model</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>E. Excel model</span><span class="pts">20 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
 <p><strong>דימוי:</strong> חדר כושר שמציע "כניסה חופשית ב-100 ש"ח לחודש" במקום 30 ש"ח לכל כניסה. מי יירשם? רק מי שמגיע הרבה. ומהם החדר מרוויח פחות.</p>
@@ -924,8 +925,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <p><strong>כמה המנוי צריך לעלות כדי לא להפסיד?</strong> $128.43.</p>
 <p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details>
 <p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
-<p>Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.</p>
-<p>The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
+<p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
 <p><strong>Results (monthly)</strong></p>
 <div class="tablewrap"><table>
 <thead>
@@ -1089,7 +1089,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 </ol></div></details>
 <ol>
 <li><strong>Top-20 revenue by client, month and revenue type.</strong> Confirms or rules out a one-off driven by a few clients or one market event.</li>
-<li><strong>Active-trader breakdown, Q2 → Q3, for everyone else</strong> (retained, churned, reactivated, new), split by tenure, country and asset type, and against Q3 last year to rule out summer seasonality. Confirms whether the decline is churn, and where it sits.</li>
+<li><strong>Active-trader breakdown, Q2 → Q3, for everyone else</strong> (retained, churned, reactivated, new), by tenure, country and asset type, and against Q3 last year to rule out seasonality. Shows whether the decline is churn, and where.</li>
 <li><strong>New accounts by channel and country:</strong> cost per account, first deposit and 30/90-day revenue, counting only accounts old enough to have a full window. Shows which channel absorbed the extra $1.3M and which spend to cut.</li>
 </ol>
 </section>
@@ -1119,7 +1119,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <tr>
 <td>Growth depends on 20 clients</td>
 <td><strong>Manage the top 20 as a portfolio.</strong> Give each an account manager and review our risk exposure to them.</td>
-<td>They are 30% of revenue: losing one shows in the results at once, and back at Q2 levels Q4 falls to $28.2M, −11% on Q3.</td>
+<td>They are 30% of revenue: losing one shows at once, and at Q2 levels Q4 falls to $28.2M (−11%).</td>
 </tr>
 <tr>
 <td>Active traders fell 8% despite 11,500 new accounts</td>
@@ -1443,7 +1443,7 @@ ORDER BY cur.month, cur.rnk;`;
     tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
   }
   const hideTip = () => (tip.hidden = true);
-  if (PRINT) { pages.forEach(p => (p.hidden = false)); } else show(location.hash, true);
+  if (PRINT) { const seen = {}; pages.forEach(p => { p.hidden = false; if (!seen[p.dataset.sec]) { seen[p.dataset.sec] = 1; p.classList.add("sec-first"); } }); } else show(location.hash, true);
 
   function svgEl(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
 

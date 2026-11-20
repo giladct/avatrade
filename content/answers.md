@@ -16,7 +16,7 @@
 
 <!-- note -->
 
-**Why Snowflake.** I chose Snowflake for two features many databases lack: `QUALIFY` keeps the first deposit per account without a subquery, and `ASOF JOIN` finds the latest FX rate on or before each deposit date in one join.
+**Why Snowflake.** `QUALIFY` keeps the first deposit per account without a subquery, and `ASOF JOIN` finds the latest FX rate on or before each date in one join.
 
 <!-- /note -->
 
@@ -161,10 +161,9 @@ ORDER BY funding_month;
 **Notes**
 
 - Average commission is divided by **all** funded accounts, including those that never traded.
-- The 90 days can end after the third month (funded 31 Jan → ends 1 May), so the join uses `GREATEST` to read far enough.
+- The 90 days can run past the third month (funded 31 Jan → ends 1 May), so the join uses `GREATEST`.
 - Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.
 - `orders` holds only executed orders (per the brief), so no status filter is needed.
-- All six cohorts are complete as of today.
 
 <!-- widget:sql-a2 -->
 
@@ -265,9 +264,9 @@ ORDER BY cur.month, cur.rnk;
 
 | Possible cause | What it means | How to test it |
 |---|---|---|
-| **Customer mix** | B has more tenured or wealthier customers, or a few very large clients lifting the average. | Split both countries into the same groups (tenure × deposit size) and recalculate B's average using A's revenue per group. If the gap closes, the mix explains it. Also compare medians, and recheck without the top 1% of clients. |
+| **Customer mix** | B has more tenured or wealthier customers, or a few very large clients lifting the average. | Compare groups of the same tenure and deposit size across countries. If the gap closes, mix explains it. Also compare medians and recheck without the top 1% of clients. |
 | **Acquisition channel** | In B, more customers may come through Referral and Search, arriving already intending to invest; in A, through Paid social promotions that bring smaller, occasional traders. | Compare the channel mix (`signup_channel`) in each country, then revenue per customer within the same channel. If B and A are close channel by channel, the mix of channels explains the gap. |
-| **Regulation and tax** | Rules differ by country: EU retail investors can't buy US-listed ETFs without a KID, and the UK charges 0.5% stamp duty on share purchases. Fewer products and costlier trades mean fewer orders. | Compare orders per customer and the asset-type mix in each country. If A's customers place fewer orders and hold fewer US ETFs while commission per order is similar, rules explain the gap. |
+| **Regulation and tax** | Rules differ by country: EU retail investors can't buy US-listed ETFs without a KID, and the UK charges 0.5% stamp duty on share purchases. Fewer products and costlier trades mean fewer orders. | Compare orders per customer and asset-type mix. If A places fewer orders and holds fewer US ETFs at a similar commission per order, rules explain the gap. |
 
 # Section C: Data quality
 
@@ -277,9 +276,9 @@ ORDER BY cur.month, cur.rnk;
 
 Orders and deposits were normal, so trading customers were active: the problem is most likely in measurement. The first check is Wednesday, because it splits the causes in two.
 
-**If Wednesday was back to normal (my assumption):** nothing permanent changed, and Tuesday's activity data is most likely incomplete. Orders and deposits come from the trading and payment systems, while activity comes from a separate event feed. In order:
+**If Wednesday was back to normal (my assumption):** nothing permanent changed, and Tuesday's activity data is most likely incomplete. Activity comes from a separate event feed, unlike orders and deposits. In order:
 
-1. **Late or partial load.** Tuesday's job ran before all events arrived, or failed partway. Re-count Tuesday from the raw event table today and look at hourly counts against previous Tuesdays; a gap of a few hours points here.
+1. **Late or partial load.** Tuesday's job ran before all events arrived, or failed partway. Compare hourly counts with previous Tuesdays; a gap of a few hours points here.
 2. **Event collection outage.** The service that records logins and sessions was down for a few hours. Check its error logs and any incident or rolled-back release that day.
 3. **Day boundary.** A time-zone mismatch or a job that cut the day early moved activity into Monday or Wednesday. Check whether either day is higher than usual.
 
@@ -298,7 +297,7 @@ Orders and deposits were normal, so trading customers were active: the problem i
 1. **Compare definitions:** gross or net, which revenue types, which date (trade or booking), time zone, which accounts, FX rate.
 2. **Split both figures** by revenue type, day and entity to find where the gap sits.
 3. **Match records** by order or transaction ID: only in BI, only in Finance, different amounts.
-4. **Prevent the next gap:** build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month. A total only shows that there is a gap; the lines show where, so it is fixed at the source.
+4. **Prevent the next gap:** build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month.
 
 **Common causes:** gross vs net, cut-off and time zone, scope (test or internal accounts), FX rates, duplicate rows in BI.
 
@@ -335,7 +334,7 @@ I would plan for +2 points: part of the observed jump is probably seasonality or
 
 **Not on p = 0.04 alone.** If orders per user was the pre-set primary metric and the test is sound, the result can stand. Otherwise, confirm it with a new test that is large enough.
 
-1. **Multiple comparisons.** Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails, unless orders per user was the pre-set primary metric.
+1. **Multiple comparisons.** Three metrics give about a 14% chance that one looks significant by luck. After correction (Bonferroni, 0.017), p = 0.04 fails.
 2. **Too short.** In one week, users may react just because the screen is new, and only one week of market conditions is covered.
 3. **Orders aren't value.** If revenue didn't move, users may just be splitting orders; a few heavy traders can also drive the mean.
 4. **Customer risk.** Nudging people to trade more draws regulatory attention.
@@ -353,15 +352,13 @@ I would plan for +2 points: part of the observed jump is probably seasonality or
 
 Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower chance.
 
-**Recommendation:** don't keep this test running until the result looks good; that raises the chance of a false positive. If a confirmatory test is needed, run it for 2–3 weeks with the primary metric (revenue per user), guardrails (cancelled orders, complaints) and sample size set in advance.
+**Recommendation:** don't extend this test until it looks good; that raises false positives. If a confirmatory test is needed, run it 2–3 weeks with revenue per user as the primary metric, guardrails (cancelled orders, complaints) and sample size set in advance.
 
 # Section E: Excel model
 
 Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trade = `MAX(rate × value, minimum)`; subscribers pay the fee and trade free.
 
-Using average trade values gives a lower bound: any trade under $500 pays the $1 minimum, so actual commission is likely higher. Trade-level data would refine it.
-
-The model also holds trades per month fixed, though free trading may make subscribers trade more.
+Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.
 
 **Results (monthly)**
 
@@ -422,7 +419,7 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 ## F3. Three cuts of data I would ask for next (6 points)
 
 1. **Top-20 revenue by client, month and revenue type.** Confirms or rules out a one-off driven by a few clients or one market event.
-2. **Active-trader breakdown, Q2 → Q3, for everyone else** (retained, churned, reactivated, new), split by tenure, country and asset type, and against Q3 last year to rule out summer seasonality. Confirms whether the decline is churn, and where it sits.
+2. **Active-trader breakdown, Q2 → Q3, for everyone else** (retained, churned, reactivated, new), by tenure, country and asset type, and against Q3 last year to rule out seasonality. Shows whether the decline is churn, and where.
 3. **New accounts by channel and country:** cost per account, first deposit and 30/90-day revenue, counting only accounts old enough to have a full window. Shows which channel absorbed the extra $1.3M and which spend to cut.
 
 ## F4. What management should decide differently next quarter (4 points)
@@ -430,7 +427,7 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 | Problem (from F1) | Decision | Why it matters |
 |---|---|---|
 | The +6% headline hid a shrinking core | **Change the scorecard.** Report revenue excluding the top 20, active traders and payback per channel. | Management called it a good quarter while the core fell 7.5%. |
-| Growth depends on 20 clients | **Manage the top 20 as a portfolio.** Give each an account manager and review our risk exposure to them. | They are 30% of revenue: losing one shows in the results at once, and back at Q2 levels Q4 falls to $28.2M, −11% on Q3. |
+| Growth depends on 20 clients | **Manage the top 20 as a portfolio.** Give each an account manager and review our risk exposure to them. | They are 30% of revenue: losing one shows at once, and at Q2 levels Q4 falls to $28.2M (−11%). |
 | Active traders fell 8% despite 11,500 new accounts | **Own retention.** Give churn an owner and a target, act on early-warning signals, and win back recent leavers. | Keeping or winning back a trader usually costs less than a $548 new account. |
 | Marketing costs more and brings less | **Fund marketing by value.** Check which channels and campaigns worked by 90-day revenue per dollar, not account count, and move budget from the weakest to the strongest. | Cost per account rose to $548 while first-month revenue fell 25%. The average hides which campaigns still pay back. |
 | New accounts are smaller | **Improve the first 30 days.** Education and support up to the first trade. | The first month decides whether a new customer stays. |
