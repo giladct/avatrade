@@ -193,6 +193,8 @@
       const dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
       h += `<tr${dim}><td>${r.name}</td><td>${fmt$(r.cpc, 2)}</td><td>${Math.round(r.opt * 100)}%</td><td>${fmt$(r.cur)}</td><td>${fmt$(r.prop)}</td><td class="${r.diff >= 0 ? "pos" : "neg"}">${fmtSigned$(r.diff)}</td></tr>`;
     }
+    const totLabel = E.filter === "All" ? "Total" : "Total (" + E.filter + ")";
+    h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${fmt$(m.cur)}</td><td>${fmt$(m.prop)}</td><td class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
     $("#e-table").innerHTML = h + `</tbody>`;
     $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
     drawPriceChart();
