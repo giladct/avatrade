@@ -348,7 +348,7 @@ html[lang="he"] .eq { text-align: center; }
     <section class="sec page" id="p-notes" data-page="notes" data-sec="notes" data-title="הערות אישיות על הפרויקט" dir="rtl" lang="he" hidden><p class="crumb"><b>i</b><span>אודות העבודה</span></p><h3 class="qhead"><span>הערות אישיות על הפרויקט</span></h3>
 <ol>
 <li><strong>למה Snowflake.</strong> הבנתי שזה מה שמשתמשים בו אצלכם, ולכן כל ה-SQL כתוב עבורו. הפקודה שאני הכי אוהב היא <code>QUALIFY</code>‏: היא מסננת לפי התוצאה של פונקציית חלון (window function), כמו ש-<code>WHERE</code> מסנן לפי עמודה. בלעדיה, "ההפקדה הראשונה של כל חשבון" דורשת subquery או CTE רק כדי להשאיר <code>ROW_NUMBER() = 1</code>‏. איתה זו שורה אחת בסוף השאילתה: הקוד קצר וקריא יותר, וקשה יותר לטעות בו. השתמשתי בה ב-A1 וב-A2‏.</li>
-<li><strong>החלק החלש שלי הוא נוסחאות סטטיסטיות.</strong> אני לא מסתמך על שינון שלהן. לכן הצגתי את כל דרך החישוב, והוספתי אפשרות לכוונון (D1), כדי "להרגיש" את המשמעות של הערכים לפי הנתונים. חשוב לי להראות גם את החישוב המתמטי עצמו, בנוסחאות, ולא רק את התוצאה, כי כך אני מרגיש את הנתונים.</li>
+<li><strong>החלק החלש שלי הוא נוסחאות סטטיסטיות.</strong> אני לא מסתמך על שינון שלהן. לכן הצגתי את כל דרך החישוב, והוספתי אפשרות לכוונון (D1, לתכנון מבחן A/B), כדי "להרגיש" את המשמעות של הערכים לפי הנתונים. חשוב לי להראות גם את החישוב המתמטי עצמו, בנוסחאות, ולא רק את התוצאה, כי כך אני מרגיש את הנתונים.</li>
 <li><strong>מודל האקסל (Section E).</strong> בניתי מערכת שבה אפשר לכוונן כל פרמטר ולראות מיד מה קורה כשהוא משתנה. מעבר עם העכבר על כל חישוב בטבלת התוצאות פותח tooltip עם פירוט החישוב.</li>
 <li><strong>שימוש ב-AI.</strong> השתמשתי ב-AI, אבל החשיבה היא שלי: איך לגשת לנתונים, איך להציג אותם, איך לבדוק אותם, מה להראות ומה לא להראות. ה-AI עזר לי לבנות מהר יותר, וההחלטות מה נכון ומה חשוב נשארו אצלי.</li>
 <li><strong>קבצים מצורפים.</strong> מצורפים גם קובץ ה-PDF וקובץ האקסל, אך אין בהם צורך: הכל קיים באתר (web), כולל המודל האינטראקטיבי.</li>
@@ -786,6 +786,7 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 <p>I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.</p>
+<p><strong>All the tuning below is for planning this A/B test.</strong> The sliders (baseline rate, improvement, power) change the sample size and run time of the future test, using a two-proportion z-test. They do not test the February-vs-March change.</p>
 <!-- math:d1 -->
 
 <div id="d1-widget"></div>
