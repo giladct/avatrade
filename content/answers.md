@@ -411,7 +411,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 
 # Section F: Business review
 
-> Management's summary of Q3 is "a good quarter, revenue up 6%".
+Management's summary of Q3 is "a good quarter, revenue up 6%". These are the figures:
 
 | Metric | Q2 | Q3 | Change |
 |---|---|---|---|
@@ -431,6 +431,8 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 
 ## F1. The real state of the business (6 points)
 
+> In no more than 150 words, what is the real state of the business?
+
 Growth came from 20 clients. Their revenue rose 60% and is now 30% of the total, while everyone else fell 7.5%. Without their growth, revenue would be down 6%.
 
 The base is shrinking: active traders fell 8% and volume 3%, despite 11,500 new accounts. **That is 4,000 fewer, so more traders stopped trading than started or came back.**
@@ -441,11 +443,15 @@ It is a weak quarter that looks good because of 20 clients.
 
 ## F2. The number that worries me most (4 points)
 
+> Which single number worries you most, and why that one over the others?
+
 **Revenue from all other clients: $24.0M → $22.2M (−7.5%).**
 
 It covers 70% of revenue and almost every customer, and it already reflects the lost traders and weaker new cohorts. Top-20 revenue is volatile: if it returns to Q2 levels and the rest stays flat, Q4 falls to $28.2M, −11% on Q3. Active traders is only a headcount, and marketing efficiency can be fixed within a quarter. A shrinking core cannot.
 
 ## F3. Three cuts of data I would ask for next (6 points)
+
+> Name the three cuts of data you would ask for next, and what each would confirm or rule out.
 
 | Data cut | Broken down by | What it shows |
 |---|---|---|
@@ -454,6 +460,8 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 | **New accounts** | Channel and country: cost per account, first deposit and 30/90-day revenue (only accounts old enough for a full window) | Confirms or rules out that a few channels absorbed the extra $1.3M, and shows which spend to cut. |
 
 ## F4. What management should decide differently next quarter (4 points)
+
+> What should management decide differently next quarter?
 
 | Problem (from F1) | Decision | Why it matters |
 |---|---|---|

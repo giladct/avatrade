@@ -298,6 +298,8 @@ html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
 html.print .hint-hover { display: none; }
+html.print [data-sec="section-f"] th, html.print [data-sec="section-f"] td { padding: 5px 12px; }
+html.print .qhead, html.print blockquote.brief { break-after: avoid; }
 html.print #e-table td[data-tip] { text-decoration: none; }
 html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
@@ -1010,9 +1012,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li><strong>הבאת לקוחות נהייתה יקרה יותר וגרועה יותר.</strong> שילמנו 26% יותר על פרסום, וקיבלנו רק 15% יותר לקוחות, שגם מפקידים פחות ומכניסים פחות. גם סך ההפקדות הראשונות ירד: $3.68 מיליון במקום $4 מיליון (מינוס 8%), למרות שהיו 15% יותר לקוחות חדשים. ובסך הכול, כל הלקוחות החדשים יחד הכניסו בחודש הראשון $1.73 מיליון במקום $2 מיליון: הוצאנו $1.3 מיליון יותר וקיבלנו 14% פחות. (11,500 × $150 מול 10,000 × $200.)</li>
 </ul>
 <p><strong>השורה התחתונה:</strong> זה לא רבעון טוב. זה רבעון חלש שנראה טוב בזכות כמה לקוחות גדולים.</p></div></details>
-<blockquote class="brief"><span class="brief-label">The question</span>
-<p>Management's summary of Q3 is "a good quarter, revenue up 6%".</p>
-</blockquote>
+<p>Management's summary of Q3 is "a good quarter, revenue up 6%". These are the figures:</p>
 <div class="tablewrap"><table>
 <thead>
 <tr>
@@ -1083,6 +1083,9 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 
 
 
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>In no more than 150 words, what is the real state of the business?</p>
+</blockquote>
 <p>Growth came from 20 clients. Their revenue rose 60% and is now 30% of the total, while everyone else fell 7.5%. Without their growth, revenue would be down 6%.</p>
 <p>The base is shrinking: active traders fell 8% and volume 3%, despite 11,500 new accounts. <strong>That is 4,000 fewer, so more traders stopped trading than started or came back.</strong></p>
 <p>Acquisition is weaker: marketing rose 26% for 15% more accounts (cost per account $500 → $548), while first deposits fell 20% and first-month revenue 25%. <strong>$1.3M more spend bought 14% less first-month revenue.</strong></p>
@@ -1097,6 +1100,9 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li>את בעיית הפרסום אפשר לתקן מהר. בסיס שמתכווץ קשה הרבה יותר לתקן.</li>
 </ul>
 <p>כמו גוף: פצע קטן מטפלים בו מהר. אבל אם השרירים נחלשים, זו בעיה גדולה יותר.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Which single number worries you most, and why that one over the others?</p>
+</blockquote>
 <p><strong>Revenue from all other clients: $24.0M → $22.2M (−7.5%).</strong></p>
 <p>It covers 70% of revenue and almost every customer, and it already reflects the lost traders and weaker new cohorts. Top-20 revenue is volatile: if it returns to Q2 levels and the rest stays flat, Q4 falls to $28.2M, −11% on Q3. Active traders is only a headcount, and marketing efficiency can be fixed within a quarter. A shrinking core cannot.</p>
 </section>
@@ -1106,6 +1112,9 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li><strong>פירוק של הלקוחות הפעילים, מ-Q2 ל-Q3.</strong> כמה נשארו, כמה עזבו, כמה חזרו וכמה חדשים. ואיפה העזיבה הכי גדולה: לפי ותק, לפי מדינה ולפי סוג השקעה. ומשווים גם ל-Q3 בשנה שעברה: Q3 הוא רבעון של קיץ וחופשות, ואולי אנשים פשוט סוחרים פחות בקיץ כל שנה.</li>
 <li><strong>לקוחות חדשים לפי ערוץ פרסום.</strong> כמה עלה להביא כל אחד, כמה הוא הפקיד וכמה הרוויח לנו. ככה יודעים איזה פרסום לעצור. סופרים רק לקוחות שעברו להם כבר 30 יום מלאים: מי שנרשם בסוף ספטמבר עוד לא הספיק לסחור חודש שלם, ואם סופרים אותו, הממוצע נראה נמוך יותר ממה שהוא באמת.</li>
 </ol></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>Name the three cuts of data you would ask for next, and what each would confirm or rule out.</p>
+</blockquote>
 <div class="tablewrap"><table>
 <thead>
 <tr>
@@ -1142,6 +1151,9 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li><strong>הפרסום יקר יותר ומביא פחות</strong> ← <strong>לבדוק איזה פרסום עבד ואיזה לא:</strong> לכל ערוץ וקמפיין מחשבים כמה כסף הלקוחות שהוא הביא הכניסו ב-90 יום, לכל דולר פרסום. מעבירים תקציב מהחלשים לחזקים. הממוצע מסתיר שיש קמפיינים שעדיין משתלמים ויש כאלה שלא.</li>
 <li><strong>הלקוחות החדשים קטנים יותר</strong> ← <strong>לשפר את החודש הראשון:</strong> הדרכה וליווי עד העסקה הראשונה. בחודש הראשון נקבע אם הלקוח נשאר.</li>
 </ol></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>What should management decide differently next quarter?</p>
+</blockquote>
 <div class="tablewrap"><table>
 <thead>
 <tr>

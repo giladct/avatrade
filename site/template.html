@@ -298,6 +298,8 @@ html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
 html.print .hint-hover { display: none; }
+html.print [data-sec="section-f"] th, html.print [data-sec="section-f"] td { padding: 5px 12px; }
+html.print .qhead, html.print blockquote.brief { break-after: avoid; }
 html.print #e-table td[data-tip] { text-decoration: none; }
 html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
