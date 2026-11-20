@@ -12,7 +12,13 @@
 
 > For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.
 
-**Approach.** Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0; channels come from the accounts table, with a missing one shown as Unknown.
+**Approach**
+
+- Find each account's first completed deposit.
+- Convert it to USD.
+- Count by funding month and channel.
+- Use a month × channel grid, so empty combinations show as 0.
+- Take channels from the accounts table; a missing one shows as Unknown.
 
 <!-- note -->
 

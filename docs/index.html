@@ -347,7 +347,14 @@ html.print h3, html.print h4 { break-after: avoid; }
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.</p>
 </blockquote>
-<p><strong>Approach.</strong> Find each account's first completed deposit, convert it to USD, and count by funding month and channel. A month × channel grid shows empty combinations as 0; channels come from the accounts table, with a missing one shown as Unknown.</p>
+<p><strong>Approach</strong></p>
+<ul>
+<li>Find each account's first completed deposit.</li>
+<li>Convert it to USD.</li>
+<li>Count by funding month and channel.</li>
+<li>Use a month × channel grid, so empty combinations show as 0.</li>
+<li>Take channels from the accounts table; a missing one shows as Unknown.</li>
+</ul>
 <div class="callout">
 
 <p><strong>Why Snowflake.</strong> <code>QUALIFY</code> keeps the first deposit per account without a subquery, and <code>ASOF JOIN</code> finds the latest FX rate on or before each date in one join.</p>
