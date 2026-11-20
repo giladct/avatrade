@@ -44,8 +44,10 @@ first_deposit_usd AS (
            DATE_TRUNC('month', fd.funded_at)::DATE AS funding_month,
            fd.amount * CASE WHEN fd.currency = 'USD' THEN 1 ELSE fx.usd_rate END AS amount_usd
     FROM first_deposit fd
-    -- Rate on the deposit date, or the latest earlier one (weekends, holidays).
-    -- ASOF JOIN keeps every deposit; usd_rate is NULL when no rate exists.
+    -- ASOF JOIN = "as of" join: for each deposit it picks ONE fx_rates row of the same
+    -- currency, the one with the latest rate_date on or before the deposit date.
+    -- So a Saturday deposit gets Friday's rate (weekends, holidays have no row).
+    -- Like a LEFT JOIN, it keeps every deposit; usd_rate is NULL when no rate exists.
     ASOF JOIN fx_rates fx
          MATCH_CONDITION (fd.funded_date >= fx.rate_date)
          ON fx.currency = fd.currency
