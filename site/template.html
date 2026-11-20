@@ -100,6 +100,9 @@ blockquote.brief { margin: 0 0 20px; padding: 14px 18px; background: var(--surfa
 blockquote.brief p { margin: 0; font-size: 15px; }
 .brief-label { display: block; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 4px; }
 
+.eq { overflow-x: auto; overflow-y: hidden; margin: 0 0 6px; padding: 6px 0; }
+.eq math { margin: 0; line-height: 1.5; }
+math { font-size: 1.1em; }
 .tablewrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }
 th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -292,7 +295,7 @@ html.print .page.sec-first { break-before: page; margin-top: 0; }
 html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
-html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
+html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }

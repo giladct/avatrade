@@ -294,7 +294,7 @@
       <div class="tiles" id="d-tiles"></div>
       <p class="chart-sub" style="margin:-8px 0 14px">*At least two full weeks, to cover every weekday.</p>
       <p><strong>How the numbers are calculated</strong></p>
-      <ol id="d-calc"></ol>
+      <div id="d-calc"></div>
       <p class="chart-title">Users needed per group, by improvement to detect</p>
       <p class="chart-sub">Halving the improvement needs about four times the users. Hover to read values.</p>
       <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="Users needed per group by improvement to detect"></svg>`;
@@ -326,15 +326,31 @@
         .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
       const p1 = D.base, p2 = D.base + D.diff, pb = (p1 + p2) / 2, z = Z[D.power];
       const A = 1.96 * Math.sqrt(2 * pb * (1 - pb)), Bt = z * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
-      const f3 = v => v.toFixed(3), d2 = v => v.toFixed(2);
-      const raw = total / D.weekly;
-      $("#d-calc").innerHTML = [
-        `<b>Rates:</b> p₁ = ${pct(p1)}, p₂ = ${pct(p2)}, average p̄ = ${pct(pb)}.`,
-        `<b>Two terms:</b> A = 1.96 × √(2 × ${d2(pb)} × ${d2(1 - pb)}) = ${f3(A)} (1.96 = 5% two-sided). B = ${z} × √(${d2(p1)} × ${d2(1 - p1)} + ${d2(p2)} × ${d2(1 - p2)}) = ${f3(Bt)} (${z} = ${D.power * 100}% power).`,
-        `<b>Users per group</b> = (A + B)² ÷ (p₂ − p₁)² = ${f3((A + Bt) ** 2)} ÷ ${(D.diff * D.diff).toFixed(4)} = <b>${num(n)}</b> (rounded up).`,
-        `<b>Total users</b> = 2 × ${num(n)} = <b>${num(total)}</b>.`,
-        `<b>Weeks to run</b> = ${num(total)} ÷ ${num(D.weekly)} sign-ups per week = ${raw.toFixed(1)}, rounded up to <b>${weeks}</b> (never below 2).`
-      ].map(s => `<li>${s}</li>`).join("");
+      const f3 = v => v.toFixed(3), d2 = v => v.toFixed(2), raw = total / D.weekly;
+      // MathML builders
+      const mi = t => `<mi>${t}</mi>`, mn = t => `<mn>${t}</mn>`, mo = t => `<mo>${t}</mo>`, mt = t => `<mtext>${t}</mtext>`;
+      const mr = (...a) => `<mrow>${a.join("")}</mrow>`, sq = x => `<msqrt>${x}</msqrt>`, fr = (a, b) => `<mfrac>${a}${b}</mfrac>`;
+      const sb = (a, b) => `<msub>${a}${b}</msub>`, sp = (a, b) => `<msup>${a}${b}</msup>`;
+      const P = (...a) => mr(mo("("), ...a, mo(")")), dot = mo("⋅"), minus = mo("−"), plus = mo("+"), eq = mo("=");
+      const pv = k => sb(mi("p"), mn(k)), bar = `<mover>${mi("p")}<mo>‾</mo></mover>`, one = x => P(mn("1"), minus, x);
+      const zA = sb(mi("z"), mr(mi("α"), mo("/"), mn("2"))), zB = sb(mi("z"), mi("β"));
+      const blk = x => `<div class="eq"><math display="block">${x}</math></div>`, inl = x => `<math>${x}</math>`;
+      const gen = mr(mi("n"), eq, fr(sp(P(mi("A"), plus, mi("B")), mn("2")), sp(P(pv("2"), minus, pv("1")), mn("2"))));
+      const defA = mr(mi("A"), eq, zA, dot, sq(mr(mn("2"), dot, bar, dot, one(bar))), eq, mn("1.96"), dot, sq(mr(mn("2"), dot, mn(d2(pb)), dot, mn(d2(1 - pb)))), eq, mn(f3(A)));
+      const defB = mr(mi("B"), eq, zB, dot, sq(mr(pv("1"), dot, one(pv("1")), plus, pv("2"), dot, one(pv("2")))), eq, mn(z), dot,
+        sq(mr(mn(d2(p1)), dot, mn(d2(1 - p1)), plus, mn(d2(p2)), dot, mn(d2(1 - p2)))), eq, mn(f3(Bt)));
+      const result = mr(mi("n"), eq, fr(sp(P(mn(f3(A)), plus, mn(f3(Bt))), mn("2")), sp(P(mn(d2(p2)), minus, mn(d2(p1))), mn("2"))),
+        eq, fr(mn(f3((A + Bt) ** 2)), mn((D.diff * D.diff).toFixed(4))), eq, mn(num(n)));
+      const totalM = mr(mi("N"), eq, mn("2"), dot, mi("n"), eq, mn("2"), dot, mn(num(n)), eq, mn(num(total)));
+      const weeksM = mr(mt("weeks"), eq, mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mi("N"), mi("W")), mo("⌉")), eq,
+        mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mn(num(total)), mn(num(D.weekly))), mo("⌉")), eq, mn(weeks));
+      $("#d-calc").innerHTML =
+        `<p><b>Inputs.</b> ${inl(mr(pv("1"), eq, mn(pct(p1))))}, ${inl(mr(pv("2"), eq, mn(pct(p2))))}, ` +
+        `${inl(mr(bar, eq, fr(mr(pv("1"), plus, pv("2")), mn("2")), eq, mn(pct(pb))))}, ` +
+        `${inl(mr(zA, eq, mn("1.96")))} (5% significance, two-sided), ${inl(mr(zB, eq, mn(z)))} (${D.power * 100}% power), ` +
+        `${inl(mr(mi("W"), eq, mn(num(D.weekly))))} sign-ups per week.</p>` +
+        `<p><b>Users per group</b></p>${blk(gen)}${blk(defA)}${blk(defB)}${blk(result)}` +
+        `<p><b>Total users</b></p>${blk(totalM)}<p><b>Weeks to run</b> (never below 2)</p>${blk(weeksM)}`;
       drawD();
     }
     function drawD() {

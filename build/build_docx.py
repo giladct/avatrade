@@ -247,6 +247,10 @@ while i < len(lines):
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.add_run().add_picture("build/a2_result.png", width=Cm(13.5))
         i += 1; continue
+    if s == "<!-- math:d1 -->":
+        from wordmath import d1_block
+        d1_block(doc, add_runs)
+        i += 1; continue
     if s == "<!-- note -->":
         note_start = len(doc.paragraphs)
         in_note = True
