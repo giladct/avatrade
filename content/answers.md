@@ -332,6 +332,14 @@ A February-vs-March comparison can't isolate the flow. I would check:
 
 I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.
 
+**How the numbers are calculated** (18% → 22%, 1,000 sign-ups a week)
+
+1. **Rates:** p₁ = 18%, p₂ = 22%, average p̄ = 20%.
+2. **Two terms:** A = 1.96 × √(2 × 0.20 × 0.80) = 1.109 (1.96 = 5% two-sided). B = 0.8416 × √(0.18 × 0.82 + 0.22 × 0.78) = 0.475 (0.8416 = 80% power).
+3. **Users per group** = (A + B)² ÷ (p₂ − p₁)² = 2.510 ÷ 0.0016 = **1,569**.
+4. **Total users** = 2 × 1,569 = **3,138**.
+5. **Weeks to run** = 3,138 ÷ 1,000 sign-ups per week = 3.1, rounded up to **4** (never below 2).
+
 <!-- widget:samplesize -->
 
 ## D2. A/B test result (4 points)

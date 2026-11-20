@@ -293,6 +293,8 @@
       </div>
       <div class="tiles" id="d-tiles"></div>
       <p class="chart-sub" style="margin:-8px 0 14px">*At least two full weeks, to cover every weekday.</p>
+      <p><strong>How the numbers are calculated</strong></p>
+      <ol id="d-calc"></ol>
       <p class="chart-title">Users needed per group, by improvement to detect</p>
       <p class="chart-sub">Halving the improvement needs about four times the users. Hover to read values.</p>
       <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="Users needed per group by improvement to detect"></svg>`;
@@ -322,6 +324,17 @@
       const weeks = Math.max(2, Math.ceil(total / D.weekly));
       $("#d-tiles").innerHTML = [["Users per group", num(n)], ["Total users", num(total)], ["Weeks to run*", weeks + (weeks === 2 && total / D.weekly < 2 ? " (minimum)" : "")]]
         .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+      const p1 = D.base, p2 = D.base + D.diff, pb = (p1 + p2) / 2, z = Z[D.power];
+      const A = 1.96 * Math.sqrt(2 * pb * (1 - pb)), Bt = z * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
+      const f3 = v => v.toFixed(3), d2 = v => v.toFixed(2);
+      const raw = total / D.weekly;
+      $("#d-calc").innerHTML = [
+        `<b>Rates:</b> p₁ = ${pct(p1)}, p₂ = ${pct(p2)}, average p̄ = ${pct(pb)}.`,
+        `<b>Two terms:</b> A = 1.96 × √(2 × ${d2(pb)} × ${d2(1 - pb)}) = ${f3(A)} (1.96 = 5% two-sided). B = ${z} × √(${d2(p1)} × ${d2(1 - p1)} + ${d2(p2)} × ${d2(1 - p2)}) = ${f3(Bt)} (${z} = ${D.power * 100}% power).`,
+        `<b>Users per group</b> = (A + B)² ÷ (p₂ − p₁)² = ${f3((A + Bt) ** 2)} ÷ ${(D.diff * D.diff).toFixed(4)} = <b>${num(n)}</b> (rounded up).`,
+        `<b>Total users</b> = 2 × ${num(n)} = <b>${num(total)}</b>.`,
+        `<b>Weeks to run</b> = ${num(total)} ÷ ${num(D.weekly)} sign-ups per week = ${raw.toFixed(1)}, rounded up to <b>${weeks}</b> (never below 2).`
+      ].map(s => `<li>${s}</li>`).join("");
       drawD();
     }
     function drawD() {

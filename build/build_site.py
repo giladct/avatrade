@@ -76,6 +76,8 @@ for k in range(1, len(parts), 2):
     # same for "How it is calculated": the live model has its own version that reacts to the sliders
     content = re.sub(r'<p><strong>How it is calculated</strong></p>\s*<ul>.*?</ul>\s*<div class="tablewrap">.*?</div>\s*', '<div id="e-calc-box"></div>', content, flags=re.S)
     content = re.sub(r'<p><strong>Results \(monthly\)</strong></p>\s*<div class="tablewrap">.*?</div>\s*', "", content, flags=re.S)
+    # Section D: the live calculator has its own step-by-step version under the tiles
+    content = re.sub(r'<p><strong>How the numbers are calculated</strong>[^<]*</p>\s*<ol>.*?</ol>\s*', "", content, flags=re.S)
 
     # one page per question; text before the first question stays on the first page
     chunks = re.split(r'(?=<h3 id="q-)', content)
