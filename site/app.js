@@ -157,6 +157,12 @@
       <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
       <div class="tiles" id="e-tiles"></div>
       <div class="tablewrap"><table id="e-table"></table></div>
+      <p class="chart-title" style="margin-top:18px">How it is calculated</p>
+      <ul class="calc-notes" style="margin:6px 0 10px;padding-left:22px">
+        <li><b>Current revenue</b> = customers × commission per customer.</li>
+        <li><b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
+      </ul>
+      <div class="tablewrap"><table id="e-calc"></table></div>
       <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
       <p class="chart-sub" id="e-chart-sub"></p>
       <div class="legend" id="e-legend"></div>
@@ -196,6 +202,17 @@
     const totLabel = E.filter === "All" ? "Total" : "Total (" + E.filter + ")";
     h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${fmt$(m.cur)}</td><td>${fmt$(m.prop)}</td><td class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
     $("#e-table").innerHTML = h + `</tbody>`;
+    const n0 = v => Math.round(v).toLocaleString("en-US");
+    let c = "<thead><tr><th>Segment</th><th>Commission per trade</th><th>Commission per customer</th><th>Subscribers</th><th>Proposed revenue</th></tr></thead><tbody>";
+    m.rows.forEach((r, i) => {
+      const sg = SEG[i], dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
+      c += `<tr${dim}><td>${r.name}</td><td>MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}</td>`
+        + `<td>${fmt$(r.cpt, 2)} × ${sg.trades} trades = ${fmt$(r.cpc, 2)}</td>`
+        + `<td>${n0(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0(r.subs)}</td>`
+        + `<td>${n0(r.subs)} × ${fmt$(E.price, 2)} + ${n0(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$(r.prop)}</td></tr>`;
+    });
+    c += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${n0(m.subs)}</td><td>${fmt$(m.prop)}</td></tr>`;
+    $("#e-calc").innerHTML = c + "</tbody>";
     $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
     drawPriceChart();
   }

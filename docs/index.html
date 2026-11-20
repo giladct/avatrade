@@ -978,45 +978,6 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </table></div>
 <p>Model in the attached <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; Download Section_E_Subscription_Model.xlsx</a>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
-<p><strong>How it is calculated</strong></p>
-<ul>
-<li><strong>Current revenue</strong> = customers × commission per customer.</li>
-<li><strong>Proposed revenue</strong> = subscribers × $9.99 + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
-</ul>
-<div class="tablewrap"><table>
-<thead>
-<tr>
-<th>Segment</th>
-<th>Commission per trade</th>
-<th>Commission per customer</th>
-<th>Subscribers</th>
-<th>Proposed revenue</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Starter</td>
-<td>MAX(0.2% × $800, $1) = $1.60</td>
-<td>$1.60 × 2 trades = $3.20</td>
-<td>40,000 × 5% = 2,000</td>
-<td>2,000 × $9.99 + 38,000 × $3.20 = $141,580</td>
-</tr>
-<tr>
-<td>Regular</td>
-<td>MAX(0.2% × $2,500, $1) = $5.00</td>
-<td>$5.00 × 8 trades = $40.00</td>
-<td>15,000 × 30% = 4,500</td>
-<td>4,500 × $9.99 + 10,500 × $40 = $464,955</td>
-</tr>
-<tr>
-<td>Active</td>
-<td>MAX(0.2% × $6,000, $1) = $12.00</td>
-<td>$12.00 × 30 trades = $360.00</td>
-<td>4,000 × 70% = 2,800</td>
-<td>2,800 × $9.99 + 1,200 × $360 = $459,972</td>
-</tr>
-</tbody>
-</table></div>
 <div id="excel-widget"></div>
 
 <p><strong>Which segments bring more or less, and why?</strong><br />
@@ -1584,6 +1545,12 @@ ORDER BY cur.month, cur.rnk;`;
       <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
       <div class="tiles" id="e-tiles"></div>
       <div class="tablewrap"><table id="e-table"></table></div>
+      <p class="chart-title" style="margin-top:18px">How it is calculated</p>
+      <ul class="calc-notes" style="margin:6px 0 10px;padding-left:22px">
+        <li><b>Current revenue</b> = customers × commission per customer.</li>
+        <li><b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
+      </ul>
+      <div class="tablewrap"><table id="e-calc"></table></div>
       <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
       <p class="chart-sub" id="e-chart-sub"></p>
       <div class="legend" id="e-legend"></div>
@@ -1623,6 +1590,17 @@ ORDER BY cur.month, cur.rnk;`;
     const totLabel = E.filter === "All" ? "Total" : "Total (" + E.filter + ")";
     h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${fmt$(m.cur)}</td><td>${fmt$(m.prop)}</td><td class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
     $("#e-table").innerHTML = h + `</tbody>`;
+    const n0 = v => Math.round(v).toLocaleString("en-US");
+    let c = "<thead><tr><th>Segment</th><th>Commission per trade</th><th>Commission per customer</th><th>Subscribers</th><th>Proposed revenue</th></tr></thead><tbody>";
+    m.rows.forEach((r, i) => {
+      const sg = SEG[i], dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
+      c += `<tr${dim}><td>${r.name}</td><td>MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}</td>`
+        + `<td>${fmt$(r.cpt, 2)} × ${sg.trades} trades = ${fmt$(r.cpc, 2)}</td>`
+        + `<td>${n0(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0(r.subs)}</td>`
+        + `<td>${n0(r.subs)} × ${fmt$(E.price, 2)} + ${n0(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$(r.prop)}</td></tr>`;
+    });
+    c += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${n0(m.subs)}</td><td>${fmt$(m.prop)}</td></tr>`;
+    $("#e-calc").innerHTML = c + "</tbody>";
     $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
     drawPriceChart();
   }
