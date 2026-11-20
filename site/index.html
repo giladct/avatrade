@@ -1555,9 +1555,9 @@ ORDER BY cur.month, cur.rnk;`;
       <div class="tablewrap"><table id="e-table"></table></div>
       <p class="chart-sub hint-hover" style="margin:-10px 0 0">Hover or tap a value to see how it is calculated.</p>
       <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
-      <p class="chart-sub" id="e-chart-sub"></p>
+      <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="Monthly revenue by subscription price"></svg>
       <div class="legend" id="e-legend"></div>
-      <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="Monthly revenue by subscription price"></svg>`;
+      <p class="chart-sub" id="e-chart-sub"></p>`;
     // "How it is calculated" sits under the question's data table and reacts to the sliders below
     const cbox = $("#e-calc-box");
     if (cbox) cbox.innerHTML = `<p class="chart-title" style="margin-top:0">How it is calculated</p>
