@@ -450,8 +450,8 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 | Data cut | Broken down by | What it shows |
 |---|---|---|
 | **Top-20 revenue** | Client, month and revenue type | Confirms or rules out a one-off driven by a few clients or one market event. |
-| **Active traders, Q2 → Q3, for everyone else** | Retained, churned, reactivated, new; by tenure, country and asset type; against Q3 last year to rule out seasonality | Whether the decline is churn, and where. |
-| **New accounts** | Channel and country: cost per account, first deposit and 30/90-day revenue (only accounts old enough for a full window) | Which channel absorbed the extra $1.3M and which spend to cut. |
+| **Active traders, Q2 → Q3, for everyone else** | Retained, churned, reactivated, new; by tenure, country and asset type; against Q3 last year to rule out seasonality | Confirms or rules out churn as the cause of the decline, and shows where it happens. |
+| **New accounts** | Channel and country: cost per account, first deposit and 30/90-day revenue (only accounts old enough for a full window) | Confirms or rules out that a few channels absorbed the extra $1.3M, and shows which spend to cut. |
 
 ## F4. What management should decide differently next quarter (4 points)
 
