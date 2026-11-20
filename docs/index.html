@@ -258,10 +258,10 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 .toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 24px; }
 .toc a { display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; align-items: baseline; padding: 9px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 14.5px; }
 .toc a { cursor: pointer; }
-.toc a span::after { content: " \203A"; color: var(--ink-3); }
+.toc a > span::after { content: " \203A"; color: var(--ink-3); }
 .toc a:hover { color: var(--accent); background: var(--surface-2); }
-.toc a:hover span { text-decoration: underline; text-underline-offset: 3px; }
-.toc a:hover span::after { color: var(--accent); }
+.toc a:hover > span { text-decoration: underline; text-underline-offset: 3px; }
+.toc a:hover > span::after { color: var(--accent); }
 .toc a b { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); }
 .toc a em { font-style: normal; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
 .pager { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 12px; margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); }
@@ -306,34 +306,64 @@ html.print pre, html.print pre code { white-space: pre-wrap !important; overflow
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }
 html.print p:has(> strong:only-child) { break-after: avoid; }
+
+/* Language toggle (EN / HE). <html lang> decides which text is shown; Hebrew switches the whole page to right-to-left. */
+html:not([lang="he"]) .l-he { display: none !important; }
+html[lang="he"] .l-en { display: none !important; }
+.langbtn { align-self: flex-start; margin: 0 0 14px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  border-radius: 999px; padding: 4px 14px; font-size: 13px; font-family: var(--font-body); }
+.langbtn:hover { border-color: var(--accent); color: var(--accent); }
+html.print .langbtn, html.print .l-he { display: none !important; }
+.page > .qhead { border-top: 0; padding-top: 0; margin-top: 4px; }
+html[lang="he"] body { font-family: "Segoe UI", "IBM Plex Sans", Arial, "Noto Sans Hebrew", sans-serif; }
+html[lang="he"] .sec ul, html[lang="he"] .sec ol { padding-left: 0; padding-right: 22px; }
+html[lang="he"] th, html[lang="he"] td { text-align: right; }
+html[lang="he"] blockquote.brief { border-left: 1px solid var(--line); border-right: 3px solid var(--accent); border-radius: var(--radius) 0 0 var(--radius); }
+html[lang="he"] .crumb-pts { margin-left: 0; margin-right: auto; }
+html[lang="he"] .toc a > span::after { content: " \2039"; }
+html[lang="he"] .pager a.next { text-align: left; }
+html[lang="he"] .pager a.prev { text-align: right; }
+html[lang="he"] .info-tip { margin-left: 0; margin-right: 4px; }
+html[lang="he"] .legend i { margin-right: 0; margin-left: 6px; }
+html[lang="he"] .r-qs { padding: 2px 36px 8px 4px; }
+html[lang="he"] .sqlrun .bar .label { margin-right: 0; margin-left: auto; }
+html[lang="he"] .tile .k, html[lang="he"] .chart-title, html[lang="he"] .chart-sub { text-align: right; }
+html[lang="he"] pre, html[lang="he"] .codebox, html[lang="he"] .chart, html[lang="he"] .eq, html[lang="he"] .sqlrun .result,
+html[lang="he"] input[type=range], html[lang="he"] math { direction: ltr; text-align: left; }
+html[lang="he"] .sqlrun .result th, html[lang="he"] .sqlrun .result td { text-align: left; }
+html[lang="he"] .sqlrun .result td.num { text-align: right; }
+html[lang="he"] .eq { text-align: center; }
+.rail .langbtn { align-self: flex-start; }
+@media (max-width: 900px) { .rail .langbtn { margin: 0; flex: none; white-space: nowrap; align-self: center; } }
 </style>
 
 <div class="shell">
   <nav class="rail" aria-label="Sections">
-    <div class="who">Gilad Cohen-Tal</div>
-    <div class="what">Business Analyst Assessment</div>
-    <a class="r-home" href="#overview" data-page="overview"><b>⌂</b><span>Overview</span></a>
-    <div class="r-sec single" data-sec="notes"><a class="r-head" href="#notes" data-sec="notes"><b>i</b><span>הערות אישיות</span></a><div class="r-qs"><a href="#notes" data-page="notes">i</a></div></div>
-<div class="r-sec single" data-sec="assumptions"><a class="r-head" href="#assumptions" data-sec="assumptions"><b>•</b><span>Applies to every answer</span></a><div class="r-qs"><a href="#assumptions" data-page="assumptions">•</a></div></div>
-<div class="r-sec" data-sec="section-a"><a class="r-head" href="#a1" data-sec="section-a"><b>A</b><span>SQL</span><em>25</em></a><div class="r-qs"><a href="#a1" data-page="a1">A1</a><a href="#a2" data-page="a2">A2</a><a href="#a3" data-page="a3">A3</a></div></div>
-<div class="r-sec" data-sec="section-b"><a class="r-head" href="#b1" data-sec="section-b"><b>B</b><span>Metrics</span><em>15</em></a><div class="r-qs"><a href="#b1" data-page="b1">B1</a><a href="#b2" data-page="b2">B2</a><a href="#b3" data-page="b3">B3</a></div></div>
-<div class="r-sec" data-sec="section-c"><a class="r-head" href="#c1" data-sec="section-c"><b>C</b><span>Data quality</span><em>10</em></a><div class="r-qs"><a href="#c1" data-page="c1">C1</a><a href="#c2" data-page="c2">C2</a></div></div>
-<div class="r-sec" data-sec="section-d"><a class="r-head" href="#d1" data-sec="section-d"><b>D</b><span>Analytical reasoning</span><em>10</em></a><div class="r-qs"><a href="#d1" data-page="d1">D1</a><a href="#d2" data-page="d2">D2</a></div></div>
-<div class="r-sec single" data-sec="section-e"><a class="r-head" href="#e" data-sec="section-e"><b>E</b><span>Excel model</span><em>20</em></a><div class="r-qs"><a href="#e" data-page="e">E</a></div></div>
-<div class="r-sec" data-sec="section-f"><a class="r-head" href="#f1" data-sec="section-f"><b>F</b><span>Business review</span><em>20</em></a><div class="r-qs"><a href="#f1" data-page="f1">F1</a><a href="#f2" data-page="f2">F2</a><a href="#f3" data-page="f3">F3</a><a href="#f4" data-page="f4">F4</a></div></div>
-    <div class="total"><span>Total</span><span>100 pts</span></div>
+    <div class="who"><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></div>
+    <div class="what"><span class="l-en">Business Analyst Assessment</span><span class="l-he">מטלת בית: אנליסט עסקי</span></div>
+    <button class="langbtn" id="lang-btn" type="button" aria-label="Switch language / החלפת שפה"><span class="l-en">עברית</span><span class="l-he">English</span></button>
+    <a class="r-home" href="#overview" data-page="overview"><b>⌂</b><span class="l-en">Overview</span><span class="l-he">סקירה</span></a>
+    <div class="r-sec single" data-sec="notes"><a class="r-head" href="#notes" data-sec="notes"><b>i</b><span class="l-en">הערות אישיות</span><span class="l-he">הערות אישיות</span></a><div class="r-qs"><a href="#notes" data-page="notes">i</a></div></div>
+<div class="r-sec single" data-sec="assumptions"><a class="r-head" href="#assumptions" data-sec="assumptions"><b>•</b><span class="l-en">Applies to every answer</span><span class="l-he">חל על כל התשובות</span></a><div class="r-qs"><a href="#assumptions" data-page="assumptions">•</a></div></div>
+<div class="r-sec" data-sec="section-a"><a class="r-head" href="#a1" data-sec="section-a"><b>A</b><span class="l-en">SQL</span><span class="l-he">SQL</span><em>25</em></a><div class="r-qs"><a href="#a1" data-page="a1">A1</a><a href="#a2" data-page="a2">A2</a><a href="#a3" data-page="a3">A3</a></div></div>
+<div class="r-sec" data-sec="section-b"><a class="r-head" href="#b1" data-sec="section-b"><b>B</b><span class="l-en">Metrics</span><span class="l-he">מדדים</span><em>15</em></a><div class="r-qs"><a href="#b1" data-page="b1">B1</a><a href="#b2" data-page="b2">B2</a><a href="#b3" data-page="b3">B3</a></div></div>
+<div class="r-sec" data-sec="section-c"><a class="r-head" href="#c1" data-sec="section-c"><b>C</b><span class="l-en">Data quality</span><span class="l-he">איכות נתונים</span><em>10</em></a><div class="r-qs"><a href="#c1" data-page="c1">C1</a><a href="#c2" data-page="c2">C2</a></div></div>
+<div class="r-sec" data-sec="section-d"><a class="r-head" href="#d1" data-sec="section-d"><b>D</b><span class="l-en">Analytical reasoning</span><span class="l-he">חשיבה אנליטית</span><em>10</em></a><div class="r-qs"><a href="#d1" data-page="d1">D1</a><a href="#d2" data-page="d2">D2</a></div></div>
+<div class="r-sec single" data-sec="section-e"><a class="r-head" href="#e" data-sec="section-e"><b>E</b><span class="l-en">Excel model</span><span class="l-he">מודל אקסל</span><em>20</em></a><div class="r-qs"><a href="#e" data-page="e">E</a></div></div>
+<div class="r-sec" data-sec="section-f"><a class="r-head" href="#f1" data-sec="section-f"><b>F</b><span class="l-en">Business review</span><span class="l-he">סקירה עסקית</span><em>20</em></a><div class="r-qs"><a href="#f1" data-page="f1">F1</a><a href="#f2" data-page="f2">F2</a><a href="#f3" data-page="f3">F3</a><a href="#f4" data-page="f4">F4</a></div></div>
+    <div class="total"><span class="l-en">Total</span><span class="l-he">סה״כ</span><span class="l-en">100 pts</span><span class="l-he">100 נק׳</span></div>
   </nav>
   <main>
-    <section class="page" id="p-overview" data-page="overview" data-title="Overview" hidden>
+    <section class="page" id="p-overview" data-page="overview" data-title="Overview" data-title-he="סקירה" hidden>
     <header class="hero">
-      <p class="eyebrow">Business Analyst Assessment · Answers</p>
-      <h1>Gilad Cohen-Tal</h1>
-      <p class="lede">All six answers. The SQL runs on sample data, and Sections D and E are interactive.</p>
-      <p class="toc-title">Questions</p>
-      <nav class="toc" aria-label="All questions"><a href="#notes"><b>i</b><span>הערות אישיות על הפרויקט</span></a><a href="#assumptions"><b>•</b><span>General assumptions</span></a><a href="#a1"><b>A1</b><span>New funded accounts</span><em>6 pts</em></a><a href="#a2"><b>A2</b><span>Cohort activity</span><em>10 pts</em></a><a href="#a3"><b>A3</b><span>Most traded symbols</span><em>9 pts</em></a><a href="#b1"><b>B1</b><span>Active customers</span><em>5 pts</em></a><a href="#b2"><b>B2</b><span>Assets versus revenue</span><em>5 pts</em></a><a href="#b3"><b>B3</b><span>Country comparison</span><em>5 pts</em></a><a href="#c1"><b>C1</b><span>Sudden drop</span><em>5 pts</em></a><a href="#c2"><b>C2</b><span>Two numbers for one month</span><em>5 pts</em></a><a href="#d1"><b>D1</b><span>New onboarding flow</span><em>6 pts</em></a><a href="#d2"><b>D2</b><span>A/B test result</span><em>4 pts</em></a><a href="#e"><b>E</b><span>Excel model</span><em>20 pts</em></a><a href="#f1"><b>F1</b><span>The real state of the business</span><em>6 pts</em></a><a href="#f2"><b>F2</b><span>The number that worries me most</span><em>4 pts</em></a><a href="#f3"><b>F3</b><span>Three cuts of data I would ask for next</span><em>6 pts</em></a><a href="#f4"><b>F4</b><span>What management should decide differently next quarter</span><em>4 pts</em></a></nav>
+      <p class="eyebrow"><span class="l-en">Business Analyst Assessment · Answers</span><span class="l-he">מטלת אנליסט עסקי · תשובות</span></p>
+      <h1><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></h1>
+      <p class="lede"><span class="l-en">All six answers. The SQL runs on sample data, and Sections D and E are interactive.</span><span class="l-he">כל ששת החלקים. ה-SQL רץ על נתוני דוגמה, וחלקים D ו-E אינטראקטיביים.</span></p>
+      <p class="toc-title"><span class="l-en">Questions</span><span class="l-he">שאלות</span></p>
+      <nav class="toc" aria-label="All questions"><a href="#notes"><b>i</b><span class="l-en">הערות אישיות על הפרויקט</span><span class="l-he">הערות אישיות על הפרויקט</span></a><a href="#assumptions"><b>•</b><span class="l-en">General assumptions</span><span class="l-he">הנחות כלליות</span></a><a href="#a1"><b>A1</b><span class="l-en">New funded accounts</span><span class="l-he">חשבונות חדשים שמומנו</span><em><span class="l-en">6 pts</span><span class="l-he">6 נק׳</span></em></a><a href="#a2"><b>A2</b><span class="l-en">Cohort activity</span><span class="l-he">פעילות קוהורטים</span><em><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></em></a><a href="#a3"><b>A3</b><span class="l-en">Most traded symbols</span><span class="l-he">הסימולים הנסחרים ביותר</span><em><span class="l-en">9 pts</span><span class="l-he">9 נק׳</span></em></a><a href="#b1"><b>B1</b><span class="l-en">Active customers</span><span class="l-he">לקוחות פעילים</span><em><span class="l-en">5 pts</span><span class="l-he">5 נק׳</span></em></a><a href="#b2"><b>B2</b><span class="l-en">Assets versus revenue</span><span class="l-he">נכסים מול הכנסות</span><em><span class="l-en">5 pts</span><span class="l-he">5 נק׳</span></em></a><a href="#b3"><b>B3</b><span class="l-en">Country comparison</span><span class="l-he">השוואה בין מדינות</span><em><span class="l-en">5 pts</span><span class="l-he">5 נק׳</span></em></a><a href="#c1"><b>C1</b><span class="l-en">Sudden drop</span><span class="l-he">ירידה פתאומית</span><em><span class="l-en">5 pts</span><span class="l-he">5 נק׳</span></em></a><a href="#c2"><b>C2</b><span class="l-en">Two numbers for one month</span><span class="l-he">שני מספרים לחודש אחד</span><em><span class="l-en">5 pts</span><span class="l-he">5 נק׳</span></em></a><a href="#d1"><b>D1</b><span class="l-en">New onboarding flow</span><span class="l-he">תהליך הרשמה חדש</span><em><span class="l-en">6 pts</span><span class="l-he">6 נק׳</span></em></a><a href="#d2"><b>D2</b><span class="l-en">A/B test result</span><span class="l-he">תוצאת בדיקת A/B</span><em><span class="l-en">4 pts</span><span class="l-he">4 נק׳</span></em></a><a href="#e"><b>E</b><span class="l-en">Excel model</span><span class="l-he">מודל אקסל</span><em><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></em></a><a href="#f1"><b>F1</b><span class="l-en">The real state of the business</span><span class="l-he">המצב האמיתי של העסק</span><em><span class="l-en">6 pts</span><span class="l-he">6 נק׳</span></em></a><a href="#f2"><b>F2</b><span class="l-en">The number that worries me most</span><span class="l-he">המספר שמדאיג אותי ביותר</span><em><span class="l-en">4 pts</span><span class="l-he">4 נק׳</span></em></a><a href="#f3"><b>F3</b><span class="l-en">Three cuts of data I would ask for next</span><span class="l-he">שלושה חתכי נתונים שהייתי מבקש בהמשך</span><em><span class="l-en">6 pts</span><span class="l-he">6 נק׳</span></em></a><a href="#f4"><b>F4</b><span class="l-en">What management should decide differently next quarter</span><span class="l-he">מה ההנהלה צריכה להחליט אחרת ברבעון הבא</span><em><span class="l-en">4 pts</span><span class="l-he">4 נק׳</span></em></a></nav>
     </header>
     </section>
-    <section class="sec page" id="p-notes" data-page="notes" data-sec="notes" data-title="הערות אישיות על הפרויקט" dir="rtl" lang="he" hidden><p class="crumb"><b>i</b><span>אודות העבודה</span></p><h3 class="qhead"><span>הערות אישיות על הפרויקט</span></h3>
+    <section class="sec page" id="p-notes" data-page="notes" data-sec="notes" data-title="הערות אישיות על הפרויקט" data-title-he="הערות אישיות על הפרויקט" dir="rtl" lang="he" hidden><p class="crumb"><b>i</b><span>אודות העבודה</span></p><h3 class="qhead"><span>הערות אישיות על הפרויקט</span></h3>
 <ol>
 <li><strong>למה Snowflake.</strong> הבנתי שזה מה שמשתמשים בו אצלכם, ולכן כל ה-SQL כתוב עבורו. הפקודה שאני הכי אוהב היא <code>QUALIFY</code>‏: היא מסננת לפי התוצאה של פונקציית חלון (window function), כמו ש-<code>WHERE</code> מסנן לפי עמודה. בלעדיה, "ההפקדה הראשונה של כל חשבון" דורשת subquery או CTE רק כדי להשאיר <code>ROW_NUMBER() = 1</code>‏. איתה זו שורה אחת בסוף השאילתה: הקוד קצר וקריא יותר, וקשה יותר לטעות בו. השתמשתי בה ב-A1 וב-A2‏.</li>
 <li><strong>החלק החלש שלי הוא נוסחאות סטטיסטיות.</strong> אני לא מסתמך על שינון שלהן. לכן הצגתי את כל דרך החישוב, והוספתי אפשרות לכוונון (D1), כדי "להרגיש" את המשמעות של הערכים לפי הנתונים.</li>
@@ -341,13 +371,13 @@ html.print p:has(> strong:only-child) { break-after: avoid; }
 <li><strong>קבצים מצורפים.</strong> מצורפים גם קובץ ה-PDF וקובץ האקסל, אך אין בהם צורך: הכל קיים באתר (web), כולל המודל האינטראקטיבי.</li>
 </ol>
 </section>
-<section class="sec page" id="p-assumptions" data-page="assumptions" data-sec="assumptions" data-title="General assumptions" hidden><p class="crumb"><b>•</b><span>Read first</span></p><h3 class="qhead"><span>General assumptions</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p>לפני שעונים על השאלות, קובעים חוקים, כמו לפני משחק כדורגל.</p>
+<section class="sec page" id="p-assumptions" data-page="assumptions" data-sec="assumptions" data-title="General assumptions" data-title-he="הנחות כלליות" hidden><p class="crumb"><b>•</b><span><span class="l-en">Read first</span><span class="l-he">קראו קודם</span></span></p><h3 class="qhead l-en"><span>General assumptions</span></h3><h3 class="qhead l-he"><span>הנחות כלליות</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p>לפני שעונים על השאלות, קובעים חוקים, כמו לפני משחק כדורגל.</p>
 <ul>
 <li><strong>חשבונות בדיקה</strong> (חשבונות "מזויפים" שהחברה פותחת כדי לבדוק את המערכת) לא נספרים אף פעם.</li>
 <li><strong>"חשבון ממומן"</strong> = הפעם הראשונה שמישהו באמת הכניס כסף, וההפקדה הצליחה.</li>
 <li><strong>מטבעות:</strong> אם מישהו הפקיד ביורו, ממירים לדולר לפי השער של אותו יום. אם אין שער לאותו יום (למשל שבת), לוקחים את השער האחרון שהיה לפני.</li>
 <li><strong>הכנסה</strong> = עמלה שהחברה לוקחת על כל קנייה או מכירה, ועוד ריבית שהיא מרוויחה על הכסף שהלקוחות משאירים במזומן.</li>
-</ul></div></details>
+</ul></div></details><div class="l-en">
 <ul>
 <li><strong>SQL is Snowflake.</strong></li>
 <li><strong>Test accounts are excluded everywhere.</strong></li>
@@ -355,8 +385,16 @@ html.print p:has(> strong:only-child) { break-after: avoid; }
 <li><strong>FX:</strong> rate on the deposit date, or the latest earlier one. Months are UTC calendar months.</li>
 <li><strong>Revenue</strong> = commission + interest on cash.</li>
 </ul>
-</section>
-<section class="sec page" id="p-a1" data-page="a1" data-sec="section-a" data-title="A1. New funded accounts" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead"><span>A1. New funded accounts</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמה לקוחות חדשים הכניסו כסף בפעם הראשונה בכל חודש, וכמה כסף הם הכניסו, לפי הדרך שבה הם הגיעו אלינו (פייסבוק, גוגל, חבר שהמליץ, תוכן).</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<ul>
+<li><strong>SQL ב-Snowflake.</strong></li>
+<li><strong>חשבונות בדיקה (test) מוחרגים בכל מקום.</strong></li>
+<li><strong>מימון = ההפקדה המושלמת הראשונה</strong> על פני כל ההיסטוריה (שוויון נפתר לפי <code>transaction_id</code>).</li>
+<li><strong>שער חליפין:</strong> השער בתאריך ההפקדה, או האחרון שקדם לו. חודשים הם חודשי לוח לפי UTC.</li>
+<li><strong>הכנסות</strong> = עמלות + ריבית על מזומן.</li>
+</ul>
+</div></section>
+<section class="sec page" id="p-a1" data-page="a1" data-sec="section-a" data-title="A1. New funded accounts" data-title-he="A1. חשבונות חדשים שמומנו" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A1. New funded accounts</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>A1. חשבונות חדשים שמומנו</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמה לקוחות חדשים הכניסו כסף בפעם הראשונה בכל חודש, וכמה כסף הם הכניסו, לפי הדרך שבה הם הגיעו אלינו (פייסבוק, גוגל, חבר שהמליץ, תוכן).</p>
 <p><strong>איך פתרתי, צעד אחרי צעד:</strong></p>
 <ol>
 <li>לכל לקוח מוצאים את <strong>ההפקדה הראשונה</strong> שלו שהצליחה. כמו לחפש באלבום את התמונה הראשונה של כל ילד.</li>
@@ -364,7 +402,8 @@ html.print p:has(> strong:only-child) { break-after: avoid; }
 <li>בונים <strong>טבלה ריקה</strong> של כל החודשים מול כל הערוצים, כמו לוח משבצות. ככה, גם אם בחודש מסוים אף אחד לא הגיע מגוגל, יופיע 0 ולא תהיה משבצת חסרה.</li>
 <li>סופרים ומחברים לכל משבצת.</li>
 </ol>
-<p><strong>המלכודת:</strong> אם לקוח הפקיד לראשונה ב-2025 והפקיד שוב ב-2026, הוא <strong>לא</strong> חדש ב-2026. לכן קודם מוצאים את ההפקדה הראשונה מכל הזמנים, ורק אחר כך מסננים ל-2026.</p></div></details>
+<p><strong>המלכודת:</strong> אם לקוח הפקיד לראשונה ב-2025 והפקיד שוב ב-2026, הוא <strong>לא</strong> חדש ב-2026. לכן קודם מוצאים את ההפקדה הראשונה מכל הזמנים, ורק אחר כך מסננים ל-2026.</p></div></details><div class="l-en">
+
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month from January to October 2026, return the number of newly funded accounts and their total first-deposit amount in USD, split by signup channel.</p>
 </blockquote>
@@ -448,17 +487,100 @@ ORDER BY g.month, g.signup_channel;
 <li>The 2026 filter runs <em>after</em> finding the first deposit, so 2025-funded accounts are not counted as new.</li>
 <li><code>rows_missing_fx_rate</code> flags deposits with no FX rate; it should be 0.</li>
 </ul>
-<div class="sqlrun" data-q="a1"></div>
+</div><div class="l-he" dir="rtl" lang="he">
 
-</section>
-<section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> לוקחים את כל מי שהצטרף בינואר וקוראים לזה "קבוצת ינואר". אותו דבר לפברואר, וכך עד יוני. לכל קבוצה בודקים:</p>
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>לכל חודש מינואר עד אוקטובר 2026, החזירו את מספר החשבונות שמומנו לראשונה ואת סכום ההפקדה הראשונה שלהם בדולרים, בפילוח לפי ערוץ ההרשמה.</p>
+</blockquote>
+<p><strong>גישה</strong></p>
+<ul>
+<li>למצוא את ההפקדה המושלמת הראשונה של כל חשבון.</li>
+<li>להמיר אותה לדולרים.</li>
+<li>לספור לפי חודש מימון וערוץ.</li>
+<li>להשתמש ברשת של חודש × ערוץ, כדי ששילובים ריקים יוצגו כ-0.</li>
+<li>הערוצים נלקחים מטבלת accounts; ערוץ חסר יוצג כ-Unknown.</li>
+</ul>
+<div class="callout">
+
+<p><strong>למה Snowflake.</strong> <code>QUALIFY</code> משאיר את ההפקדה הראשונה של כל חשבון בלי subquery, ו-<code>ASOF JOIN</code> מוצא את שער החליפין האחרון עד כל תאריך (כולל) בחיבור אחד.</p>
+</div>
+
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · התשובה שהוגשה</span></div><pre><code class="language-sql">-- A1. Newly funded accounts and first-deposit USD, by month and signup channel, Jan–Oct 2026
+WITH first_deposit AS (
+    -- First COMPLETED deposit per account, over ALL history (not only 2026),
+    -- so an account funded in 2025 is never counted as new in 2026
+    SELECT t.account_id,
+           COALESCE(a.signup_channel, 'Unknown') AS signup_channel,  -- empty channel shows as Unknown
+           t.created_at        AS funded_at,
+           t.created_at::DATE  AS funded_date,   -- plain column for the ASOF match condition
+           t.amount,
+           t.currency
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type   = 'Deposit'
+      AND t.status = 'Completed'
+      AND COALESCE(a.is_test, 0) = 0   -- real accounts only (a missing flag counts as real)
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY t.account_id
+                               ORDER BY t.created_at, t.transaction_id) = 1
+),
+first_deposit_usd AS (
+    SELECT fd.account_id,
+           fd.signup_channel,
+           DATE_TRUNC('month', fd.funded_at)::DATE AS funding_month,
+           -- usd_rate = how many USD one unit of the currency is worth
+           fd.amount * CASE WHEN fd.currency = 'USD' THEN 1 ELSE fx.usd_rate END AS amount_usd
+    FROM first_deposit fd
+    -- ASOF JOIN = &quot;as of&quot; join: for each deposit it picks ONE fx_rates row of the same
+    -- currency, the one with the latest rate_date on or before the deposit date.
+    -- So a Saturday deposit gets Friday's rate (weekends, holidays have no row).
+    -- Like a LEFT JOIN, it keeps every deposit; usd_rate is NULL when no rate exists.
+    ASOF JOIN fx_rates fx
+         MATCH_CONDITION (fd.funded_date &gt;= fx.rate_date)
+         ON fx.currency = fd.currency
+    -- Filter to 2026 only now, after the first deposit was chosen
+    WHERE fd.funded_at &gt;= '2026-01-01'
+      AND fd.funded_at &lt;  '2026-11-01'
+),
+months AS (
+    -- Jan–Oct 2026; numbered before the cross join (SEQ4 alone can have gaps)
+    SELECT DATEADD(month, ROW_NUMBER() OVER (ORDER BY SEQ4()) - 1, '2026-01-01'::DATE) AS month
+    FROM TABLE(GENERATOR(ROWCOUNT =&gt; 10))
+),
+grid AS (
+    -- Every month x channel, so empty ones show 0
+    SELECT m.month, c.signup_channel
+    FROM months m
+    -- Channels come from the data, so a new or missing channel is not dropped
+    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+                FROM accounts
+                WHERE COALESCE(is_test, 0) = 0) c
+)
+SELECT g.month,
+       g.signup_channel,
+       COUNT(f.account_id)                        AS new_funded_accounts,
+       COALESCE(ROUND(SUM(f.amount_usd), 2), 0)   AS first_deposit_usd,
+       COUNT(f.account_id) - COUNT(f.amount_usd)  AS rows_missing_fx_rate  -- data-quality flag
+FROM grid g
+LEFT JOIN first_deposit_usd f
+       ON f.funding_month  = g.month
+      AND f.signup_channel = g.signup_channel
+GROUP BY g.month, g.signup_channel
+ORDER BY g.month, g.signup_channel;
+</code></pre></div>
+<p><strong>הערות</strong></p>
+<ul>
+<li>סינון 2026 מתבצע <em>אחרי</em> מציאת ההפקדה הראשונה, ולכן חשבונות שמומנו ב-2025 לא נספרים כחדשים.</li>
+<li><code>rows_missing_fx_rate</code> מסמן הפקדות בלי שער חליפין; הערך אמור להיות 0.</li>
+</ul>
+</div><div class="sqlrun" data-q="a1"></div></section>
+<section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" data-title-he="A2. פעילות קוהורטים" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3><h3 class="qhead l-he"><span>A2. פעילות קוהורטים</span><span class="pts">10 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> לוקחים את כל מי שהצטרף בינואר וקוראים לזה "קבוצת ינואר". אותו דבר לפברואר, וכך עד יוני. לכל קבוצה בודקים:</p>
 <ul>
 <li>כמה אחוז מהם קנו או מכרו משהו בחודש שבו הצטרפו, בחודש שאחריו ובחודש שאחרי זה;</li>
 <li>כמה עמלה החברה הרוויחה בממוצע מכל אחד ב-90 הימים הראשונים.</li>
 </ul>
 <p><strong>דימוי:</strong> כמו מורה שבודקת כמה מתלמידי כיתה ז' עדיין מגיעים לחוג אחרי חודש, אחרי חודשיים ואחרי שלושה.</p>
 <p><strong>איך פתרתי:</strong> לכל לקוח רושמים שלוש "וי או איקס" (סחר בחודש 0? בחודש 1? בחודש 2?) ואת סך העמלה שלו. אחר כך עושים ממוצע לכל קבוצה. ממוצע של "וי=1, איקס=0" הוא בדיוק האחוז.</p>
-<p><strong>המלכודת:</strong> לקוח שלא סחר אף פעם חייב להישאר בחישוב, עם 0. אם מוחקים אותו, נראה כאילו כולם פעילים ומרוויחים יותר ממה שבאמת.</p></div></details>
+<p><strong>המלכודת:</strong> לקוח שלא סחר אף פעם חייב להישאר בחישוב, עם 0. אם מוחקים אותו, נראה כאילו כולם פעילים ומרוויחים יותר ממה שבאמת.</p></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Build a table with one row per funding month, January to June 2026, with: the number of accounts funded in that month; the share of those accounts that placed at least one order in the funding month, the month after, and the month after that; and the average commission per funded account in the first 90 days after its funding date.</p>
 </blockquote>
@@ -528,12 +650,78 @@ ORDER BY funding_month;
 <li>Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.</li>
 <li><code>orders</code> holds only executed orders (per the brief), so no status filter is needed.</li>
 </ul>
-<div class="sqlrun" data-q="a2"></div>
-
-
-
-</section>
-<section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בכל חודש של 2026, מהן 10 המניות (או המטבעות) שסחרו בהן בהכי הרבה כסף, ובכמה מקומות כל אחת עלתה או ירדה לעומת החודש הקודם. כמו מצעד הפזמונים.</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>בנו טבלה עם שורה לכל חודש מימון, מינואר עד יוני 2026, ובה: מספר החשבונות שמומנו באותו חודש; החלק מהם שביצעו לפחות פקודה אחת בחודש המימון, בחודש שאחריו ובחודש שאחרי אותו חודש; והעמלה הממוצעת לכל חשבון ממומן ב-90 הימים הראשונים אחרי תאריך המימון.</p>
+</blockquote>
+<p><strong>גישה.</strong> שורה אחת לכל חשבון עם דגלי 0/1 לכל חודש, ואז ממוצע לכל קוהורט. ה-<code>LEFT JOIN</code> משאיר בחישוב גם חשבונות בלי פקודות.</p>
+<p><strong>פירוש.</strong> קראתי את עמודה 2 כשלושה שיעורים: חודש המימון, החודש שאחריו והחודש שאחרי אותו חודש.</p>
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · התשובה שהוגשה</span></div><pre><code class="language-sql">-- A2. Funding-month cohorts, Jan–Jun 2026
+WITH funded AS (
+    -- Funding date = date of first COMPLETED deposit (real accounts only; missing is_test = real)
+    SELECT t.account_id,
+           t.created_at::DATE AS funding_date
+    FROM transactions t
+    JOIN accounts a ON a.account_id = t.account_id
+    WHERE t.type   = 'Deposit'
+      AND t.status = 'Completed'
+      AND COALESCE(a.is_test, 0) = 0
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY t.account_id
+                               ORDER BY t.created_at, t.transaction_id) = 1
+),
+cohort AS (
+    -- Accounts first funded Jan–Jun 2026. Month 0 = the calendar month of funding.
+    SELECT account_id,
+           funding_date,
+           DATE_TRUNC('month', funding_date) AS funding_month
+    FROM funded
+    WHERE funding_date &gt;= '2026-01-01'
+      AND funding_date &lt;  '2026-07-01'
+),
+per_account AS (
+    -- One row per account; the LEFT JOIN keeps non-traders as 0
+    SELECT c.account_id,
+           c.funding_month,
+           -- traded_m0 / m1 / m2 = traded in the funding month / next month / the month after (1 or 0)
+           MAX(CASE WHEN o.executed_at &gt;= c.funding_month
+                     AND o.executed_at &lt;  DATEADD(month, 1, c.funding_month) THEN 1 ELSE 0 END) AS traded_m0,
+           MAX(CASE WHEN o.executed_at &gt;= DATEADD(month, 1, c.funding_month)
+                     AND o.executed_at &lt;  DATEADD(month, 2, c.funding_month) THEN 1 ELSE 0 END) AS traded_m1,
+           MAX(CASE WHEN o.executed_at &gt;= DATEADD(month, 2, c.funding_month)
+                     AND o.executed_at &lt;  DATEADD(month, 3, c.funding_month) THEN 1 ELSE 0 END) AS traded_m2,
+           -- Days 0–89 counted from the funding date
+           COALESCE(SUM(CASE WHEN o.executed_at &gt;= c.funding_date
+                              AND o.executed_at &lt;  DATEADD(day, 90, c.funding_date)
+                             THEN o.commission_usd END), 0) AS commission_90d
+    FROM cohort c
+    LEFT JOIN orders o
+           ON o.account_id   = c.account_id
+          -- Only orders either metric needs (90 days can run past 3 months)
+          AND o.executed_at &gt;= c.funding_month
+          AND o.executed_at &lt;  GREATEST(DATEADD(month, 3, c.funding_month),
+                                        DATEADD(day, 90, c.funding_date))
+    GROUP BY c.account_id, c.funding_month
+)
+SELECT funding_month,
+       COUNT(*)                        AS funded_accounts,
+       -- AVG of a 0/1 flag = share of the cohort that traded
+       ROUND(AVG(traded_m0), 3)        AS share_traded_m0,
+       ROUND(AVG(traded_m1), 3)        AS share_traded_m1,
+       ROUND(AVG(traded_m2), 3)        AS share_traded_m2,
+       ROUND(AVG(commission_90d), 2)   AS avg_commission_90d_usd
+FROM per_account
+GROUP BY funding_month
+ORDER BY funding_month;
+</code></pre></div>
+<p><strong>הערות</strong></p>
+<ul>
+<li>העמלה הממוצעת מחולקת ב<strong>כל</strong> החשבונות שמומנו, גם אלה שמעולם לא סחרו.</li>
+<li>90 הימים יכולים להגיע אל מעבר לחודש השלישי (מימון ב-31 בינואר ← סיום ב-1 במאי), ולכן ה-join משתמש ב-<code>GREATEST</code>.</li>
+<li>חודש 0 הוא חודש המימון בלוח השנה, ולכן לחשבון שמומן ב-31 בינואר יש בו יום אחד.</li>
+<li><code>orders</code> מכילה רק פקודות שבוצעו (לפי המטלה), ולכן אין צורך בסינון לפי סטטוס.</li>
+</ul>
+</div><div class="sqlrun" data-q="a2"></div></section>
+<section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" data-title-he="A3. הסימולים הנסחרים ביותר" hidden><p class="crumb"><b>A</b><span><span class="l-en">Section A · SQL</span><span class="l-he">חלק A · SQL</span></span><span class="crumb-pts"><span class="l-en">25 pts</span><span class="l-he">25 נק׳</span></span></p><h3 class="qhead l-en"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3><h3 class="qhead l-he"><span>A3. הסימולים הנסחרים ביותר</span><span class="pts">9 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בכל חודש של 2026, מהן 10 המניות (או המטבעות) שסחרו בהן בהכי הרבה כסף, ובכמה מקומות כל אחת עלתה או ירדה לעומת החודש הקודם. כמו מצעד הפזמונים.</p>
 <p><strong>איך פתרתי:</strong></p>
 <ol>
 <li>לכל חודש ולכל מניה מחשבים כמה כסף עבר (כמות × מחיר).</li>
@@ -547,7 +735,7 @@ ORDER BY funding_month;
 <li><strong>מכינים סיכום יומי מראש.</strong> כמו לסכם כל פרק פעם אחת ולא לקרוא את כולו מחדש. ב-Snowflake זה מתעדכן לבד, ובמסד רגיל מעדכנים כל לילה רק את היום האחרון.</li>
 <li><strong>כוח מחשוב.</strong> ב-Snowflake קונים מחשב גדול יותר רק לזמן קצר. במסד רגיל מריצים בלילה או על עותק של המסד, כדי לא להאט את כולם.</li>
 <li><strong>בשניהם:</strong> קודם מסכמים, אחר כך מדרגים.</li>
-</ul></div></details>
+</ul></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>For each month of 2026, return the 10 symbols with the highest traded value (quantity × price), their rank, and how many places each one moved compared with the previous month. Explain how you would keep this query fast on 500 million orders.</p>
 </blockquote>
@@ -628,15 +816,95 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 <p><strong>In both:</strong> total by month first, then rank; exclude test accounts with <code>NOT EXISTS</code> (a short list); save past months' ranks, since they no longer change.</p>
-<div class="sqlrun" data-q="a3"></div>
-
-</section>
-<section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead"><span>B1. Active customers</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> שלושה צוותים מגדירים "לקוח פעיל" בשלוש דרכים שונות. באיזו הגדרה להשתמש לכל מטרה?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>לכל חודש ב-2026, החזירו את 10 הסימולים עם ערך המסחר הגבוה ביותר (כמות × מחיר), את הדירוג שלהם, ובכמה מקומות כל אחד זז לעומת החודש הקודם. הסבירו איך הייתם שומרים על מהירות השאילתה על 500 מיליון פקודות.</p>
+</blockquote>
+<p><strong>גישה.</strong> מדרגים <strong>כל</strong> סימול, לא רק את ה-10 הראשונים, החל מ<strong>דצמבר 2025</strong>. כך יש לינואר חודש קודם, וניתן לראות כמה עלה סימול שנכנס חדש לטופ 10.</p>
+<div class="codebox"><div class="codebar"><span>Snowflake SQL · התשובה שהוגשה</span></div><pre><code class="language-sql">-- A3. Top 10 symbols by traded value per month of 2026, with movement vs the previous month
+WITH monthly AS (
+    SELECT DATE_TRUNC('month', o.executed_at)::DATE AS month,
+           o.symbol,
+           SUM(o.quantity * o.price_usd)            AS traded_value_usd
+    FROM orders o
+    WHERE o.executed_at &gt;= '2025-12-01'          -- December 2025 gives January a baseline
+      AND o.executed_at &lt;  '2027-01-01'          -- November 2026 is month-to-date
+      AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts (missing flag = real)
+                      WHERE a.account_id = o.account_id AND a.is_test = 1)
+    GROUP BY DATE_TRUNC('month', o.executed_at)::DATE, o.symbol
+),
+ranked AS (
+    -- Rank all symbols, not only the top 10
+    SELECT month, symbol, traded_value_usd,
+           RANK() OVER (PARTITION BY month ORDER BY traded_value_usd DESC) AS rnk
+    FROM monthly
+)
+SELECT cur.month,
+       cur.rnk                         AS rank,
+       cur.symbol,
+       ROUND(cur.traded_value_usd, 0)  AS traded_value_usd,
+       prev.rnk                        AS previous_rank,
+       prev.rnk - cur.rnk              AS places_moved,     -- positive = moved up
+       -- note: no rank last month = not traded then; rank &gt; 10 last month = newly in the top 10
+       CASE WHEN prev.rnk IS NULL THEN 'New: not traded last month'
+            WHEN prev.rnk &gt; 10    THEN 'Entered top 10'
+            ELSE NULL END              AS note
+FROM ranked cur
+-- Previous calendar month (LAG would skip months with no trades)
+LEFT JOIN ranked prev
+       ON prev.symbol = cur.symbol
+      AND prev.month  = DATEADD(month, -1, cur.month)
+WHERE cur.month &gt;= '2026-01-01'
+  AND cur.rnk   &lt;= 10
+ORDER BY cur.month, cur.rnk;
+</code></pre></div>
+<p><strong>הנחות</strong></p>
+<ul>
+<li><code>RANK()</code> שומר על שוויון, ולכן שוויון במקום ה-10 מחזיר 11 שורות. <code>places_moved</code> חיובי פירושו שעלה בדירוג.</li>
+<li>נובמבר 2026 הוא חודש לא גמור (month-to-date).</li>
+<li>ערך המסחר כולל גם קניות וגם מכירות.</li>
+</ul>
+<p><strong>שמירה על מהירות עם 500 מיליון פקודות</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>שלב</th>
+<th>Snowflake</th>
+<th>מסד נתונים אחר (PostgreSQL, SQL Server, MySQL)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>לקרוא רק 13 חודשים</strong></td>
+<td>מקבצים את <code>orders</code> לפי <code>executed_at</code>; סינון התאריך מדלג על micro-partitions</td>
+<td>מחלקים את <code>orders</code> לפי חודש; נקראות רק 13 מחיצות</td>
+</tr>
+<tr>
+<td><strong>לקרוא פחות עמודות</strong></td>
+<td>אחסון עמודתי כבר קורא רק את העמודות שבשימוש</td>
+<td>אינדקס מכסה על <code>(executed_at, symbol)</code> הכולל את <code>quantity</code>, <code>price_usd</code>, <code>account_id</code>, או אינדקס columnstore</td>
+</tr>
+<tr>
+<td><strong>לצבור מראש</strong></td>
+<td>dynamic table של סכומים יומיים לכל סימול, מתעדכנת בהדרגה</td>
+<td>טבלת סיכום של סכומים יומיים לכל סימול, נטענת בלילה ליום הקודם בלבד</td>
+</tr>
+<tr>
+<td><strong>חישוב</strong></td>
+<td>להתאים את גודל ה-warehouse לטעינה החד-פעמית, לא לכל הרצה</td>
+<td>שאילתה מקבילית; להריץ עומסים כבדים מחוץ לשעות השיא או על read replica</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>בשניהם:</strong> מסכמים לפי חודש ואז מדרגים; מחריגים חשבונות בדיקה עם <code>NOT EXISTS</code> (רשימה קצרה); שומרים את הדירוגים של חודשים שחלפו, כי הם כבר לא משתנים.</p>
+</div><div class="sqlrun" data-q="a3"></div></section>
+<section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" data-title-he="B1. לקוחות פעילים" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B1. Active customers</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B1. לקוחות פעילים</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> שלושה צוותים מגדירים "לקוח פעיל" בשלוש דרכים שונות. באיזו הגדרה להשתמש לכל מטרה?</p>
 <ul>
 <li><strong>"ביצע פעולת מסחר ב-30 הימים האחרונים" ← לתחזית הכנסות.</strong> החברה מרוויחה עמלה רק כשמישהו קונה או מוכר. כמו מוכר גלידה שמרוויח רק ממי שקנה גלידה, לא ממי שרק נכנס לחנות.</li>
 <li><strong>"מחזיק השקעה" ← לשימור לקוחות.</strong> לקוח באמת עזב רק כשהוא מוציא את הכסף. מי שקנה מניה ושומר אותה שנים לא עזב, גם אם לא לחץ על כלום חודש שלם.</li>
 <li><strong>"התחבר לאפליקציה" ← לא לשניהם.</strong> זה רק סימן אזהרה: אם אנשים מפסיקים להיכנס, אולי בקרוב הם יעזבו.</li>
-</ul></div></details>
+</ul></div></details><div class="l-en">
+
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Three teams define an active customer differently: logged in during the last 30 days, placed an order during the last 30 days, or holds any investment. Which definition would you use for revenue forecasting, which for customer retention, and why?</p>
 </blockquote>
@@ -666,8 +934,39 @@ ORDER BY cur.month, cur.rnk;
 </tr>
 </tbody>
 </table></div>
-</section>
-<section class="sec page" id="p-b2" data-page="b2" data-sec="section-b" data-title="B2. Assets versus revenue" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead"><span>B2. Assets versus revenue</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמות הכסף שהלקוחות מחזיקים אצלנו גדלה ב-20%, אבל ההכנסה שלנו גדלה רק ב-5%. למה?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>שלוש קבוצות מגדירות לקוח פעיל בצורה שונה: התחבר ב-30 הימים האחרונים, ביצע פקודה ב-30 הימים האחרונים, או מחזיק בהשקעה כלשהי. באיזו הגדרה הייתם משתמשים לתחזית הכנסות, באיזו לשימור לקוחות, ולמה?</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>הגדרה</th>
+<th>שימוש</th>
+<th>למה</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ביצע פקודה, 30 ימים אחרונים</td>
+<td><strong>תחזית הכנסות</strong></td>
+<td>עמלה מתקבלת רק על פקודות שבוצעו: <em>סוחרים פעילים × פקודות לסוחר × עמלה לפקודה</em>. הריבית נחזית בנפרד, לפי יתרות המזומן.</td>
+</tr>
+<tr>
+<td>מחזיק בהשקעה כלשהי</td>
+<td><strong>שימור</strong></td>
+<td>לקוח נוטש כשהוא מוציא את הכסף, לא כשהוא מדלג על חודש של מסחר. לפי הגדרת הפקודה, משקיעים שקונים ומחזיקים ייראו כנוטשים.</td>
+</tr>
+<tr>
+<td>התחבר, 30 ימים אחרונים</td>
+<td>אף אחד מהם; אות אזהרה מוקדם</td>
+<td>רועש ולא קשור להכנסות, אבל ירידה בהתחברויות היא אזהרה מוקדמת לנטישה.</td>
+</tr>
+</tbody>
+</table></div>
+</div></section>
+<section class="sec page" id="p-b2" data-page="b2" data-sec="section-b" data-title="B2. Assets versus revenue" data-title-he="B2. נכסים מול הכנסות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B2. Assets versus revenue</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B2. נכסים מול הכנסות</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> כמות הכסף שהלקוחות מחזיקים אצלנו גדלה ב-20%, אבל ההכנסה שלנו גדלה רק ב-5%. למה?</p>
 <p><strong>דימוי:</strong> יש לך חנות, ומספר האנשים בקניון עלה ב-20%, אבל המכירות שלך עלו רק ב-5%. צריך לפרק: כמה נכנסו לחנות? כמה מהם קנו? כמה כל אחד שילם?</p>
 <p><strong>פירוק ההכנסה לחלקים:</strong></p>
 <ul>
@@ -680,7 +979,7 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>אנשים סוחרים פחות.</strong> קונים ושומרים, במקום לקנות ולמכור כל הזמן.</li>
 <li><strong>פחות מזומן או ריבית נמוכה יותר.</strong> הלקוחות השקיעו את המזומן, או שהריבית ירדה.</li>
 <li><strong>אנחנו לוקחים פחות על כל עסקה.</strong> הנחות, מבצעים, מחיר מיוחד ללקוחות גדולים.</li>
-</ol></div></details>
+</ol></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Total assets held by customers grew 20% this year, but revenue grew only 5%. Give four possible explanations. Then show how you would break revenue into components to find which one is true.</p>
 </blockquote>
@@ -726,8 +1025,54 @@ ORDER BY cur.month, cur.rnk;
 </tr>
 </tbody>
 </table></div>
-</section>
-<section class="sec page" id="p-b3" data-page="b3" data-sec="section-b" data-title="B3. Country comparison" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead"><span>B3. Country comparison</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> במדינה B כל לקוח מכניס לנו פי 2.5 יותר מאשר במדינה A. למה? (אסור לענות "הלקוחות ב-B פשוט יותר טובים".)</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>סך הנכסים שמחזיקים הלקוחות עלה ב-20% השנה, אבל ההכנסות עלו ב-5% בלבד. תנו ארבעה הסברים אפשריים. אחר כך הראו איך הייתם מפרקים את ההכנסות לרכיבים כדי לגלות איזה מהם נכון.</p>
+</blockquote>
+<p><strong>פירוק ההכנסות לרכיבים:</strong> הכנסות = עמלות + ריבית, כאשר <strong>עמלות = נכסים × תחלופה × שיעור עמלה (take rate)</strong> ו-<strong>ריבית = נכסים × שיעור המזומן × מרווח ריבית נטו</strong>.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>הסבר</th>
+<th>מה קרה</th>
+<th>הרכיב שבודק אותו</th>
+<th>אם זה נכון</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>רווחי שוק</strong></td>
+<td>המחירים עלו; החזקת נכסים לא מייצרת עמלה</td>
+<td>גידול בנכסים = הפקדות נטו + ביצועי שוק</td>
+<td>רוב ה-20% הם ביצועי שוק</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>תחלופה נמוכה יותר</strong></td>
+<td>יותר קנה-והחזק (ETF, קרנות)</td>
+<td>תחלופה = נפח מסחר ÷ נכסים ממוצעים</td>
+<td>התחלופה יורדת</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>פחות מזומן או ריביות נמוכות</strong></td>
+<td>המזומן עבר להשקעות, או שמרווח הריבית ירד</td>
+<td>שיעור המזומן = מזומן ÷ נכסים ממוצעים; מרווח ריבית נטו = הכנסות ריבית ÷ מזומן</td>
+<td>אחד היחסים יורד</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>שיעור עמלה נמוך יותר</strong></td>
+<td>הורדות מחיר, מבצעים, הנחות ללקוחות גדולים</td>
+<td>שיעור עמלה = עמלות ÷ נפח מסחר</td>
+<td>שיעור העמלה יורד</td>
+</tr>
+</tbody>
+</table></div>
+</div></section>
+<section class="sec page" id="p-b3" data-page="b3" data-sec="section-b" data-title="B3. Country comparison" data-title-he="B3. השוואה בין מדינות" hidden><p class="crumb"><b>B</b><span><span class="l-en">Section B · Metrics</span><span class="l-he">חלק B · מדדים</span></span><span class="crumb-pts"><span class="l-en">15 pts</span><span class="l-he">15 נק׳</span></span></p><h3 class="qhead l-en"><span>B3. Country comparison</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>B3. השוואה בין מדינות</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> במדינה B כל לקוח מכניס לנו פי 2.5 יותר מאשר במדינה A. למה? (אסור לענות "הלקוחות ב-B פשוט יותר טובים".)</p>
 <p><strong>שלוש סיבות:</strong></p>
 <ol>
 <li><strong>סוג הלקוחות.</strong> אולי ב-B יש יותר לקוחות ותיקים ועשירים, או כמה "לווייתנים" ענקיים שמקפיצים את הממוצע. כמו כיתה שבה ילד אחד גובהו 2 מטר: הגובה הממוצע קופץ.</li>
@@ -739,7 +1084,7 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>סוג הלקוחות:</strong> מחלקים את שתי המדינות לאותן קבוצות (ותיקים או חדשים, עשירים או לא). שואלים: "מה היה קורה אם ב-B היו בדיוק אותם סוגי לקוחות כמו ב-A?" אם הפער נעלם, זו הסיבה. בודקים גם מה קורה כשמוציאים את 1% הלקוחות הכי גדולים.</li>
 <li><strong>הדרך שבה הגיעו:</strong> משווים לקוחות שהגיעו מאותו ערוץ בשתי המדינות (המלצה מול המלצה, מבצע מול מבצע). אם בכל ערוץ הם דומים, הפער נובע מזה שב-B יש יותר לקוחות מהערוצים ה"חזקים".</li>
 <li><strong>רגולציה ומיסים:</strong> משווים כמה פקודות כל לקוח מבצע ובאילו מוצרים הוא מחזיק בכל מדינה. אם ב-A מבצעים פחות פקודות ומחזיקים פחות ETF אמריקאיות, אבל העמלה על כל פקודה דומה, החוקים הם ההסבר.</li>
-</ul></div></details>
+</ul></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Revenue per active customer is 2.5 times higher in Country B than in Country A. Give three explanations other than "customers in Country B are simply better", and describe how you would test one of them.</p>
 </blockquote>
@@ -769,8 +1114,38 @@ ORDER BY cur.month, cur.rnk;
 </tr>
 </tbody>
 </table></div>
-</section>
-<section class="sec page" id="p-c1" data-page="c1" data-sec="section-c" data-title="C1. Sudden drop" hidden><p class="crumb"><b>C</b><span>Section C · Data quality</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>C1. Sudden drop</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בגרף "כמה לקוחות היו פעילים היום" רואים ירידה של 30% ביום שלישי, אבל כמות הקניות וההפקדות נראית רגילה. מה קרה?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>ההכנסה ללקוח פעיל גבוהה פי 2.5 במדינה B לעומת מדינה A. תנו שלושה הסברים מלבד "הלקוחות במדינה B פשוט טובים יותר", ותארו איך הייתם בודקים אחד מהם.</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>סיבה אפשרית</th>
+<th>מה זה אומר</th>
+<th>איך בודקים</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>הרכב הלקוחות</strong></td>
+<td>ב-B יש יותר לקוחות ותיקים או עשירים, או כמה לקוחות גדולים מאוד שמעלים את הממוצע.</td>
+<td>משווים קבוצות עם אותו ותק וגודל הפקדה בין המדינות. אם הפער נסגר, ההרכב מסביר אותו. משווים גם חציונים ובודקים שוב בלי 1% העליונים.</td>
+</tr>
+<tr>
+<td><strong>ערוץ גיוס</strong></td>
+<td>ב-B יותר לקוחות מגיעים דרך Referral ו-Search, ומגיעים כשכבר בכוונה להשקיע; ב-A דרך מבצעי Paid social שמביאים סוחרים קטנים ומזדמנים.</td>
+<td>משווים את תמהיל הערוצים (<code>signup_channel</code>) בכל מדינה, ואז את ההכנסה ללקוח באותו ערוץ. אם B ו-A קרובים ערוץ אחר ערוץ, תמהיל הערוצים מסביר את הפער.</td>
+</tr>
+<tr>
+<td><strong>רגולציה ומס</strong></td>
+<td>הכללים שונים בין מדינות: משקיעי קמעונאות באיחוד האירופי לא יכולים לקנות ETF הנסחרים בארה"ב בלי KID, ובבריטניה יש מס בולים של 0.5% על רכישת מניות. פחות מוצרים ומסחר יקר יותר פירושם פחות פקודות.</td>
+<td>משווים פקודות ללקוח ותמהיל סוגי נכסים. אם ב-A יש פחות פקודות ופחות ETF אמריקאיים בעמלה דומה לפקודה, הכללים מסבירים את הפער.</td>
+</tr>
+</tbody>
+</table></div>
+</div></section>
+<section class="sec page" id="p-c1" data-page="c1" data-sec="section-c" data-title="C1. Sudden drop" data-title-he="C1. ירידה פתאומית" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C1. Sudden drop</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C1. ירידה פתאומית</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בגרף "כמה לקוחות היו פעילים היום" רואים ירידה של 30% ביום שלישי, אבל כמות הקניות וההפקדות נראית רגילה. מה קרה?</p>
 <p><strong>ההיגיון:</strong> אם אנשים קנו והפקידו כרגיל, לפחות הסוחרים היו פעילים. כנראה שהבעיה היא <strong>במדידה</strong> ולא בלקוחות. בשאלה לא כתוב מה קרה ביום רביעי, ולכן הדבר הראשון הוא לבדוק את רביעי. התשובה מחלקת את הסיבות לשתי קבוצות.</p>
 <p><strong>אם ברביעי הכול חזר לרגיל (זו ההנחה שלי, ואני כותב אותה במפורש):</strong> שום דבר לא השתנה לתמיד. כנראה שפשוט <strong>חסרים נתונים של יום שלישי</strong>. הקניות וההפקדות מגיעות ממערכת אחת, והכניסות לאפליקציה ממערכת אחרת, ורק השנייה נתקעה. כמו יומן נוכחות שבו המורה שכחה למלא דף אחד: התלמידים היו בכיתה, רק לא נרשמו. בודקים לפי הסדר:</p>
 <ol>
@@ -781,7 +1156,8 @@ ORDER BY cur.month, cur.rnk;
 <p><strong>אם המספר נשאר נמוך:</strong> משהו השתנה לתמיד. בודקים אם מישהו שינה את הנוסחה שסופרת לקוחות פעילים, ואם יצאה גרסה חדשה של האפליקציה. מפצלים לפי סוג מכשיר וגרסה.</p>
 <p><strong>ירידה אמיתית:</strong> לא סבירה בשום מקרה, כי הקניות וההפקדות היו רגילות.</p>
 <p><strong>בדיקה מהירה:</strong> סופרים כמה אנשים קנו משהו ביום שלישי אבל לא נספרו כפעילים. זה אמור להיות כמעט 0. אם לא, הנתונים חסרים.</p>
-<p><strong>אחר כך:</strong> מעלים מחדש את הנתונים של יום שלישי, ומוסיפים התראה אוטומטית אם מגיעים פחות נתונים מהרגיל.</p></div></details>
+<p><strong>אחר כך:</strong> מעלים מחדש את הנתונים של יום שלישי, ומוסיפים התראה אוטומטית אם מגיעים פחות נתונים מהרגיל.</p></div></details><div class="l-en">
+
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.</p>
 </blockquote>
@@ -796,8 +1172,24 @@ ORDER BY cur.month, cur.rnk;
 <p><strong>Real drop:</strong> unlikely either way, since orders and deposits were normal.</p>
 <p><strong>Quick test:</strong> count accounts that placed an order on Tuesday but have no activity event. Normally it is near zero; if not, the activity data is missing events.</p>
 <p><strong>Then:</strong> reload Tuesday so the history is right, and add an alert on daily event volume so the next gap is caught the same day.</p>
-</section>
-<section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" hidden><p class="crumb"><b>C</b><span>Section C · Data quality</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מחלקת הכספים אומרת שההכנסה בספטמבר נמוכה ב-4% ממה שמראה הדשבורד. שני הצדדים בטוחים שהם צודקים.</p>
+</div><div class="l-he" dir="rtl" lang="he">
+
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>גרף הלקוחות הפעילים היומי ירד ב-30% ביום שלישי, בעוד שהפקודות וההפקדות באותו יום נראות רגילות. פרטו את הסיבות הסבירות בסדר שבו הייתם בודקים אותן, ומה הייתם בודקים בכל אחת.</p>
+</blockquote>
+<p>הפקודות וההפקדות היו רגילות, כלומר לקוחות מסחר היו פעילים: הבעיה כנראה במדידה. הבדיקה הראשונה היא יום רביעי, כי היא מחלקת את הסיבות לשתיים.</p>
+<p><strong>אם יום רביעי חזר לרגיל (ההנחה שלי):</strong> שום דבר לא השתנה לצמיתות, וככל הנראה נתוני הפעילות של יום שלישי לא שלמים. הפעילות מגיעה ממקור אירועים נפרד, שלא כמו פקודות והפקדות. לפי הסדר:</p>
+<ol>
+<li><strong>טעינה מאוחרת או חלקית.</strong> המשימה של יום שלישי רצה לפני שכל האירועים הגיעו, או נכשלה באמצע. משווים ספירות לפי שעה לימי שלישי קודמים; פער של כמה שעות מצביע על כך.</li>
+<li><strong>תקלה באיסוף האירועים.</strong> השירות שמתעד התחברויות וסשנים לא עבד כמה שעות. בודקים את יומני השגיאות וכל אירוע תקלה או גרסה שבוטלה באותו יום.</li>
+<li><strong>גבול היום.</strong> אי-התאמה באזור זמן או משימה שחתכה את היום מוקדם העבירה פעילות ליום שני או לרביעי. בודקים אם אחד מהימים האלה גבוה מהרגיל.</li>
+</ol>
+<p><strong>אם נשאר נמוך:</strong> משהו השתנה לצמיתות. בודקים שינויים אחרונים בלוגיקת המדד (מסננים, joins, אזור זמן), ואז כל גרסת אפליקציה או שינוי במעקב, בפילוח לפי פלטפורמה וגרסת אפליקציה.</p>
+<p><strong>ירידה אמיתית:</strong> לא סבירה בשום מקרה, כי הפקודות וההפקדות היו רגילות.</p>
+<p><strong>בדיקה מהירה:</strong> סופרים חשבונות שביצעו פקודה ביום שלישי אבל אין להם אירוע פעילות. בדרך כלל זה קרוב לאפס; אם לא, בנתוני הפעילות חסרים אירועים.</p>
+<p><strong>אחר כך:</strong> טוענים מחדש את יום שלישי כדי שההיסטוריה תהיה נכונה, ומוסיפים התראה על נפח האירועים היומי כדי שהפער הבא ייתפס באותו יום.</p>
+</div></section>
+<section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" data-title-he="C2. שני מספרים לחודש אחד" hidden><p class="crumb"><b>C</b><span><span class="l-en">Section C · Data quality</span><span class="l-he">חלק C · איכות נתונים</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3><h3 class="qhead l-he"><span>C2. שני מספרים לחודש אחד</span><span class="pts">5 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מחלקת הכספים אומרת שההכנסה בספטמבר נמוכה ב-4% ממה שמראה הדשבורד. שני הצדדים בטוחים שהם צודקים.</p>
 <p><strong>דימוי:</strong> שני ילדים ספרו כמה סוכריות יש בשקית וקיבלו מספרים שונים. במקום לריב, בודקים: האם שניהם ספרו גם את השבורות? האם שניהם ספרו את אותה שקית?</p>
 <p><strong>הצעדים:</strong></p>
 <ol>
@@ -805,7 +1197,7 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>מפרקים לחתיכות</strong> (לפי סוג הכנסה ולפי יום) ומחפשים איפה הפער.</li>
 <li><strong>משווים שורה מול שורה.</strong> אילו עסקאות יש רק אצל אחד מהצדדים?</li>
 <li><strong>מונעים את הפער הבא.</strong> מספר אחד כולל רק אומר "יש פער", אבל לא איפה. לכן בונים בדשבורד דוח עם אותם רכיבים שיש בדוח של הכספים (עמלות לפי סוג מוצר, ריבית על מזומן, החזרים ומבצעים), ומשווים רכיב מול רכיב כל חודש. לא מחליטים מראש מי צודק: אם יש פער, רואים מיד באיזה רכיב הוא ומתקנים במקור. כמו שני הילדים: במקום לספור רק את כל השקית, סופרים לפי צבעים, ואז רואים מיד באיזה צבע הטעות.</li>
-</ol></div></details>
+</ol></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Finance reports September revenue that is 4% lower than the BI dashboard. Both teams say their number is right. Describe how you would reconcile the two figures, step by step, and the most common reasons for a gap like this.</p>
 </blockquote>
@@ -816,8 +1208,19 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>Prevent the next gap:</strong> build a BI report with the same revenue lines as Finance (commission by asset type, interest on cash, refunds and promotions) and compare them line by line every month.</li>
 </ol>
 <p><strong>Common causes:</strong> gross vs net, cut-off and time zone, scope (test or internal accounts), FX rates, duplicate rows in BI.</p>
-</section>
-<section class="sec page" id="p-d1" data-page="d1" data-sec="section-d" data-title="D1. New onboarding flow" hidden><p class="crumb"><b>D</b><span>Section D · Analytical reasoning</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>D1. New onboarding flow</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> ב-1 במרץ החלפנו את תהליך ההרשמה. אחוז הנרשמים שהכניסו כסף עלה מ-18% ל-22%. צוות המוצר אומר: "זה בזכותנו!" האם הם צודקים?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>הכספים מדווחים על הכנסות ספטמבר הנמוכות ב-4% מלוח ה-BI. שתי הקבוצות אומרות שהמספר שלהן נכון. תארו איך הייתם מיישבים בין שני המספרים, צעד אחר צעד, ואת הסיבות הנפוצות ביותר לפער כזה.</p>
+</blockquote>
+<ol>
+<li><strong>משווים הגדרות:</strong> ברוטו או נטו, אילו סוגי הכנסה, איזה תאריך (מסחר או רישום), אזור זמן, אילו חשבונות, שער חליפין.</li>
+<li><strong>מפצלים את שני המספרים</strong> לפי סוג הכנסה, יום וישות כדי למצוא איפה הפער.</li>
+<li><strong>מתאימים רשומות</strong> לפי מזהה פקודה או עסקה: רק ב-BI, רק בכספים, סכומים שונים.</li>
+<li><strong>מונעים את הפער הבא:</strong> בונים דוח BI עם אותן שורות הכנסה כמו בכספים (עמלות לפי סוג נכס, ריבית על מזומן, החזרים ומבצעים) ומשווים שורה אחר שורה בכל חודש.</li>
+</ol>
+<p><strong>סיבות נפוצות:</strong> ברוטו מול נטו, מועד סגירה ואזור זמן, היקף (חשבונות בדיקה או פנימיים), שערי חליפין, שורות כפולות ב-BI.</p>
+</div></section>
+<section class="sec page" id="p-d1" data-page="d1" data-sec="section-d" data-title="D1. New onboarding flow" data-title-he="D1. תהליך הרשמה חדש" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D1. New onboarding flow</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>D1. תהליך הרשמה חדש</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> ב-1 במרץ החלפנו את תהליך ההרשמה. אחוז הנרשמים שהכניסו כסף עלה מ-18% ל-22%. צוות המוצר אומר: "זה בזכותנו!" האם הם צודקים?</p>
 <p><strong>הבעיה:</strong> אי אפשר לדעת מהשוואה של פברואר מול מרץ, כי הרבה דברים השתנו באותו זמן. כמו לומר "התחלתי לאכול גזר, ובאותו חודש גבהתי". אולי פשוט גדלת.</p>
 <p><strong>מה בודקים:</strong></p>
 <ol>
@@ -838,7 +1241,8 @@ ORDER BY cur.month, cur.rnk;
 </ul>
 <p><strong>איך מחשבים (למראיין):</strong> מובהקות 5% (z = 1.96), עוצמה 80% (z = 0.84):<br />
 n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² ≈ 1,569.</p>
-<p><strong>כמה זמן:</strong> תלוי בכמה נרשמים יש. עם 1,000 בשבוע, 12,000 אנשים ייקחו כ-12 שבועות. בכל מקרה לפחות שבועיים, כדי לכסות את כל ימי השבוע.</p></div></details>
+<p><strong>כמה זמן:</strong> תלוי בכמה נרשמים יש. עם 1,000 בשבוע, 12,000 אנשים ייקחו כ-12 שבועות. בכל מקרה לפחות שבועיים, כדי לכסות את כל ימי השבוע.</p></div></details><div class="l-en">
+
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?</p>
 </blockquote>
@@ -876,10 +1280,45 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <p>I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.</p>
 <!-- math:d1 -->
 
-<div id="d1-widget"></div>
+</div><div class="l-he" dir="rtl" lang="he">
 
-</section>
-<section class="sec page" id="p-d2" data-page="d2" data-sec="section-d" data-title="D2. A/B test result" hidden><p class="crumb"><b>D</b><span>Section D · Analytical reasoning</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead"><span>D2. A/B test result</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בדקו מסך הזמנות חדש במשך שבוע. במסך החדש היו 8% יותר הזמנות, עם p = 0.04 (כלומר יש סיכוי קטן שזה מזל). בשני מדדים אחרים לא היה שינוי. האם להשיק?</p>
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>תהליך הרשמה חדש עלה לכל המשתמשים ב-1 במרץ. שיעור הנרשמים שמממנים את החשבון עלה מ-18% בפברואר ל-22% במרץ. צוות המוצר מייחס זאת לתהליך החדש. איך הייתם בודקים אם התהליך גרם לעלייה, ואיך הייתם מודדים זאת נכון בפעם הבאה?</p>
+</blockquote>
+<p>השוואה בין פברואר למרץ לא יכולה לבודד את התהליך. הייתי בודק:</p>
+<ol>
+<li><strong>מכנה.</strong> אם התהליך מסנן אנשים לפני שהם נספרים כנרשמים, השיעור עולה בלי יותר חשבונות ממומנים. בודקים מספר מוחלט של חשבונות ממומנים, ומודדים את שני החודשים באותה צורה: מימון תוך 14 ימים מההרשמה.</li>
+<li><strong>הרכב.</strong> משווים שיעורים בתוך כל ערוץ ומדינה.</li>
+<li><strong>השפעות אחרות במרץ.</strong> עונתיות, שווקים, מבצעים. בודקים אם המגמה השבועית קופצת בדיוק ב-1 במרץ.</li>
+<li><strong>אין קבוצת ביקורת.</strong> התהליך עלה לכולם, ולכן הראיה הטובה ביותר היא המגמה השבועית סביב 1 במרץ (סדרת זמן קטועה, interrupted time series). היא תומכת בטענה סיבתית אבל לא מוכיחה אותה, ולכן בפעם הבאה צריך בדיקת A/B.</li>
+<li><strong>איכות.</strong> האם המממנים הנוספים מפקידים וסוחרים כמו האחרים ב-30 הימים הראשונים שלהם?</li>
+</ol>
+<p><strong>בפעם הבאה:</strong> בדיקת A/B שבה ההקצאה אקראית לפני ההרשמה, עם מדד ראשי אחד (מימון תוך 14 ימים), ומנתחים רק אחרי שלנרשמים האחרונים עברו 14 הימים שלהם.</p>
+<p><strong>גודל מדגם</strong> (דו-צדדי α = 5%, עוצמה 80%):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>ההפרש שרוצים לזהות</th>
+<th>משתמשים בקבוצה</th>
+<th>סה"כ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18% ← 22% (+4 נקודות, הקפיצה שנצפתה)</td>
+<td>~1,570</td>
+<td>~3,140</td>
+</tr>
+<tr>
+<td>18% ← 20% (+2 נקודות)</td>
+<td><strong>~6,000</strong></td>
+<td><strong>~12,000</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>הייתי מתכנן ל-+2 נקודות: חלק מהקפיצה שנצפתה כנראה נובע מעונתיות או הרכב, ולכן ההשפעה האמיתית כנראה קטנה יותר. חצי מההפרש דורש פי ארבעה מהמדגם. מריצים לפחות שני שבועות מלאים.</p>
+</div><div id="d1-widget"></div></section>
+<section class="sec page" id="p-d2" data-page="d2" data-sec="section-d" data-title="D2. A/B test result" data-title-he="D2. תוצאת בדיקת A/B" hidden><p class="crumb"><b>D</b><span><span class="l-en">Section D · Analytical reasoning</span><span class="l-he">חלק D · חשיבה אנליטית</span></span><span class="crumb-pts"><span class="l-en">10 pts</span><span class="l-he">10 נק׳</span></span></p><h3 class="qhead l-en"><span>D2. A/B test result</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>D2. תוצאת בדיקת A/B</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> בדקו מסך הזמנות חדש במשך שבוע. במסך החדש היו 8% יותר הזמנות, עם p = 0.04 (כלומר יש סיכוי קטן שזה מזל). בשני מדדים אחרים לא היה שינוי. האם להשיק?</p>
 <p><strong>התשובה: לא רק על סמך p = 0.04.</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי והניסוי נעשה כמו שצריך, אפשר לסמוך על התוצאה. אחרת, מריצים ניסוי חדש ומסודר שיאשר אותה.</p>
 <ol>
 <li><strong>בדקו שלושה דברים.</strong> אם זורקים מטבע שלוש פעמים, הסיכוי שלפחות פעם אחת יקרה משהו "מיוחד" במקרה גדל. כשמתקנים את זה, 0.04 כבר לא מספיק טוב. <strong>אבל:</strong> אם הוחלט מראש שמספר ההזמנות הוא המדד הראשי, לא צריך את התיקון. לכן קודם שואלים מה הוגדר מראש.</li>
@@ -888,7 +1327,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <li><strong>סיכון רגולטורי.</strong> אם המסך דוחף אנשים לסחור יותר, הרגולטור עלול לא לאהוב את זה.</li>
 <li><strong>האם החלוקה יצאה כמתוכנן?</strong> אם תכננו חצי-חצי ויצא 55% מול 45%, משהו התקלקל: בהגרלה או במדידה. עד שמבינים מה קרה, אי אפשר לסמוך על התוצאה. כמו מטבע שנופל יותר מדי פעמים על עץ: כנראה הוא לא הוגן.</li>
 </ol>
-<p><strong>ההמלצה:</strong> לא "להאריך" את אותו ניסוי אחרי שכבר ראו תוצאה. זה כמו להמשיך לזרוק מטבע עד שיוצא מה שרוצים. אם צריך ניסוי חדש, מריצים אותו 2–3 שבועות, וקובעים <strong>מראש</strong> את המדד הראשי (כמה <strong>כסף</strong> כל משתמש מכניס), "מדדי הגנה" שאסור שייפגעו (הזמנות שבוטלו, תלונות) ואת גודל המדגם.</p></div></details>
+<p><strong>ההמלצה:</strong> לא "להאריך" את אותו ניסוי אחרי שכבר ראו תוצאה. זה כמו להמשיך לזרוק מטבע עד שיוצא מה שרוצים. אם צריך ניסוי חדש, מריצים אותו 2–3 שבועות, וקובעים <strong>מראש</strong> את המדד הראשי (כמה <strong>כסף</strong> כל משתמש מכניס), "מדדי הגנה" שאסור שייפגעו (הזמנות שבוטלו, תלונות) ואת גודל המדגם.</p></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>A test of a redesigned order screen ran for one week. The new screen shows 8% more orders per user, with p = 0.04. The team also checked two other metrics, which showed no difference. Should they launch? Name at least three concerns.</p>
 </blockquote>
@@ -945,8 +1384,65 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </table></div>
 <p>Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower chance.</p>
 <p><strong>Recommendation:</strong> don't extend this test until it looks good; that raises false positives. If a confirmatory test is needed, run it 2–3 weeks with revenue per user as the primary metric, guardrails (cancelled orders, complaints) and sample size set in advance.</p>
-</section>
-<section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" hidden><p class="crumb"><b>E</b><span>Section E · Excel model</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>E. Excel model</span><span class="pts">20 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>בדיקה של מסך פקודות מעוצב מחדש רצה שבוע. המסך החדש מציג 8% יותר פקודות למשתמש, עם p = 0.04. הצוות בדק גם שני מדדים נוספים, שלא הראו הבדל. האם להשיק? ציינו לפחות שלוש הסתייגויות.</p>
+</blockquote>
+<p><strong>לא על סמך p = 0.04 בלבד.</strong> אם פקודות למשתמש היה המדד הראשי שהוגדר מראש והבדיקה תקינה, התוצאה יכולה לעמוד. אחרת, מאשרים אותה בבדיקה חדשה שגדולה מספיק.</p>
+<ol>
+<li><strong>השוואות מרובות.</strong> אם שלושת המדדים נחשבים שווים, או שפקודות למשתמש נבחר אחרי שראו את הנתונים, הסיכוי שאחד נראה מובהק במקרה הוא כ-14%. עם Bonferroni (0.017), p = 0.04 נכשל. אם זה היה המדד הראשי היחיד שהוגדר מראש, אין צורך בתיקון עבורו, אבל p = 0.04 עדיין ראיה חלשה אחרי שבוע אחד.</li>
+<li><strong>קצר מדי.</strong> בשבוע אחד משתמשים עשויים להגיב רק כי המסך חדש, ומכוסה רק שבוע אחד של תנאי שוק.</li>
+<li><strong>פקודות הן לא ערך.</strong> אם ההכנסה לא זזה, ייתכן שמשתמשים רק מפצלים פקודות; וגם כמה סוחרים כבדים יכולים להזיז את הממוצע.</li>
+<li><strong>סיכון ללקוח.</strong> דחיפה של אנשים לסחור יותר מושכת תשומת לב רגולטורית.</li>
+<li><strong>יחס מדגם.</strong> בודקים שהחלוקה תאמה את התוכנית (למשל 50/50). אי-התאמה פירושה שההקצאה או המעקב נשברו, ואי אפשר לסמוך על התוצאה עד שמסבירים אותה.</li>
+</ol>
+<p><strong>השוואות מרובות במספרים</strong> (אין הבדל אמיתי, α = 0.05 לכל מדד, שלושתם נבדקים כמשפחה אחת):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>מדדים שנבדקו</th>
+<th>סיכוי שלפחות אחד "מובהק" במקרה</th>
+<th>סף Bonferroni</th>
+<th>האם p = 0.04 עובר?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5%</td>
+<td>0.05</td>
+<td>כן</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10%</td>
+<td>0.025</td>
+<td>לא</td>
+</tr>
+<tr>
+<td><strong>3 (בדיקה זו)</strong></td>
+<td><strong>14%</strong></td>
+<td><strong>0.017</strong></td>
+<td><strong>לא</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>23%</td>
+<td>0.010</td>
+<td>לא</td>
+</tr>
+<tr>
+<td>10</td>
+<td>40%</td>
+<td>0.005</td>
+<td>לא</td>
+</tr>
+</tbody>
+</table></div>
+<p>הסיכוי = 1 − 0.95^k עבור k מדדים בלתי תלויים; מדדים מתואמים נותנים סיכוי נמוך יותר.</p>
+<p><strong>המלצה:</strong> לא מאריכים את הבדיקה הזו עד שהיא נראית טוב; זה מגדיל תוצאות חיוביות שגויות. אם צריך בדיקה מאשרת, מריצים אותה 2–3 שבועות עם הכנסה למשתמש כמדד ראשי, מדדי הגנה (פקודות שבוטלו, תלונות) וגודל מדגם שנקבעים מראש.</p>
+</div></section>
+<section class="sec page" id="p-e" data-page="e" data-sec="section-e" data-title="E. Excel model" data-title-he="E. מודל אקסל" hidden><p class="crumb"><b>E</b><span><span class="l-en">Section E · Excel model</span><span class="l-he">חלק E · מודל אקסל</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>E. Excel model</span><span class="pts">20 pts</span></h3><h3 class="qhead l-he"><span>E. מודל אקסל</span><span class="pts">20 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> החברה רוצה להציע מנוי של $9.99 לחודש, ומי שמנוי סוחר בלי עמלות. האם זה משתלם?</p>
 <p><strong>דימוי:</strong> חדר כושר שמציע "כניסה חופשית ב-100 ש"ח לחודש" במקום 30 ש"ח לכל כניסה. מי יירשם? רק מי שמגיע הרבה. ומהם החדר מרוויח פחות.</p>
 <p><strong>ועוד דבר שהמודל לא כולל:</strong> המודל מניח שמספר העסקאות לא משתנה. אבל מי שסוחר בחינם אולי יסחור יותר.</p>
 <p><strong>שים לב למינימום:</strong> החישוב לפי עסקה ממוצעת. אבל עסקה קטנה מ-$500 משלמת את המינימום של $1, יותר מ-0.2% שלה. לכן העמלה האמיתית כנראה קצת גבוהה יותר ממה שחישבנו, והחישוב הוא הערכה מלמטה.</p>
@@ -957,7 +1453,7 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 <li><strong>בסך הכול ההכנסה יורדת בחצי</strong> (בערך מינוס 1.1 מיליון דולר בחודש).</li>
 </ul>
 <p><strong>כמה המנוי צריך לעלות כדי לא להפסיד?</strong> $128.43.</p>
-<p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details>
+<p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>The platform charges 0.20% commission on the value of each trade, with a minimum of $1 per trade. Management is considering an optional $9.99 monthly subscription that includes unlimited commission-free trades. Which segments bring more revenue under the subscription, and which bring less? What price keeps total revenue unchanged at these opt-in rates? Why are these opt-in rates unlikely to hold, and what pricing would you test instead?</p>
 </blockquote>
@@ -996,9 +1492,52 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </tr>
 </tbody>
 </table></div>
-<div id="e-calc-box"></div><p>Model in the attached <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; Download Section_E_Subscription_Model.xlsx</a>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>הפלטפורמה גובה עמלה של 0.20% מערך כל עסקה, עם מינימום של $1 לעסקה. ההנהלה שוקלת מנוי חודשי אופציונלי ב-$9.99 הכולל עסקאות ללא הגבלה וללא עמלה. אילו מקטעים מביאים יותר הכנסה עם המנוי, ואילו פחות? איזה מחיר משאיר את סך ההכנסה ללא שינוי בשיעורי ההצטרפות האלה? למה סביר ששיעורי ההצטרפות האלה לא יחזיקו, ואיזה תמחור הייתם בודקים במקומם?</p>
+</blockquote>
+<p><strong>הנתונים (חודשי)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>מקטע</th>
+<th>לקוחות</th>
+<th>עסקאות בחודש</th>
+<th>ערך עסקה ממוצע</th>
+<th>הצטרפות צפויה</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter</td>
+<td>40,000</td>
+<td>2</td>
+<td>$800</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Regular</td>
+<td>15,000</td>
+<td>8</td>
+<td>$2,500</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>4,000</td>
+<td>30</td>
+<td>$6,000</td>
+<td>70%</td>
+</tr>
+</tbody>
+</table></div>
+</div><div id="e-calc-box"></div><div class="l-en"><p>Model in the attached <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; Download Section_E_Subscription_Model.xlsx</a>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
-<div id="excel-widget"></div>
+</div><div class="l-he" dir="rtl" lang="he">
+
+<p>המודל מצורף בקובץ <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; הורדת Section_E_Subscription_Model.xlsx</a>. עמלה לעסקה = <code>MAX(rate × value, minimum)</code>; מנויים משלמים את הדמי המנוי וסוחרים בחינם.</p>
+<p>שימוש בערכי עסקה ממוצעים נותן גבול תחתון (כל עסקה מתחת ל-$500 משלמת את המינימום של $1), ולכן העמלה בפועל כנראה גבוהה יותר. המודל גם מחזיק את מספר העסקאות בחודש קבוע, אף שמסחר חופשי עשוי לגרום למנויים לסחור יותר.</p>
+</div><div id="excel-widget"></div><div class="l-en">
 
 <p><strong>Which segments bring more or less, and why?</strong><br />
 Only <strong>Starter</strong> brings more (+$13,580/month): its customers pay just $3.20/month in commission, less than the $9.99 fee. <strong>Regular</strong> and <strong>Active</strong> bring less, because subscribers stop paying $40 or $360 and pay $9.99.</p>
@@ -1006,8 +1545,16 @@ Only <strong>Starter</strong> brings more (+$13,580/month): its customers pay ju
 <code>SUMPRODUCT(customers, opt-in, commission) / SUMPRODUCT(customers, opt-in)</code> = $1,194,400 ÷ 9,300 = <strong>$128.43/month</strong>.</p>
 <p><strong>Why the opt-in rates won't hold</strong><br />
 Customers subscribe only when it saves them money, so at $128.43 no Starter or Regular customer would join, only Active traders. I would test a tiered plan for Active traders instead, such as $49–99/month for discounted commission or a capped number of free trades, as a randomized price test.</p>
-</section>
-<section class="sec page" id="p-f1" data-page="f1" data-sec="section-f" data-title="F1. The real state of the business" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F1. The real state of the business</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>הסיפור:</strong> ההנהלה אומרת "רבעון טוב, ההכנסה עלתה ב-6%". הטבלה מראה את המספרים מאחורי המשפט הזה.</p>
+</div><div class="l-he" dir="rtl" lang="he">
+
+<p><strong>אילו מקטעים מביאים יותר או פחות, ולמה?</strong><br />
+רק <strong>Starter</strong> מביא יותר (+$13,580 לחודש): הלקוחות שלו משלמים רק $3.20 בחודש עמלה, פחות מדמי המנוי של $9.99. <strong>Regular</strong> ו-<strong>Active</strong> מביאים פחות, כי מנויים מפסיקים לשלם $40 או $360 ומשלמים $9.99.</p>
+<p><strong>מחיר איזון</strong><br />
+<code>SUMPRODUCT(customers, opt-in, commission) / SUMPRODUCT(customers, opt-in)</code> = $1,194,400 ÷ 9,300 = <strong>$128.43 לחודש</strong>.</p>
+<p><strong>למה שיעורי ההצטרפות לא יחזיקו</strong><br />
+לקוחות מצטרפים למנוי רק כשזה חוסך להם כסף, ולכן ב-$128.43 אף לקוח Starter או Regular לא יצטרף, רק סוחרי Active. הייתי בודק במקום זה תוכנית מדורגת לסוחרי Active, למשל $49–99 לחודש תמורת עמלה מופחתת או מספר מוגבל של עסקאות חינם, כבדיקת מחיר אקראית.</p>
+</div></section>
+<section class="sec page" id="p-f1" data-page="f1" data-sec="section-f" data-title="F1. The real state of the business" data-title-he="F1. המצב האמיתי של העסק" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F1. The real state of the business</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F1. המצב האמיתי של העסק</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>הסיפור:</strong> ההנהלה אומרת "רבעון טוב, ההכנסה עלתה ב-6%". הטבלה מראה את המספרים מאחורי המשפט הזה.</p>
 <p><strong>הדבר הכי חשוב לראות כאן:</strong> את ההכנסה כדאי לפרק לשני חלקים: 20 הלקוחות הכי גדולים, וכל השאר. הגדולים עלו ב-60%, וכל השאר <strong>ירדו</strong> ב-7.5%. הממוצע מסתיר את זה.</p>
 <p><strong>עוד שני מספרים שחישבתי:</strong></p>
 <ul>
@@ -1020,7 +1567,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li><strong>פחות אנשים סוחרים</strong> (מינוס 8%), למרות שהגיעו 11,500 לקוחות חדשים. כלומר יותר סוחרים הפסיקו לסחור ממה שהתחילו. כמו דלי עם חור. זה חשבון פשוט: מספר הסוחרים ירד ב-4,000, אז יותר אנשים הפסיקו לסחור ממה שהתחילו או חזרו. (לא יודעים כמה בדיוק, כי אין נתוני שימור.)</li>
 <li><strong>הבאת לקוחות נהייתה יקרה יותר וגרועה יותר.</strong> שילמנו 26% יותר על פרסום, וקיבלנו רק 15% יותר לקוחות, שגם מפקידים פחות ומכניסים פחות. גם סך ההפקדות הראשונות ירד: $3.68 מיליון במקום $4 מיליון (מינוס 8%), למרות שהיו 15% יותר לקוחות חדשים. ובסך הכול, כל הלקוחות החדשים יחד הכניסו בחודש הראשון $1.73 מיליון במקום $2 מיליון: הוצאנו $1.3 מיליון יותר וקיבלנו 14% פחות. (11,500 × $150 מול 10,000 × $200.)</li>
 </ul>
-<p><strong>השורה התחתונה:</strong> זה לא רבעון טוב. זה רבעון חלש שנראה טוב בזכות כמה לקוחות גדולים.</p></div></details>
+<p><strong>השורה התחתונה:</strong> זה לא רבעון טוב. זה רבעון חלש שנראה טוב בזכות כמה לקוחות גדולים.</p></div></details><div class="l-en">
 <p>Management's summary of Q3 is "a good quarter, revenue up 6%". These are the figures:</p>
 <div class="tablewrap"><table>
 <thead>
@@ -1099,8 +1646,85 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <p>The base is shrinking: active traders fell 8% and volume 3%, despite 11,500 new accounts. <strong>That is 4,000 fewer, so more traders stopped trading than started or came back.</strong></p>
 <p>Acquisition is weaker: marketing rose 26% for 15% more accounts (cost per account $500 → $548), while first deposits fell 20% and first-month revenue 25%. <strong>$1.3M more spend bought 14% less first-month revenue.</strong></p>
 <p>It is a weak quarter that looks good because of 20 clients.</p>
-</section>
-<section class="sec page" id="p-f2" data-page="f2" data-sec="section-f" data-title="F2. The number that worries me most" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F2. The number that worries me most</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> איזה מספר הכי מדאיג?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<p>סיכום ההנהלה לרבעון 3 הוא "רבעון טוב, הכנסות עלו ב-6%". אלה הנתונים:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>מדד</th>
+<th>Q2</th>
+<th>Q3</th>
+<th>שינוי</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>הכנסות ($M)</td>
+<td>30.0</td>
+<td>31.8</td>
+<td>+6.0%</td>
+</tr>
+<tr>
+<td>הכנסות מ-20 הלקוחות הגדולים ($M)</td>
+<td>6.0</td>
+<td>9.6</td>
+<td>+60.0%</td>
+</tr>
+<tr>
+<td>הכנסות מכל שאר הלקוחות ($M)</td>
+<td>24.0</td>
+<td>22.2</td>
+<td>−7.5%</td>
+</tr>
+<tr>
+<td>סוחרים פעילים</td>
+<td>50,000</td>
+<td>46,000</td>
+<td>−8.0%</td>
+</tr>
+<tr>
+<td>נפח מסחר ($B)</td>
+<td>100</td>
+<td>97</td>
+<td>−3.0%</td>
+</tr>
+<tr>
+<td>חשבונות חדשים שמומנו</td>
+<td>10,000</td>
+<td>11,500</td>
+<td>+15.0%</td>
+</tr>
+<tr>
+<td>הוצאות שיווק ($M)</td>
+<td>5.0</td>
+<td>6.3</td>
+<td>+26.0%</td>
+</tr>
+<tr>
+<td>הפקדה ראשונה ממוצעת ($)</td>
+<td>400</td>
+<td>320</td>
+<td>−20.0%</td>
+</tr>
+<tr>
+<td>הכנסה לחשבון חדש שמומן, 30 ימים ראשונים ($)</td>
+<td>200</td>
+<td>150</td>
+<td>−25.0%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>נגזרות:</strong> חלקם של 20 הגדולים בהכנסות 20% ← 30%; עלות לחשבון חדש שמומן $500 ← $548; סך ההפקדות הראשונות $4.0M ← $3.68M (−8%); הכנסה בחודש הראשון מכל החשבונות החדשים $2.0M ← $1.73M (−14%).</p>
+
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>בלא יותר מ-150 מילים, מהו המצב האמיתי של העסק?</p>
+</blockquote>
+<p>הצמיחה הגיעה מ-20 לקוחות. ההכנסה שלהם עלתה ב-60% והיא כעת 30% מהסך, בעוד כל השאר ירדו ב-7.5%. בלי הצמיחה שלהם, ההכנסות היו יורדות ב-6%.</p>
+<p>הבסיס מצטמק: הסוחרים הפעילים ירדו ב-8% והנפח ב-3%, למרות 11,500 חשבונות חדשים. <strong>זה 4,000 פחות, כלומר יותר סוחרים הפסיקו לסחור מאשר התחילו או חזרו.</strong></p>
+<p>הגיוס חלש יותר: השיווק עלה ב-26% בעבור 15% יותר חשבונות (עלות לחשבון $500 ← $548), בעוד ההפקדות הראשונות ירדו ב-20% וההכנסה בחודש הראשון ב-25%. <strong>$1.3M הוצאה נוספת קנו 14% פחות הכנסה בחודש הראשון.</strong></p>
+<p>זה רבעון חלש שנראה טוב בזכות 20 לקוחות.</p>
+</div></section>
+<section class="sec page" id="p-f2" data-page="f2" data-sec="section-f" data-title="F2. The number that worries me most" data-title-he="F2. המספר שמדאיג אותי ביותר" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F2. The number that worries me most</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F2. המספר שמדאיג אותי ביותר</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> איזה מספר הכי מדאיג?</p>
 <p><strong>התשובה:</strong> ההכנסה מכל הלקוחות <strong>חוץ</strong> מ-20 הגדולים, שירדה ב-7.5%.</p>
 <p><strong>למה דווקא הוא?</strong></p>
 <ul>
@@ -1108,19 +1732,25 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li>20 הגדולים לא יציבים: אם ברבעון הבא הם יחזרו לרמה של Q2, וכל השאר יישאר אותו דבר, ההכנסה תרד ל-$28.2 מיליון, 11% פחות מ-Q3. (מול Q2 זה 6% פחות. חשוב להגיד מול מה משווים.)</li>
 <li>את בעיית הפרסום אפשר לתקן מהר. בסיס שמתכווץ קשה הרבה יותר לתקן.</li>
 </ul>
-<p>כמו גוף: פצע קטן מטפלים בו מהר. אבל אם השרירים נחלשים, זו בעיה גדולה יותר.</p></div></details>
+<p>כמו גוף: פצע קטן מטפלים בו מהר. אבל אם השרירים נחלשים, זו בעיה גדולה יותר.</p></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Which single number worries you most, and why that one over the others?</p>
 </blockquote>
 <p><strong>Revenue from all other clients: $24.0M → $22.2M (−7.5%).</strong></p>
 <p>It covers 70% of revenue and almost every customer, and it already reflects the lost traders and weaker new cohorts. Top-20 revenue is volatile: if it returns to Q2 levels and the rest stays flat, Q4 falls to $28.2M, −11% on Q3. Active traders is only a headcount, and marketing efficiency can be fixed within a quarter. A shrinking core cannot.</p>
-</section>
-<section class="sec page" id="p-f3" data-page="f3" data-sec="section-f" data-title="F3. Three cuts of data I would ask for next" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F3. Three cuts of data I would ask for next</span><span class="pts">6 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> אילו נתונים הייתי מבקש עכשיו כדי להבין יותר?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>איזה מספר בודד מדאיג אתכם ביותר, ולמה דווקא הוא ולא האחרים?</p>
+</blockquote>
+<p><strong>הכנסות מכל שאר הלקוחות: $24.0M ← $22.2M (−7.5%).</strong></p>
+<p>הוא מכסה 70% מההכנסות ואת כמעט כל הלקוחות, והוא כבר משקף את הסוחרים שאבדו ואת הקוהורטים החלשים יותר. ההכנסה מ-20 הגדולים תנודתית: אם היא חוזרת לרמות Q2 ושאר הלקוחות נשארים ללא שינוי, Q4 נופל ל-$28.2M, −11% לעומת Q3. סוחרים פעילים הוא רק ספירת ראשים, ואת יעילות השיווק אפשר לתקן בתוך רבעון. ליבה מצטמקת אי אפשר.</p>
+</div></section>
+<section class="sec page" id="p-f3" data-page="f3" data-sec="section-f" data-title="F3. Three cuts of data I would ask for next" data-title-he="F3. שלושה חתכי נתונים שהייתי מבקש בהמשך" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F3. Three cuts of data I would ask for next</span><span class="pts">6 pts</span></h3><h3 class="qhead l-he"><span>F3. שלושה חתכי נתונים שהייתי מבקש בהמשך</span><span class="pts">6 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> אילו נתונים הייתי מבקש עכשיו כדי להבין יותר?</p>
 <ol>
 <li><strong>מה בדיוק קרה עם 20 הגדולים.</strong> לפי לקוח, לפי חודש ולפי סוג הכנסה. האם זה קרה פעם אחת בגלל אירוע מיוחד בשוק, או שזה ימשיך?</li>
 <li><strong>פירוק של הלקוחות הפעילים, מ-Q2 ל-Q3.</strong> כמה נשארו, כמה עזבו, כמה חזרו וכמה חדשים. ואיפה העזיבה הכי גדולה: לפי ותק, לפי מדינה ולפי סוג השקעה. ומשווים גם ל-Q3 בשנה שעברה: Q3 הוא רבעון של קיץ וחופשות, ואולי אנשים פשוט סוחרים פחות בקיץ כל שנה.</li>
 <li><strong>לקוחות חדשים לפי ערוץ פרסום.</strong> כמה עלה להביא כל אחד, כמה הוא הפקיד וכמה הרוויח לנו. ככה יודעים איזה פרסום לעצור. סופרים רק לקוחות שעברו להם כבר 30 יום מלאים: מי שנרשם בסוף ספטמבר עוד לא הספיק לסחור חודש שלם, ואם סופרים אותו, הממוצע נראה נמוך יותר ממה שהוא באמת.</li>
-</ol></div></details>
+</ol></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>Name the three cuts of data you would ask for next, and what each would confirm or rule out.</p>
 </blockquote>
@@ -1150,8 +1780,38 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 </tr>
 </tbody>
 </table></div>
-</section>
-<section class="sec page" id="p-f4" data-page="f4" data-sec="section-f" data-title="F4. What management should decide differently next quarter" hidden><p class="crumb"><b>F</b><span>Section F · Business review</span><span class="crumb-pts">20 pts</span></p><h3 class="qhead"><span>F4. What management should decide differently next quarter</span><span class="pts">4 pts</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מה ההנהלה צריכה לעשות אחרת ברבעון הבא?</p>
+</div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>ציינו את שלושת חתכי הנתונים שהייתם מבקשים בהמשך, ומה כל אחד מהם יאשר או ישלול.</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>חתך נתונים</th>
+<th>בפילוח לפי</th>
+<th>מה הוא מראה</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>הכנסות 20 הגדולים</strong></td>
+<td>לקוח, חודש וסוג הכנסה</td>
+<td>מאשר או שולל חד-פעמיות שמונעת על ידי כמה לקוחות או אירוע שוק אחד.</td>
+</tr>
+<tr>
+<td><strong>סוחרים פעילים, Q2 ← Q3, לכל שאר הלקוחות</strong></td>
+<td>נשארו, נטשו, הופעלו מחדש, חדשים; לפי ותק, מדינה וסוג נכס; מול Q3 אשתקד כדי לשלול עונתיות</td>
+<td>מאשר או שולל שנטישה היא הסיבה לירידה, ומראה איפה היא מתרחשת.</td>
+</tr>
+<tr>
+<td><strong>חשבונות חדשים</strong></td>
+<td>ערוץ ומדינה: עלות לחשבון, הפקדה ראשונה והכנסה ל-30/90 ימים (רק חשבונות ותיקים מספיק לחלון מלא)</td>
+<td>מאשר או שולל שכמה ערוצים בלעו את $1.3M הנוספים, ומראה איזו הוצאה לקצץ.</td>
+</tr>
+</tbody>
+</table></div>
+</div></section>
+<section class="sec page" id="p-f4" data-page="f4" data-sec="section-f" data-title="F4. What management should decide differently next quarter" data-title-he="F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא" hidden><p class="crumb"><b>F</b><span><span class="l-en">Section F · Business review</span><span class="l-he">חלק F · סקירה עסקית</span></span><span class="crumb-pts"><span class="l-en">20 pts</span><span class="l-he">20 נק׳</span></span></p><h3 class="qhead l-en"><span>F4. What management should decide differently next quarter</span><span class="pts">4 pts</span></h3><h3 class="qhead l-he"><span>F4. מה ההנהלה צריכה להחליט אחרת ברבעון הבא</span><span class="pts">4 נק׳</span></h3><details class="kid" dir="rtl" lang="he" open><summary>הסבר פשוט · להכנה בלבד</summary><div class="kid-body"><p><strong>השאלה:</strong> מה ההנהלה צריכה לעשות אחרת ברבעון הבא?</p>
 <p>הטבלה בנויה כך: לכל בעיה שמצאנו ב-F1 יש החלטה אחת, וסיבה למה היא חשובה.</p>
 <ol>
 <li><strong>הכותרת "+6%" הסתירה ירידה</strong> ← <strong>לשנות את לוח התוצאות:</strong> להסתכל גם על ההכנסה בלי 20 הגדולים, על מספר הסוחרים הפעילים ועל כמה זמן לוקח לכל ערוץ פרסום להחזיר את עצמו.</li>
@@ -1159,7 +1819,7 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <li><strong>הסוחרים הפעילים ירדו ב-8% למרות 11,500 חדשים</strong> ← <strong>למנות אחראי על שימור</strong>, עם יעד, ולנסות להחזיר את מי שעזב לאחרונה. להחזיר לקוח בדרך כלל זול יותר מלהביא חדש ב-$548.</li>
 <li><strong>הפרסום יקר יותר ומביא פחות</strong> ← <strong>לבדוק איזה פרסום עבד ואיזה לא:</strong> לכל ערוץ וקמפיין מחשבים כמה כסף הלקוחות שהוא הביא הכניסו ב-90 יום, לכל דולר פרסום. מעבירים תקציב מהחלשים לחזקים. הממוצע מסתיר שיש קמפיינים שעדיין משתלמים ויש כאלה שלא.</li>
 <li><strong>הלקוחות החדשים קטנים יותר</strong> ← <strong>לשפר את החודש הראשון:</strong> הדרכה וליווי עד העסקה הראשונה. בחודש הראשון נקבע אם הלקוח נשאר.</li>
-</ol></div></details>
+</ol></div></details><div class="l-en">
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>What should management decide differently next quarter?</p>
 </blockquote>
@@ -1198,9 +1858,48 @@ Customers subscribe only when it saves them money, so at $128.43 no Starter or R
 <td>The first month decides whether a new customer stays.</td>
 </tr>
 </tbody>
-</table></div></section>
+</table></div></div><div class="l-he" dir="rtl" lang="he">
+<blockquote class="brief"><span class="brief-label">השאלה</span>
+<p>מה על ההנהלה להחליט אחרת ברבעון הבא?</p>
+</blockquote>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>בעיה (מ-F1)</th>
+<th>החלטה</th>
+<th>למה זה חשוב</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>הכותרת של +6% הסתירה ליבה מצטמקת</td>
+<td><strong>להחליף את כרטיס הציונים.</strong> לדווח הכנסות ללא 20 הגדולים, סוחרים פעילים ותקופת החזר לכל ערוץ.</td>
+<td>ההנהלה קראה לזה רבעון טוב בזמן שהליבה ירדה ב-7.5%.</td>
+</tr>
+<tr>
+<td>הצמיחה תלויה ב-20 לקוחות</td>
+<td><strong>לנהל את 20 הגדולים כתיק השקעות.</strong> לתת לכל אחד מנהל חשבון ולבחון את החשיפה שלנו אליהם.</td>
+<td>הם 30% מההכנסות: אובדן אחד מורגש מיד, וברמות Q2 הרבעון הרביעי נופל ל-$28.2M (−11%).</td>
+</tr>
+<tr>
+<td>סוחרים פעילים ירדו ב-8% למרות 11,500 חשבונות חדשים</td>
+<td><strong>לאמץ שימור.</strong> לתת לנטישה בעלים ויעד, לפעול לפי אותות אזהרה מוקדמים ולהחזיר נוטשים אחרונים.</td>
+<td>שימור או החזרה של סוחר עולים בדרך כלל פחות מחשבון חדש של $548.</td>
+</tr>
+<tr>
+<td>השיווק עולה יותר ומביא פחות</td>
+<td><strong>לממן שיווק לפי ערך.</strong> לבדוק אילו ערוצים וקמפיינים עבדו לפי הכנסה ל-90 יום לכל דולר, לא לפי מספר חשבונות, ולהעביר תקציב מהחלשים לחזקים.</td>
+<td>העלות לחשבון עלתה ל-$548 בזמן שההכנסה בחודש הראשון ירדה ב-25%. הממוצע מסתיר אילו קמפיינים עדיין מחזירים את עצמם.</td>
+</tr>
+<tr>
+<td>חשבונות חדשים קטנים יותר</td>
+<td><strong>לשפר את 30 הימים הראשונים.</strong> הדרכה ותמיכה עד העסקה הראשונה.</td>
+<td>החודש הראשון קובע אם לקוח חדש נשאר.</td>
+</tr>
+</tbody>
+</table></div></div></section>
     <nav class="pager" id="pager" aria-label="Previous and next question"></nav>
-    <footer class="end">Gilad Cohen-Tal · November 2026. Sample data is generated in the browser, not company data.</footer>
+    <footer class="end"><span class="l-en">Gilad Cohen-Tal · November 2026. Sample data is generated in the browser, not company data.</span><span class="l-he">גלעד כהן-טל · נובמבר 2026. נתוני הדוגמה נוצרים בדפדפן ואינם נתוני החברה.</span></footer>
   </main>
 </div>
 <div class="tip" id="tip" hidden></div>
@@ -1447,6 +2146,16 @@ ORDER BY cur.month, cur.rnk;`;
   const PRINT = /[?&]print/.test(location.search); // ?print shows every page in one long document, for the PDF
   if (PRINT) document.documentElement.classList.add("print");
 
+  // ---------- language (English / Hebrew), web only; the PDF is always English
+  const LANG_KEY = "ba-lang";
+  let LANG = "en";
+  try { const q = new URLSearchParams(location.search).get("lang"); LANG = q === "he" || q === "en" ? q : (localStorage.getItem(LANG_KEY) || "en"); } catch (e) {}
+  if (PRINT) LANG = "en";
+  const tx = (en, he) => (LANG === "he" ? he : en);
+  const F = s => `<bdi dir="ltr">${s}</bdi>`; // formulas and numbers keep their left-to-right order inside Hebrew text
+  const applyLang = () => { const h = document.documentElement; h.lang = LANG; h.dir = LANG === "he" ? "rtl" : "ltr"; };
+  applyLang();
+
   // ---------- syntax highlighting
   if (window.hljs) $$("pre code.language-sql").forEach(el => window.hljs.highlightElement(el));
 
@@ -1461,6 +2170,14 @@ ORDER BY cur.month, cur.rnk;`;
     if (LEGACY[h]) h = LEGACY[h];
     return ids.includes(h) ? h : "overview";
   }
+  function renderPager() {
+    const i = ids.indexOf(current);
+    if (i < 0) return;
+    const prev = pages[i - 1], next = pages[i + 1];
+    const ttl = p => esc(LANG === "he" ? (p.dataset.titleHe || p.dataset.title) : p.dataset.title);
+    const link = (p, cls, label) => p ? '<a class="' + cls + '" href="#' + p.dataset.page + '"><small>' + label + '</small><span>' + ttl(p) + '</span></a>' : "";
+    pager.innerHTML = link(prev, "prev", tx("&larr; Previous", "&rarr; הקודם")) + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", tx("Next &rarr;", "הבא &larr;"));
+  }
   function show(id, fromHistory) {
     id = resolve(id);
     if (id === current) return;
@@ -1471,9 +2188,7 @@ ORDER BY cur.month, cur.rnk;`;
     $$(".rail .r-head").forEach(a => a.classList.toggle("on", a.dataset.sec === page.dataset.sec));
     const chip = $('.rail [data-page="' + id + '"]');
     if (chip && innerWidth <= 900) chip.scrollIntoView({ block: "nearest", inline: "center" });
-    const i = ids.indexOf(id), prev = pages[i - 1], next = pages[i + 1];
-    const link = (p, cls, label) => p ? '<a class="' + cls + '" href="#' + p.dataset.page + '"><small>' + label + '</small><span>' + esc(p.dataset.title) + '</span></a>' : "";
-    pager.innerHTML = link(prev, "prev", "&larr; Previous") + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", "Next &rarr;");
+    renderPager();
     if (!fromHistory) { try { history.pushState(null, "", "#" + id); } catch (e) {} }
     window.scrollTo({ top: 0, behavior: "instant" });
     tip.hidden = true;
@@ -1514,30 +2229,31 @@ ORDER BY cur.month, cur.rnk;`;
   const SHOW_ROWS = { a1: 8, a2: 6, a3: 10 };
   const fillExample = async box => {
     const q = box.dataset.q, status = $(".status", box), result = $(".result", box);
-    status.textContent = "Loading the example…";
+    status.textContent = tx("Loading the example…", "טוען את הדוגמה…");
     try {
       const db = await SQLDEMO.getDb();
       const res = db.exec(SQLDEMO.Q[q]);
-      if (!res.length) { status.textContent = "No rows."; return; }
+      if (!res.length) { status.textContent = tx("No rows.", "אין שורות."); return; }
       const { columns, values } = res[res.length - 1];
       const n = Math.min(SHOW_ROWS[q] || 10, values.length);
       renderResult(result, columns, values.slice(0, n), q);
-      status.textContent = n < values.length ? `First ${n} of ${values.length} rows.` : `${values.length} rows.`;
+      status.textContent = n < values.length ? tx(`First ${n} of ${values.length} rows.`, `${n} השורות הראשונות מתוך ${values.length}.`) : tx(`${values.length} rows.`, `${values.length} שורות.`);
     } catch (err) {
-      status.classList.add("err"); status.textContent = "Example unavailable: " + err.message;
+      status.classList.add("err"); status.textContent = tx("Example unavailable: ", "הדוגמה אינה זמינה: ") + err.message;
     }
   };
   const exampleIO = "IntersectionObserver" in window ? new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { exampleIO.unobserve(e.target); fillExample(e.target); }
   })) : null;
-  $$(".sqlrun").forEach(box => {
+  const buildSql = () => $$(".sqlrun").forEach(box => {
     box.innerHTML = `
-      <div class="bar"><span class="label">Output example</span></div>
-      <p class="note">Generated sample data, not company data.</p>
+      <div class="bar"><span class="label">${tx("Output example", "דוגמת פלט")}</span></div>
+      <p class="note">${tx("Generated sample data, not company data.", "נתוני דוגמה שנוצרו, לא נתוני החברה.")}</p>
       <div class="result"></div>
       <div class="status" aria-live="polite"></div>`;
     exampleIO && !PRINT ? exampleIO.observe(box) : fillExample(box);
   });
+  buildSql();
   function renderResult(el, cols, rows, q) {
     const isNum = v => typeof v === "number";
     let h = '<div class="tablewrap"><table><thead><tr>' + cols.map(c => `<th>${esc(c)}</th>`).join("") + "</tr></thead><tbody>";
@@ -1578,34 +2294,36 @@ ORDER BY cur.month, cur.rnk;`;
     return { rows, sel, cur: sum("cur"), prop: sum("prop"), subs: sum("subs"), breakeven: subsStated ? lostStated / subsStated : 0 };
   }
   const ew = $("#excel-widget");
-  if (ew) {
+  let eBound = false;
+  function buildE() {
+    if (!ew) return;
     ew.className = "widget";
     ew.innerHTML = `
-      <h4>Pricing model, live</h4>
-      <p class="sub">Same logic as the workbook. Defaults are the assignment's figures.</p>
+      <h4>${tx("Pricing model, live", "מודל התמחור, חי")}</h4>
+      <p class="sub">${tx("Same logic as the workbook. Defaults are the assignment's figures.", "אותה לוגיקה כמו בקובץ האקסל. ברירות המחדל הן נתוני המטלה.")}</p>
       <div class="controls">
-        <div class="ctl"><label for="e-price">Subscription price <output id="o-price"></output></label><input id="e-price" type="range" min="0" max="200" step="0.01"></div>
-        <div class="ctl"><label for="e-rate">Commission rate <output id="o-rate"></output></label><input id="e-rate" type="range" min="0.0005" max="0.005" step="0.0001"></div>
-        <div class="ctl"><label for="e-min">Minimum per trade <output id="o-min"></output></label><input id="e-min" type="range" min="0" max="5" step="0.25"></div>
-        <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="e-reset">Reset to assignment figures</button></div>
+        <div class="ctl"><label for="e-price">${tx("Subscription price", "מחיר המנוי")} <output id="o-price"></output></label><input id="e-price" type="range" min="0" max="200" step="0.01"></div>
+        <div class="ctl"><label for="e-rate">${tx("Commission rate", "שיעור עמלה")} <output id="o-rate"></output></label><input id="e-rate" type="range" min="0.0005" max="0.005" step="0.0001"></div>
+        <div class="ctl"><label for="e-min">${tx("Minimum per trade", "מינימום לעסקה")} <output id="o-min"></output></label><input id="e-min" type="range" min="0" max="5" step="0.25"></div>
+        <div class="ctl" style="justify-content:flex-end"><button class="btn" type="button" id="e-reset">${tx("Reset to assignment figures", "איפוס לנתוני המטלה")}</button></div>
       </div>
       <div class="controls opt-row">
-        ${SEG.map((s, i) => `<div class="ctl"><label for="e-opt${i}">${s.name} opt-in <output id="o-opt${i}"></output></label><input id="e-opt${i}" type="range" min="0" max="1" step="0.01"></div>`).join("")}
+        ${SEG.map((s, i) => `<div class="ctl"><label for="e-opt${i}">${tx(s.name + " opt-in", "הצטרפות " + s.name)} <output id="o-opt${i}"></output></label><input id="e-opt${i}" type="range" min="0" max="1" step="0.01"></div>`).join("")}
       </div>
-      <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
+      <label class="toggle"><input type="checkbox" id="e-rational"><span><b>${tx("Customers opt in only if it saves them money.", "לקוחות מצטרפים רק אם זה חוסך להם כסף.")}</b></span></label>
       <div class="tiles" id="e-tiles"></div>
       <div class="tablewrap"><table id="e-table"></table></div>
-      <p class="chart-sub hint-hover" style="margin:-10px 0 0">Hover or tap a value to see how it is calculated.</p>
-      <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
-      <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="Monthly revenue by subscription price"></svg>
+      <p class="chart-sub hint-hover" style="margin:-10px 0 0">${tx("Hover or tap a value to see how it is calculated.", "העבירו עכבר (או הקישו) על ערך כדי לראות איך הוא חושב.")}</p>
+      <p class="chart-title" style="margin-top:18px">${tx("Monthly revenue by subscription price", "הכנסה חודשית לפי מחיר המנוי")}</p>
+      <svg class="chart" id="e-chart" viewBox="0 0 720 300" role="img" aria-label="${tx("Monthly revenue by subscription price", "הכנסה חודשית לפי מחיר המנוי")}"></svg>
       <div class="legend" id="e-legend"></div>
       <p class="chart-sub" id="e-chart-sub"></p>`;
     // "How it is calculated" sits under the question's data table and reacts to the sliders below
     const cbox = $("#e-calc-box");
-    if (cbox) cbox.innerHTML = `<p class="chart-title" style="margin-top:0">How it is calculated</p>
-      <ul class="calc-notes" style="margin:6px 0 10px;padding-left:22px">
-        <li><b>Current revenue</b> = customers × commission per customer.</li>
-        <li><b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
+    if (cbox) cbox.innerHTML = `<p class="chart-title" style="margin-top:0">${tx("How it is calculated", "איך זה מחושב")}</p>
+      <ul class="calc-notes" style="margin:6px 0 10px;padding-inline-start:22px">
+        <li>${tx("<b>Current revenue</b> = customers × commission per customer.", "<b>הכנסה נוכחית</b> = לקוחות × עמלה ללקוח.")}</li>
+        <li>${tx("<b>Proposed revenue</b> = subscribers × price + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.", "<b>הכנסה עם מנוי</b> = מנויים × מחיר + לא-מנויים × עמלה ללקוח. מנויים = לקוחות × שיעור ההצטרפות.")}</li>
       </ul>
       <div class="tablewrap"><table id="e-calc"></table></div>`;
     const setInputs = () => {
@@ -1622,15 +2340,18 @@ ORDER BY cur.month, cur.rnk;`;
     et.addEventListener("pointerout", ev => { if (!cellOf(ev) || !ev.relatedTarget || !ev.relatedTarget.closest || !ev.relatedTarget.closest("td[data-tip]")) hideTip(); });
     et.addEventListener("focusin", ev => { const td = cellOf(ev); if (td) tipAt(td); });
     et.addEventListener("focusout", hideTip);
-    ew.addEventListener("input", e => {
-      const id = e.target.id;
-      if (id === "e-price") E.price = +e.target.value;
-      else if (id === "e-rate") E.rate = +e.target.value;
-      else if (id === "e-min") E.min = +e.target.value;
-      else if (id === "e-rational") E.rational = e.target.checked;
-      else if (id.startsWith("e-opt")) E.opt[+id.slice(5)] = +e.target.value;
-      renderE();
-    });
+    if (!eBound) {
+      eBound = true;
+      ew.addEventListener("input", e => {
+        const id = e.target.id;
+        if (id === "e-price") E.price = +e.target.value;
+        else if (id === "e-rate") E.rate = +e.target.value;
+        else if (id === "e-min") E.min = +e.target.value;
+        else if (id === "e-rational") E.rational = e.target.checked;
+        else if (id.startsWith("e-opt")) E.opt[+id.slice(5)] = +e.target.value;
+        renderE();
+      });
+    }
     $("#e-reset").addEventListener("click", () => { Object.assign(E, { rate: 0.002, min: 1, price: 9.99, filter: "All", rational: false, opt: SEG.map(s => s.opt) }); setInputs(); renderE(); });
     renderE();
   }
@@ -1640,44 +2361,57 @@ ORDER BY cur.month, cur.rnk;`;
     const m = model(E.price, E.rational);
     const d = m.prop - m.cur;
     $("#e-tiles").innerHTML = [
-      ["Current pricing", fmt$(m.cur)], ["With subscription", fmt$(m.prop)],
-      ["Difference", `<span class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</span>${m.cur ? ` <small style="font-size:14px;color:var(--ink-3)">${(d / m.cur * 100).toFixed(1)}%</small>` : ""}`],
-      ["Break-even price*", fmt$(m.breakeven, 2)]].map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
-    let h = "<thead><tr><th>Segment</th><th>Commission / customer</th><th>Opt-in used</th><th>Current ($/mo)</th><th>With subscription ($/mo)</th><th>Difference</th></tr></thead><tbody>";
+      [tx("Current pricing", "תמחור נוכחי"), fmt$(m.cur)], [tx("With subscription", "עם מנוי"), fmt$(m.prop)],
+      [tx("Difference", "הפרש"), `<span class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</span>${m.cur ? ` <small style="font-size:14px;color:var(--ink-3)">${(d / m.cur * 100).toFixed(1)}%</small>` : ""}`],
+      [tx("Break-even price*", "מחיר איזון*"), fmt$(m.breakeven, 2)]].map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${F(v)}</div></div>`).join("");
+    let h = `<thead><tr><th>${tx("Segment", "מקטע")}</th><th>${tx("Commission / customer", "עמלה / לקוח")}</th><th>${tx("Opt-in used", "הצטרפות בשימוש")}</th><th>${tx("Current ($/mo)", "נוכחי ($/חודש)")}</th><th>${tx("With subscription ($/mo)", "עם מנוי ($/חודש)")}</th><th>${tx("Difference", "הפרש")}</th></tr></thead><tbody>`;
     const n0t = v => Math.round(v).toLocaleString("en-US");
     const tp = t => ` data-tip="${t.replace(/"/g, "&quot;")}" tabindex="0"`;
     m.rows.forEach((r, i) => {
       const sg = SEG[i], dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
-      const tCpc = `<b>Commission per customer</b><br>Per trade: MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}<br>Per customer: ${fmt$(r.cpt, 2)} × ${sg.trades} trades = <b>${fmt$(r.cpc, 2)}</b>`;
+      const calcTrade = F(`MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}`);
+      const tCpc = tx(`<b>Commission per customer</b><br>Per trade: ${calcTrade}<br>Per customer: ${F(`${fmt$(r.cpt, 2)} × ${sg.trades} trades = <b>${fmt$(r.cpc, 2)}</b>`)}`,
+        `<b>עמלה ללקוח</b><br>לעסקה: ${calcTrade}<br>ללקוח: ${F(`${fmt$(r.cpt, 2)} × ${sg.trades} עסקאות = <b>${fmt$(r.cpc, 2)}</b>`)}`);
+      const pctOpt = Math.round(r.opt * 100);
       const tOpt = E.rational
-        ? `<b>Opt-in used</b><br>Customers opt in only if it saves them money.<br>Commission ${fmt$(r.cpc, 2)} ${r.cpc > E.price ? ">" : "≤"} price ${fmt$(E.price, 2)} → ${r.opt ? "they opt in: " + Math.round(r.opt * 100) + "% (the stated rate)" : "no one opts in: <b>0%</b>"}`
-        : `<b>Opt-in used</b><br>The stated opt-in rate for ${r.name}: <b>${Math.round(r.opt * 100)}%</b><br>${n0t(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0t(r.subs)} subscribers`;
-      const tCur = `<b>Current revenue</b><br>${n0t(sg.customers)} customers × ${fmt$(r.cpc, 2)} = <b>${fmt$(r.cur)}</b>`;
-      const tProp = `<b>Revenue with subscription</b><br>Subscribers: ${n0t(r.subs)} × ${fmt$(E.price, 2)} = ${fmt$(r.subs * E.price)}<br>Others: ${n0t(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$((sg.customers - r.subs) * r.cpc)}<br>Total = <b>${fmt$(r.prop)}</b>`;
-      const tDiff = `<b>Difference</b><br>${fmt$(r.prop)} − ${fmt$(r.cur)} = <b>${fmtSigned$(r.diff)}</b>`;
-      h += `<tr${dim}><td>${r.name}</td><td${tp(tCpc)}>${fmt$(r.cpc, 2)}</td><td${tp(tOpt)}>${Math.round(r.opt * 100)}%</td><td${tp(tCur)}>${fmt$(r.cur)}</td><td${tp(tProp)}>${fmt$(r.prop)}</td><td${tp(tDiff)} class="${r.diff >= 0 ? "pos" : "neg"}">${fmtSigned$(r.diff)}</td></tr>`;
+        ? tx(`<b>Opt-in used</b><br>Customers opt in only if it saves them money.<br>Commission ${F(fmt$(r.cpc, 2))} ${r.cpc > E.price ? ">" : "≤"} price ${F(fmt$(E.price, 2))} → ${r.opt ? "they opt in: " + pctOpt + "% (the stated rate)" : "no one opts in: <b>0%</b>"}`,
+            `<b>הצטרפות בשימוש</b><br>לקוחות מצטרפים רק אם זה חוסך להם כסף.<br>עמלה ${F(fmt$(r.cpc, 2))} ${r.cpc > E.price ? "&gt;" : "≤"} מחיר ${F(fmt$(E.price, 2))} ← ${r.opt ? "הם מצטרפים: " + pctOpt + "% (השיעור שהוצהר)" : "אף אחד לא מצטרף: <b>0%</b>"}`)
+        : tx(`<b>Opt-in used</b><br>The stated opt-in rate for ${r.name}: <b>${pctOpt}%</b><br>${F(`${n0t(sg.customers)} × ${pctOpt}% = ${n0t(r.subs)}`)} subscribers`,
+            `<b>הצטרפות בשימוש</b><br>שיעור ההצטרפות שהוצהר ל-${r.name}: <b>${pctOpt}%</b><br>${F(`${n0t(sg.customers)} × ${pctOpt}% = ${n0t(r.subs)}`)} מנויים`);
+      const tCur = tx(`<b>Current revenue</b><br>${F(`${n0t(sg.customers)} customers × ${fmt$(r.cpc, 2)} = <b>${fmt$(r.cur)}</b>`)}`,
+        `<b>הכנסה נוכחית</b><br>${F(`${n0t(sg.customers)} לקוחות × ${fmt$(r.cpc, 2)} = <b>${fmt$(r.cur)}</b>`)}`);
+      const subsPart = F(`${n0t(r.subs)} × ${fmt$(E.price, 2)} = ${fmt$(r.subs * E.price)}`), othersPart = F(`${n0t(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$((sg.customers - r.subs) * r.cpc)}`);
+      const tProp = tx(`<b>Revenue with subscription</b><br>Subscribers: ${subsPart}<br>Others: ${othersPart}<br>Total = <b>${F(fmt$(r.prop))}</b>`,
+        `<b>הכנסה עם מנוי</b><br>מנויים: ${subsPart}<br>אחרים: ${othersPart}<br>סה״כ = <b>${F(fmt$(r.prop))}</b>`);
+      const diffCalc = F(`${fmt$(r.prop)} − ${fmt$(r.cur)} = <b>${fmtSigned$(r.diff)}</b>`);
+      const tDiff = tx(`<b>Difference</b><br>${diffCalc}`, `<b>הפרש</b><br>${diffCalc}`);
+      h += `<tr${dim}><td>${r.name}</td><td${tp(tCpc)}>${F(fmt$(r.cpc, 2))}</td><td${tp(tOpt)}>${F(pctOpt + "%")}</td><td${tp(tCur)}>${F(fmt$(r.cur))}</td><td${tp(tProp)}>${F(fmt$(r.prop))}</td><td${tp(tDiff)} class="${r.diff >= 0 ? "pos" : "neg"}">${F(fmtSigned$(r.diff))}</td></tr>`;
     });
-    const totLabel = E.filter === "All" ? "Total" : "Total (" + E.filter + ")";
-    const sumTxt = k => m.sel.map(r => fmt$(r[k])).join(" + ");
-    const tTotCur = `<b>Total current revenue</b><br>${sumTxt("cur")} = <b>${fmt$(m.cur)}</b>`;
-    const tTotProp = `<b>Total with subscription</b><br>${sumTxt("prop")} = <b>${fmt$(m.prop)}</b>`;
-    const tTotDiff = `<b>Total difference</b><br>${fmt$(m.prop)} − ${fmt$(m.cur)} = <b>${fmtSigned$(d)}</b>${m.cur ? `<br>That is ${d < 0 ? "−" : "+"}${Math.abs(d / m.cur * 100).toFixed(1)}% vs current revenue.` : ""}`;
-    h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td${tp(tTotCur)}>${fmt$(m.cur)}</td><td${tp(tTotProp)}>${fmt$(m.prop)}</td><td${tp(tTotDiff)} class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
+    const totLabel = E.filter === "All" ? tx("Total", "סה״כ") : tx("Total (" + E.filter + ")", "סה״כ (" + E.filter + ")");
+    const sumTxt = k => F(m.sel.map(r => fmt$(r[k])).join(" + "));
+    const pctTot = m.cur ? (d < 0 ? "−" : "+") + Math.abs(d / m.cur * 100).toFixed(1) + "%" : "";
+    const tTotCur = tx(`<b>Total current revenue</b><br>${sumTxt("cur")} = <b>${F(fmt$(m.cur))}</b>`, `<b>סך ההכנסה הנוכחית</b><br>${sumTxt("cur")} = <b>${F(fmt$(m.cur))}</b>`);
+    const tTotProp = tx(`<b>Total with subscription</b><br>${sumTxt("prop")} = <b>${F(fmt$(m.prop))}</b>`, `<b>סך ההכנסה עם מנוי</b><br>${sumTxt("prop")} = <b>${F(fmt$(m.prop))}</b>`);
+    const totDiffCalc = F(`${fmt$(m.prop)} − ${fmt$(m.cur)} = <b>${fmtSigned$(d)}</b>`);
+    const tTotDiff = tx(`<b>Total difference</b><br>${totDiffCalc}${m.cur ? `<br>That is ${F(pctTot)} vs current revenue.` : ""}`,
+      `<b>הפרש כולל</b><br>${totDiffCalc}${m.cur ? `<br>זה ${F(pctTot)} לעומת ההכנסה הנוכחית.` : ""}`);
+    h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td${tp(tTotCur)}>${F(fmt$(m.cur))}</td><td${tp(tTotProp)}>${F(fmt$(m.prop))}</td><td${tp(tTotDiff)} class="${d >= 0 ? "pos" : "neg"}">${F(fmtSigned$(d))}</td></tr>`;
     $("#e-table").innerHTML = h + `</tbody>`;
     const n0 = v => Math.round(v).toLocaleString("en-US");
-    let c = "<thead><tr><th>Segment</th><th>Commission per trade</th><th>Commission per customer</th><th>Subscribers</th><th>Proposed revenue</th></tr></thead><tbody>";
+    let c = `<thead><tr><th>${tx("Segment", "מקטע")}</th><th>${tx("Commission per trade", "עמלה לעסקה")}</th><th>${tx("Commission per customer", "עמלה ללקוח")}</th><th>${tx("Subscribers", "מנויים")}</th><th>${tx("Proposed revenue", "הכנסה עם מנוי")}</th></tr></thead><tbody>`;
     m.rows.forEach((r, i) => {
       const sg = SEG[i], dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
-      c += `<tr${dim}><td>${r.name}</td><td>MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}</td>`
-        + `<td>${fmt$(r.cpt, 2)} × ${sg.trades} trades = ${fmt$(r.cpc, 2)}</td>`
-        + `<td>${n0(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0(r.subs)}</td>`
-        + `<td>${n0(r.subs)} × ${fmt$(E.price, 2)} + ${n0(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$(r.prop)}</td></tr>`;
+      c += `<tr${dim}><td>${r.name}</td><td>${F(`MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}`)}</td>`
+        + `<td>${F(`${fmt$(r.cpt, 2)} × ${sg.trades} ${tx("trades", "עסקאות")} = ${fmt$(r.cpc, 2)}`)}</td>`
+        + `<td>${F(`${n0(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0(r.subs)}`)}</td>`
+        + `<td>${F(`${n0(r.subs)} × ${fmt$(E.price, 2)} + ${n0(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$(r.prop)}`)}</td></tr>`;
     });
-    c += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${n0(m.subs)}</td><td>${fmt$(m.prop)}</td></tr>`;
+    c += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${F(n0(m.subs))}</td><td>${F(fmt$(m.prop))}</td></tr>`;
     if ($("#e-calc")) $("#e-calc").innerHTML = c + "</tbody>";
-    $("#e-chart-sub").textContent = `${E.filter === "All" ? "All segments" : E.filter + " only"}. *Break-even uses the stated opt-in rates. Hover the chart to read values.`;
+    $("#e-chart-sub").textContent = tx("All segments. *Break-even uses the stated opt-in rates. Hover the chart to read values.", "כל המקטעים. *מחיר האיזון משתמש בשיעורי ההצטרפות שהוצהרו. העבירו עכבר על הגרף כדי לקרוא ערכים.");
     drawPriceChart();
   }
+  buildE();
   function drawPriceChart() {
     const svg = $("#e-chart"); svg.innerHTML = "";
     const W = 720, H = 300, L = 64, R = 150, T = 14, B = 36, pw = W - L - R, ph = H - T - B;
@@ -1694,14 +2428,14 @@ ORDER BY cur.month, cur.rnk;`;
     for (let p = 0; p <= 200; p += 25) svgEl("text", { x: sx(p), y: H - 14, "text-anchor": "middle" }, svg).textContent = "$" + p;
     svgEl("line", { x1: L, x2: L + pw, y1: sy(0), y2: sy(0), class: "axis" }, svg);
     const series = [
-      { name: "Current pricing", vals: xs.map(() => cur), color: "var(--ink-3)", dash: "5 4" },
-      { name: "Subscription, stated opt-in", vals: stated, color: "var(--series-1)" },
-      { name: "Subscription, opt in only if it saves money", vals: rational, color: "var(--series-2)" }];
+      { name: tx("Current pricing", "תמחור נוכחי"), short: tx("Current pricing", "נוכחי"), vals: xs.map(() => cur), color: "var(--ink-3)", dash: "5 4" },
+      { name: tx("Subscription, stated opt-in", "מנוי, הצטרפות כפי שהוצהר"), short: tx("sub. (stated)", "מנוי (מוצהר)"), vals: stated, color: "var(--series-1)" },
+      { name: tx("Subscription, opt in only if it saves money", "מנוי, הצטרפות רק אם זה חוסך כסף"), short: tx("sub. (self-select)", "מנוי (בחירה עצמית)"), vals: rational, color: "var(--series-2)" }];
     $("#e-legend").innerHTML = series.map(s => `<span><i style="background:${s.color}"></i>${s.name}</span>`).join("");
     const be = model(0, false).breakeven;
     if (be > 0 && be <= 200) {
       svgEl("line", { x1: sx(be), x2: sx(be), y1: T, y2: T + ph, stroke: "var(--ink-3)", "stroke-width": 1, "stroke-dasharray": "2 3" }, svg);
-      svgEl("text", { x: sx(be) + 5, y: T + 10, class: "lbl" }, svg).textContent = "break-even " + fmt$(be, 2);
+      svgEl("text", { x: sx(be) + 5, y: T + 10, class: "lbl" }, svg).textContent = tx("break-even ", "איזון ") + fmt$(be, 2);
     }
     const labelYs = [];
     series.forEach(s => {
@@ -1710,7 +2444,7 @@ ORDER BY cur.month, cur.rnk;`;
       let y = sy(s.vals[s.vals.length - 1]) + 4;
       for (const o of labelYs) if (Math.abs(o - y) < 14) y = o + 14;
       labelYs.push(y);
-      svgEl("text", { x: L + pw + 8, y, class: "lbl" }, svg).textContent = shortMoney(s.vals[s.vals.length - 1]) + " " + s.name.split(",")[0].replace("Subscription", "sub.") + (s.name.includes("saves") ? " (self-select)" : s.name.includes("stated") ? " (stated)" : "");
+      svgEl("text", { x: L + pw + 8, y, class: "lbl" }, svg).textContent = shortMoney(s.vals[s.vals.length - 1]) + " " + s.short;
     });
     // selected price marker
     if (E.price <= 200) {
@@ -1726,7 +2460,8 @@ ORDER BY cur.month, cur.rnk;`;
       const p = Math.max(0, Math.min(200, Math.round((loc.x - L) / pw * 200 * 2) / 2));
       cross.setAttribute("x1", sx(p)); cross.setAttribute("x2", sx(p)); cross.setAttribute("opacity", 0.5);
       const a = model(p, false).prop, b = model(p, true).prop;
-      showTip(`Price <b>${fmt$(p, 2)}</b>/mo<br>Current: <b>${fmt$(cur)}</b><br>Stated opt-in: <b>${fmt$(a)}</b><br>Self-selecting: <b>${fmt$(b)}</b>`, ev);
+      showTip(tx(`Price <b>${fmt$(p, 2)}</b>/mo<br>Current: <b>${fmt$(cur)}</b><br>Stated opt-in: <b>${fmt$(a)}</b><br>Self-selecting: <b>${fmt$(b)}</b>`,
+        `מחיר <b>${fmt$(p, 2)}</b>/חודש<br>נוכחי: <b>${fmt$(cur)}</b><br>הצטרפות מוצהרת: <b>${fmt$(a)}</b><br>בחירה עצמית: <b>${fmt$(b)}</b>`), ev);
     });
     hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
   }
@@ -1735,31 +2470,37 @@ ORDER BY cur.month, cur.rnk;`;
 
   // ---------- D1 sample-size calculator
   const dw = $("#d1-widget");
-  if (dw) {
-    const D = { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 };
-    const Z = { 0.8: 0.8416, 0.9: 1.2816 };
-    const nPer = (p1, d, pw) => {
-      const p2 = p1 + d, pb = (p1 + p2) / 2;
-      const a = 1.96 * Math.sqrt(2 * pb * (1 - pb)), b = Z[pw] * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
-      return Math.ceil((a + b) ** 2 / (d * d));
-    };
+  const D = { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 };
+  const Z = { 0.8: 0.8416, 0.9: 1.2816 };
+  const nPer = (p1, d, pw) => {
+    const p2 = p1 + d, pb = (p1 + p2) / 2;
+    const a = 1.96 * Math.sqrt(2 * pb * (1 - pb)), b = Z[pw] * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
+    return Math.ceil((a + b) ** 2 / (d * d));
+  };
+  const pct = v => (Math.round(v * 1000) / 10).toString() + "%";
+  const num = v => Math.round(v).toLocaleString("en-US");
+  let dBound = false;
+  function buildD() {
+    if (!dw) return;
     dw.className = "widget";
+    const powerTip = tx("The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users.",
+      "הסיכוי שהבדיקה תזהה השפעה אמיתית בגודל שבחרתם. בעוצמה של 80%, שיפור אמיתי מזוהה 4 פעמים מתוך 5. עוצמה גבוהה יותר דורשת יותר משתמשים.");
     dw.innerHTML = `
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">Sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
-      <p class="sub">Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">${tx("Sample size, live", "גודל מדגם, חי")}</h4><button class="btn" type="button" id="d-reset">${tx("Reset to assignment figures", "איפוס לנתוני המטלה")}</button></div>
+      <p class="sub">${tx("Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.", "דו-צדדי α = 5%. ברירות המחדל הן נתוני המטלה; מספר הנרשמים בשבוע הוא ההנחה שלי.")}</p>
       <div class="controls">
-        <div class="ctl"><label for="d-base">Current funding rate <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
-        <div class="ctl"><label for="d-diff">Improvement <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.01" max="0.1" step="0.01"></div>
-        <div class="ctl"><label for="d-weekly">Sign-ups per week <output id="o-weekly"></output></label><input id="d-weekly" type="range" min="200" max="10000" step="100"></div>
-        <div class="ctl"><label for="d-power">Power <span class="info-tip" tabindex="0" role="button" aria-label="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users." data-tip="The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users.">ⓘ</span></label><select id="d-power"><option value="0.8">80%</option><option value="0.9">90%</option></select></div>
+        <div class="ctl"><label for="d-base">${tx("Current funding rate", "שיעור מימון נוכחי")} <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
+        <div class="ctl"><label for="d-diff">${tx("Improvement", "שיפור")} <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.01" max="0.1" step="0.01"></div>
+        <div class="ctl"><label for="d-weekly">${tx("Sign-ups per week", "נרשמים בשבוע")} <output id="o-weekly"></output></label><input id="d-weekly" type="range" min="200" max="10000" step="100"></div>
+        <div class="ctl"><label for="d-power">${tx("Power", "עוצמה")} <span class="info-tip" tabindex="0" role="button" aria-label="${powerTip}" data-tip="${powerTip}">ⓘ</span></label><select id="d-power"><option value="0.8">80%</option><option value="0.9">90%</option></select></div>
       </div>
       <div class="tiles" id="d-tiles"></div>
-      <p class="chart-sub" style="margin:-8px 0 14px">*At least two full weeks, to cover every weekday.</p>
-      <p><strong>How the numbers are calculated</strong></p>
+      <p class="chart-sub" style="margin:-8px 0 14px">${tx("*At least two full weeks, to cover every weekday.", "*לפחות שני שבועות מלאים, כדי לכסות את כל ימות השבוע.")}</p>
+      <p><strong>${tx("How the numbers are calculated", "איך המספרים מחושבים")}</strong></p>
       <div id="d-calc"></div>
-      <p class="chart-title">Users needed per group, by improvement to detect</p>
-      <p class="chart-sub">Halving the improvement needs about four times the users. Hover to read values.</p>
-      <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="Users needed per group by improvement to detect"></svg>`;
+      <p class="chart-title">${tx("Users needed per group, by improvement to detect", "משתמשים נדרשים בקבוצה, לפי השיפור שרוצים לזהות")}</p>
+      <p class="chart-sub">${tx("Halving the improvement needs about four times the users. Hover to read values.", "חצי מהשיפור דורש בערך פי ארבעה מהמשתמשים. העבירו עכבר כדי לקרוא ערכים.")}</p>
+      <svg class="chart" id="d-chart" viewBox="0 0 720 260" role="img" aria-label="${tx("Users needed per group by improvement to detect", "משתמשים נדרשים בקבוצה לפי השיפור שרוצים לזהות")}"></svg>`;
     const setD = () => { $("#d-base").value = D.base; $("#d-diff").value = D.diff; $("#d-weekly").value = D.weekly; $("#d-power").value = String(D.power); };
     setD();
     dw.querySelectorAll(".info-tip").forEach(el => {
@@ -1767,87 +2508,90 @@ ORDER BY cur.month, cur.rnk;`;
       el.addEventListener("pointerenter", on); el.addEventListener("pointermove", on); el.addEventListener("focus", on);
       el.addEventListener("pointerleave", hideTip); el.addEventListener("blur", hideTip);
     });
-    dw.addEventListener("input", e => {
-      const id = e.target.id;
-      if (id === "d-base") D.base = +e.target.value;
-      else if (id === "d-diff") D.diff = +e.target.value;
-      else if (id === "d-weekly") D.weekly = +e.target.value;
-      else if (id === "d-power") D.power = +e.target.value;
-      renderD();
-    });
-    $("#d-reset").addEventListener("click", () => { Object.assign(D, { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 }); setD(); renderD(); });
-    const pct = v => (Math.round(v * 1000) / 10).toString() + "%";
-    const num = v => Math.round(v).toLocaleString("en-US");
-    function renderD() {
-      $("#o-base").textContent = pct(D.base);
-      $("#o-diff").textContent = "+" + (Math.round(D.diff * 1000) / 10) + " pts → " + pct(D.base + D.diff);
-      $("#o-weekly").textContent = num(D.weekly);
-      const n = nPer(D.base, D.diff, D.power), total = 2 * n;
-      const weeks = Math.max(2, Math.ceil(total / D.weekly));
-      $("#d-tiles").innerHTML = [["Users per group", num(n)], ["Total users", num(total)], ["Weeks to run*", weeks + (weeks === 2 && total / D.weekly < 2 ? " (minimum)" : "")]]
-        .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
-      const p1 = D.base, p2 = D.base + D.diff, pb = (p1 + p2) / 2, z = Z[D.power];
-      const A = 1.96 * Math.sqrt(2 * pb * (1 - pb)), Bt = z * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
-      const f3 = v => v.toFixed(3), d2 = v => v.toFixed(2), raw = total / D.weekly;
-      // MathML builders
-      const mi = t => `<mi>${t}</mi>`, mn = t => `<mn>${t}</mn>`, mo = t => `<mo>${t}</mo>`, mt = t => `<mtext>${t}</mtext>`;
-      const mr = (...a) => `<mrow>${a.join("")}</mrow>`, sq = x => `<msqrt>${x}</msqrt>`, fr = (a, b) => `<mfrac>${a}${b}</mfrac>`;
-      const sb = (a, b) => `<msub>${a}${b}</msub>`, sp = (a, b) => `<msup>${a}${b}</msup>`;
-      const P = (...a) => mr(mo("("), ...a, mo(")")), dot = mo("⋅"), minus = mo("−"), plus = mo("+"), eq = mo("=");
-      const pv = k => sb(mi("p"), mn(k)), bar = `<mover>${mi("p")}<mo>‾</mo></mover>`, one = x => P(mn("1"), minus, x);
-      const zA = sb(mi("z"), mr(mi("α"), mo("/"), mn("2"))), zB = sb(mi("z"), mi("β"));
-      const blk = x => `<div class="eq"><math display="block">${x}</math></div>`, inl = x => `<math>${x}</math>`;
-      const gen = mr(mi("n"), eq, fr(sp(P(mi("A"), plus, mi("B")), mn("2")), sp(P(pv("2"), minus, pv("1")), mn("2"))));
-      const defA = mr(mi("A"), eq, zA, dot, sq(mr(mn("2"), dot, bar, dot, one(bar))), eq, mn("1.96"), dot, sq(mr(mn("2"), dot, mn(d2(pb)), dot, mn(d2(1 - pb)))), eq, mn(f3(A)));
-      const defB = mr(mi("B"), eq, zB, dot, sq(mr(pv("1"), dot, one(pv("1")), plus, pv("2"), dot, one(pv("2")))), eq, mn(z), dot,
-        sq(mr(mn(d2(p1)), dot, mn(d2(1 - p1)), plus, mn(d2(p2)), dot, mn(d2(1 - p2)))), eq, mn(f3(Bt)));
-      const result = mr(mi("n"), eq, fr(sp(P(mn(f3(A)), plus, mn(f3(Bt))), mn("2")), sp(P(mn(d2(p2)), minus, mn(d2(p1))), mn("2"))),
-        eq, fr(mn(f3((A + Bt) ** 2)), mn((D.diff * D.diff).toFixed(4))), eq, mn(num(n)));
-      const totalM = mr(mi("N"), eq, mn("2"), dot, mi("n"), eq, mn("2"), dot, mn(num(n)), eq, mn(num(total)));
-      const weeksM = mr(mt("weeks"), eq, mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mi("N"), mi("W")), mo("⌉")), eq,
-        mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mn(num(total)), mn(num(D.weekly))), mo("⌉")), eq, mn(weeks));
-      $("#d-calc").innerHTML =
-        `<p><b>Inputs.</b> ${inl(mr(pv("1"), eq, mn(pct(p1))))}, ${inl(mr(pv("2"), eq, mn(pct(p2))))}, ` +
-        `${inl(mr(bar, eq, fr(mr(pv("1"), plus, pv("2")), mn("2")), eq, mn(pct(pb))))}, ` +
-        `${inl(mr(zA, eq, mn("1.96")))} (5% significance, two-sided), ${inl(mr(zB, eq, mn(z)))} (${D.power * 100}% power), ` +
-        `${inl(mr(mi("W"), eq, mn(num(D.weekly))))} sign-ups per week.</p>` +
-        `<p><b>Users per group</b></p>${blk(gen)}${blk(defA)}${blk(defB)}${blk(result)}` +
-        `<p><b>Total users</b></p>${blk(totalM)}<p><b>Weeks to run</b> (never below 2)</p>${blk(weeksM)}`;
-      drawD();
-    }
-    function drawD() {
-      const svg = $("#d-chart"); svg.innerHTML = "";
-      const W = 720, H = 260, L = 64, R = 20, T = 14, B = 36, pw = W - L - R, ph = H - T - B;
-      const xs = []; for (let d = 0.01; d <= 0.1001; d += 0.0025) xs.push(+d.toFixed(4));
-      const ys = xs.map(d => nPer(D.base, d, D.power));
-      const ymax = Math.max(...ys) * 1.08;
-      const sx = d => L + (d - 0.01) / 0.09 * pw, sy = v => T + ph - v / ymax * ph;
-      const step = niceStep(ymax / 4);
-      for (let v = 0; v <= ymax; v += step) {
-        svgEl("line", { x1: L, x2: L + pw, y1: sy(v), y2: sy(v), class: "grid" }, svg);
-        svgEl("text", { x: L - 8, y: sy(v) + 4, "text-anchor": "end" }, svg).textContent = v >= 1000 ? Math.round(v / 1000) + "k" : v;
-      }
-      for (let d = 0.01; d <= 0.1001; d += 0.01) svgEl("text", { x: sx(d), y: H - 14, "text-anchor": "middle" }, svg).textContent = "+" + Math.round(d * 100) + " pts";
-      svgEl("line", { x1: L, x2: L + pw, y1: sy(0), y2: sy(0), class: "axis" }, svg);
-      const path = ys.map((v, i) => (i ? "L" : "M") + sx(xs[i]).toFixed(1) + " " + sy(v).toFixed(1)).join(" ");
-      svgEl("path", { d: path, fill: "none", stroke: "var(--series-1)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
-      if (D.diff >= 0.01) {
-        const v = nPer(D.base, D.diff, D.power);
-        svgEl("circle", { cx: sx(D.diff), cy: sy(v), r: 5, fill: "var(--series-1)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
-        svgEl("text", { x: sx(D.diff) + 9, y: Math.max(T + 10, sy(v) - 8), class: "lbl" }, svg).textContent = num(v) + " per group";
-      }
-      const cross = svgEl("line", { y1: T, y2: T + ph, stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0 }, svg);
-      const hit = svgEl("rect", { x: L, y: T, width: pw, height: ph, fill: "transparent" }, svg);
-      hit.addEventListener("pointermove", ev => {
-        const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
-        const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
-        const d = Math.max(0.01, Math.min(0.1, Math.round(((loc.x - L) / pw * 0.09 + 0.01) / 0.0025) * 0.0025));
-        cross.setAttribute("x1", sx(d)); cross.setAttribute("x2", sx(d)); cross.setAttribute("opacity", 0.5);
-        showTip(`${pct(D.base)} → <b>${pct(D.base + d)}</b><br>Per group: <b>${num(nPer(D.base, d, D.power))}</b>`, ev);
+    if (!dBound) {
+      dBound = true;
+      dw.addEventListener("input", e => {
+        const id = e.target.id;
+        if (id === "d-base") D.base = +e.target.value;
+        else if (id === "d-diff") D.diff = +e.target.value;
+        else if (id === "d-weekly") D.weekly = +e.target.value;
+        else if (id === "d-power") D.power = +e.target.value;
+        renderD();
       });
-      hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
     }
+    $("#d-reset").addEventListener("click", () => { Object.assign(D, { base: 0.18, diff: 0.04, power: 0.8, weekly: 1000 }); setD(); renderD(); });
     renderD();
+  }
+  function renderD() {
+    $("#o-base").textContent = pct(D.base);
+    $("#o-diff").textContent = "+" + (Math.round(D.diff * 1000) / 10) + tx(" pts → ", " נק׳ ← ") + pct(D.base + D.diff);
+    $("#o-weekly").textContent = num(D.weekly);
+    const n = nPer(D.base, D.diff, D.power), total = 2 * n;
+    const weeks = Math.max(2, Math.ceil(total / D.weekly));
+    $("#d-tiles").innerHTML = [[tx("Users per group", "משתמשים בקבוצה"), num(n)], [tx("Total users", "סה״כ משתמשים"), num(total)],
+      [tx("Weeks to run*", "שבועות הרצה*"), weeks + (weeks === 2 && total / D.weekly < 2 ? tx(" (minimum)", " (מינימום)") : "")]]
+      .map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+    const p1 = D.base, p2 = D.base + D.diff, pb = (p1 + p2) / 2, z = Z[D.power];
+    const A = 1.96 * Math.sqrt(2 * pb * (1 - pb)), Bt = z * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2));
+    const f3 = v => v.toFixed(3), d2 = v => v.toFixed(2), raw = total / D.weekly;
+    // MathML builders
+    const mi = t => `<mi>${t}</mi>`, mn = t => `<mn>${t}</mn>`, mo = t => `<mo>${t}</mo>`, mt = t => `<mtext>${t}</mtext>`;
+    const mr = (...a) => `<mrow>${a.join("")}</mrow>`, sq = x => `<msqrt>${x}</msqrt>`, fr = (a, b) => `<mfrac>${a}${b}</mfrac>`;
+    const sb = (a, b) => `<msub>${a}${b}</msub>`, sp = (a, b) => `<msup>${a}${b}</msup>`;
+    const P = (...a) => mr(mo("("), ...a, mo(")")), dot = mo("⋅"), minus = mo("−"), plus = mo("+"), eq = mo("=");
+    const pv = k => sb(mi("p"), mn(k)), bar = `<mover>${mi("p")}<mo>‾</mo></mover>`, one = x => P(mn("1"), minus, x);
+    const zA = sb(mi("z"), mr(mi("α"), mo("/"), mn("2"))), zB = sb(mi("z"), mi("β"));
+    const blk = x => `<div class="eq"><math display="block">${x}</math></div>`, inl = x => `<math>${x}</math>`;
+    const gen = mr(mi("n"), eq, fr(sp(P(mi("A"), plus, mi("B")), mn("2")), sp(P(pv("2"), minus, pv("1")), mn("2"))));
+    const defA = mr(mi("A"), eq, zA, dot, sq(mr(mn("2"), dot, bar, dot, one(bar))), eq, mn("1.96"), dot, sq(mr(mn("2"), dot, mn(d2(pb)), dot, mn(d2(1 - pb)))), eq, mn(f3(A)));
+    const defB = mr(mi("B"), eq, zB, dot, sq(mr(pv("1"), dot, one(pv("1")), plus, pv("2"), dot, one(pv("2")))), eq, mn(z), dot,
+      sq(mr(mn(d2(p1)), dot, mn(d2(1 - p1)), plus, mn(d2(p2)), dot, mn(d2(1 - p2)))), eq, mn(f3(Bt)));
+    const result = mr(mi("n"), eq, fr(sp(P(mn(f3(A)), plus, mn(f3(Bt))), mn("2")), sp(P(mn(d2(p2)), minus, mn(d2(p1))), mn("2"))),
+      eq, fr(mn(f3((A + Bt) ** 2)), mn((D.diff * D.diff).toFixed(4))), eq, mn(num(n)));
+    const totalM = mr(mi("N"), eq, mn("2"), dot, mi("n"), eq, mn("2"), dot, mn(num(n)), eq, mn(num(total)));
+    const weeksM = mr(mt(tx("weeks", "שבועות")), eq, mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mi("N"), mi("W")), mo("⌉")), eq,
+      mi("max"), P(mn("2"), mo(","), mo("⌈"), fr(mn(num(total)), mn(num(D.weekly))), mo("⌉")), eq, mn(weeks));
+    $("#d-calc").innerHTML =
+      `<p><b>${tx("Inputs.", "נתוני קלט.")}</b> ${inl(mr(pv("1"), eq, mn(pct(p1))))}, ${inl(mr(pv("2"), eq, mn(pct(p2))))}, ` +
+      `${inl(mr(bar, eq, fr(mr(pv("1"), plus, pv("2")), mn("2")), eq, mn(pct(pb))))}, ` +
+      `${inl(mr(zA, eq, mn("1.96")))} ${tx("(5% significance, two-sided)", "(מובהקות 5%, דו-צדדי)")}, ${inl(mr(zB, eq, mn(z)))} ${tx(`(${D.power * 100}% power)`, `(עוצמה ${D.power * 100}%)`)}, ` +
+      `${inl(mr(mi("W"), eq, mn(num(D.weekly))))} ${tx("sign-ups per week.", "נרשמים בשבוע.")}</p>` +
+      `<p><b>${tx("Users per group", "משתמשים בקבוצה")}</b></p>${blk(gen)}${blk(defA)}${blk(defB)}${blk(result)}` +
+      `<p><b>${tx("Total users", "סה״כ משתמשים")}</b></p>${blk(totalM)}<p><b>${tx("Weeks to run", "שבועות הרצה")}</b> ${tx("(never below 2)", "(אף פעם לא פחות מ-2)")}</p>${blk(weeksM)}`;
+    drawD();
+  }
+  buildD();
+  function drawD() {
+    const svg = $("#d-chart"); svg.innerHTML = "";
+    const W = 720, H = 260, L0 = 64, R = 20, T = 14, B = 36, pw = W - L0 - R, ph = H - T - B;
+    const xs = []; for (let d = 0.01; d <= 0.1001; d += 0.0025) xs.push(+d.toFixed(4));
+    const ys = xs.map(d => nPer(D.base, d, D.power));
+    const ymax = Math.max(...ys) * 1.08;
+    const sx = d => L0 + (d - 0.01) / 0.09 * pw, sy = v => T + ph - v / ymax * ph;
+    const step = niceStep(ymax / 4);
+    for (let v = 0; v <= ymax; v += step) {
+      svgEl("line", { x1: L0, x2: L0 + pw, y1: sy(v), y2: sy(v), class: "grid" }, svg);
+      svgEl("text", { x: L0 - 8, y: sy(v) + 4, "text-anchor": "end" }, svg).textContent = v >= 1000 ? Math.round(v / 1000) + "k" : v;
+    }
+    for (let d = 0.01; d <= 0.1001; d += 0.01) svgEl("text", { x: sx(d), y: H - 14, "text-anchor": "middle" }, svg).textContent = "+" + Math.round(d * 100) + tx(" pts", " נק׳");
+    svgEl("line", { x1: L0, x2: L0 + pw, y1: sy(0), y2: sy(0), class: "axis" }, svg);
+    const path = ys.map((v, i) => (i ? "L" : "M") + sx(xs[i]).toFixed(1) + " " + sy(v).toFixed(1)).join(" ");
+    svgEl("path", { d: path, fill: "none", stroke: "var(--series-1)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+    if (D.diff >= 0.01) {
+      const v = nPer(D.base, D.diff, D.power);
+      svgEl("circle", { cx: sx(D.diff), cy: sy(v), r: 5, fill: "var(--series-1)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      svgEl("text", { x: sx(D.diff) + 9, y: Math.max(T + 10, sy(v) - 8), class: "lbl" }, svg).textContent = num(v) + tx(" per group", " לקבוצה");
+    }
+    const cross = svgEl("line", { y1: T, y2: T + ph, stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0 }, svg);
+    const hit = svgEl("rect", { x: L0, y: T, width: pw, height: ph, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", ev => {
+      const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+      const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const d = Math.max(0.01, Math.min(0.1, Math.round(((loc.x - L0) / pw * 0.09 + 0.01) / 0.0025) * 0.0025));
+      cross.setAttribute("x1", sx(d)); cross.setAttribute("x2", sx(d)); cross.setAttribute("opacity", 0.5);
+      showTip(`${pct(D.base)} ${tx("→", "←")} <b>${pct(D.base + d)}</b><br>${tx("Per group", "לקבוצה")}: <b>${num(nPer(D.base, d, D.power))}</b>`, ev);
+    });
+    hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
   }
 
   // ---------- Section F charts
@@ -1926,6 +2670,18 @@ ORDER BY cur.month, cur.rnk;`;
       hit.addEventListener("pointerleave", hideTip);
     });
   }
+
+  // ---------- language toggle
+  const langBtn = $("#lang-btn");
+  function setLang(l) {
+    LANG = l;
+    try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+    applyLang();
+    buildSql(); buildE(); buildD();
+    renderPager();
+    hideTip();
+  }
+  if (langBtn) langBtn.addEventListener("click", () => setLang(LANG === "he" ? "en" : "he"));
 })();
 
 </script>
