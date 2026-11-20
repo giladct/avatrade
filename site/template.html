@@ -301,6 +301,11 @@ html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }
 html.print p:has(> strong:only-child) { break-after: avoid; }
 
+.logo { display: block; width: 96px; height: auto; margin: 0 0 14px; padding: 6px 8px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+.logo.hero-logo { width: 120px; margin: 0 0 22px; }
+.logo.hero-logo { display: none; }
+@media (max-width: 900px) { .rail .logo { display: none; } .logo.hero-logo { display: block; } }
+html.print .logo { display: none !important; }
 /* Language toggle (EN / HE). <html lang> decides which text is shown; Hebrew switches the whole page to right-to-left. */
 html:not([lang="he"]) .l-he { display: none !important; }
 html[lang="he"] .l-en { display: none !important; }
@@ -333,6 +338,7 @@ html[lang="he"] .eq { text-align: center; }
 
 <div class="shell">
   <nav class="rail" aria-label="Sections">
+    <img class="logo" src="{{LOGO}}" alt="AvaTrade" width="96" height="40">
     <div class="who"><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></div>
     <div class="what"><span class="l-en">Business Analyst Assessment</span><span class="l-he">מטלת בית: אנליסט עסקי</span></div>
     <button class="langbtn" id="lang-btn" type="button" aria-label="Switch language / החלפת שפה"><span class="l-en">עברית</span><span class="l-he">English</span></button>
@@ -343,6 +349,7 @@ html[lang="he"] .eq { text-align: center; }
   <main>
     <section class="page" id="p-overview" data-page="overview" data-title="Overview" data-title-he="סקירה" hidden>
     <header class="hero">
+      <img class="logo hero-logo" src="{{LOGO}}" alt="AvaTrade" width="120" height="50">
       <p class="eyebrow"><span class="l-en">Business Analyst Assessment · Answers</span><span class="l-he">מטלת אנליסט עסקי · תשובות</span></p>
       <h1><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></h1>
       <p class="lede"><span class="l-en">All six answers. The SQL runs on sample data, and Sections D and E are interactive.</span><span class="l-he">כל ששת החלקים. ה-SQL רץ על נתוני דוגמה, וחלקים D ו-E אינטראקטיביים.</span></p>

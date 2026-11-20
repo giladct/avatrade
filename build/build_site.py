@@ -1,4 +1,5 @@
 """Build site/index.html (single-file artifact) from content/answers.md + content/answers_he.md + site/template.html + site/*.js."""
+import base64
 import re
 import html
 import markdown
@@ -185,7 +186,8 @@ js = open("site/app.js", encoding="utf-8").read()
 sqljs = open("site/sqldemo.js", encoding="utf-8").read()
 cohortjs = open("site/cohort.js", encoding="utf-8").read()
 a2_json = open("site/a2_data.json", encoding="utf-8").read()
-page = (tpl.replace("{{NAV}}", "\n".join(nav)).replace("{{TOC}}", toc)
+logo = "data:image/png;base64," + base64.b64encode(open("site/logo.png", "rb").read()).decode()
+page = (tpl.replace("{{LOGO}}", logo).replace("{{NAV}}", "\n".join(nav)).replace("{{TOC}}", toc)
            .replace("{{CONTENT}}", "\n".join(out))
            .replace("{{APP_JS}}", js)
            .replace("{{SQL_JS}}", sqljs)
