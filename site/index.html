@@ -935,6 +935,44 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </ul>
 <p><strong>כמה המנוי צריך לעלות כדי לא להפסיד?</strong> $128.43.</p>
 <p><strong>אבל:</strong> במחיר כזה רק הסוחרים הכבדים יירשמו, כי רק להם זה משתלם. לכן ההנחה שאותם אחוזים יירשמו לא תחזיק. ההצעה שלי: מנוי מיוחד רק לסוחרים הפעילים ($49–99), ולבדוק אותו בניסוי.</p></div></details>
+<blockquote class="brief"><span class="brief-label">The question</span>
+<p>The platform charges 0.20% commission on the value of each trade, with a minimum of $1 per trade. Management is considering an optional $9.99 monthly subscription that includes unlimited commission-free trades. Which segments bring more revenue under the subscription, and which bring less? What price keeps total revenue unchanged at these opt-in rates? Why are these opt-in rates unlikely to hold, and what pricing would you test instead?</p>
+</blockquote>
+<p><strong>Data given (monthly)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Customers</th>
+<th>Trades per month</th>
+<th>Average trade value</th>
+<th>Expected opt-in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter</td>
+<td>40,000</td>
+<td>2</td>
+<td>$800</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Regular</td>
+<td>15,000</td>
+<td>8</td>
+<td>$2,500</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>4,000</td>
+<td>30</td>
+<td>$6,000</td>
+<td>70%</td>
+</tr>
+</tbody>
+</table></div>
 <p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
 <p><strong>Results (monthly)</strong></p>

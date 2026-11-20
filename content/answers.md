@@ -362,6 +362,16 @@ Chance = 1 − 0.95^k for k independent metrics; correlated metrics give a lower
 
 # Section E: Excel model
 
+> The platform charges 0.20% commission on the value of each trade, with a minimum of $1 per trade. Management is considering an optional $9.99 monthly subscription that includes unlimited commission-free trades. Which segments bring more revenue under the subscription, and which bring less? What price keeps total revenue unchanged at these opt-in rates? Why are these opt-in rates unlikely to hold, and what pricing would you test instead?
+
+**Data given (monthly)**
+
+| Segment | Customers | Trades per month | Average trade value | Expected opt-in |
+|---|---|---|---|---|
+| Starter | 40,000 | 2 | $800 | 5% |
+| Regular | 15,000 | 8 | $2,500 | 30% |
+| Active | 4,000 | 30 | $6,000 | 70% |
+
 Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trade = `MAX(rate × value, minimum)`; subscribers pay the fee and trade free.
 
 Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.
