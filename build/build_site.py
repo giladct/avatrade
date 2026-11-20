@@ -72,6 +72,8 @@ for k in range(1, len(parts), 2):
     content = content.replace("</code></pre>", "</code></pre></div>")
     # wrap tables for horizontal scroll
     content = content.replace("<table>", '<div class="tablewrap"><table>').replace("</table>", "</table></div>")
+    # Section E: the live model below shows the same results table, so the static copy stays in Word only
+    content = re.sub(r'<p><strong>Results \(monthly\)</strong></p>\s*<div class="tablewrap">.*?</div>\s*', "", content, flags=re.S)
 
     # one page per question; text before the first question stays on the first page
     chunks = re.split(r'(?=<h3 id="q-)', content)
