@@ -14,7 +14,7 @@ body = markdown.markdown(md_src, extensions=["tables", "fenced_code", "nl2br"])
 
 # --- sections: split on <h1>
 SECTION_META = {
-    "My notes on this project": ("notes", "", "My notes"),
+    "הערות אישיות על הפרויקט": ("notes", "", "הערות אישיות"),
     "General assumptions": ("assumptions", "", "Applies to every answer"),
     "Section A: SQL": ("section-a", "25", "SQL"),
     "Section B: Metrics": ("section-b", "15", "Metrics"),
@@ -82,14 +82,15 @@ for k in range(1, len(parts), 2):
     chunks = re.split(r'(?=<h3 id="q-)', content)
     intro, qs = chunks[0], chunks[1:]
     sym = "i" if sid == "notes" else "•"  # symbol for the two pages that are not lettered sections
-    crumb = (f'<p class="crumb"><b>{letter if letter != "·" else sym}</b><span>{"Section " + letter + " · " + name if letter != "·" else ("About this work" if sid == "notes" else "Read first")}</span>'
+    crumb = (f'<p class="crumb"><b>{letter if letter != "·" else sym}</b><span>{"Section " + letter + " · " + name if letter != "·" else ("אודות העבודה" if sid == "notes" else "Read first")}</span>'
              + (f'<span class="crumb-pts">{pts} pts</span>' if pts else '') + '</p>')
     chips = []
     if not qs:
         pid = sid if letter == "·" else letter.lower()
         ptitle = name if letter == "·" else f"{letter}. {name}"
         qhtml = f'<h3 class="qhead"><span>{ptitle}</span>' + (f'<span class="pts">{pts} pts</span>' if pts else '') + '</h3>'
-        out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" hidden>{crumb}{qhtml}{intro}</section>')
+        rtl = ' dir="rtl" lang="he"' if sid == "notes" else ""  # personal notes are in Hebrew
+        out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}"{rtl} hidden>{crumb}{qhtml}{intro}</section>')
         pages.append((pid, ptitle, pts))
         chips.append(f'<a href="#{pid}" data-page="{pid}">{letter if letter != "·" else sym}</a>')
         first = pid

@@ -1,8 +1,8 @@
-# My notes on this project
+# הערות אישיות על הפרויקט
 
-1. **Why Snowflake.** I understood it is what you use, so all the SQL is written for it. The feature I like most is `QUALIFY`. It filters on the result of a window function, the way `WHERE` filters on a column. Without it, "first deposit per account" needs a subquery or CTE just to keep `ROW_NUMBER() = 1`; with it, it is one clause at the end of the query. The code is shorter and easier to read, and it is harder to get wrong. I use it in A1 and A2.
-2. **My weaker area is statistical formulas.** I do not rely on memorizing them. So I show every step of the calculation, and I added controls to tune the inputs (D1), so I can feel what each value means on real numbers.
-3. **The Excel model (Section E).** I built it so that every parameter can be tuned and the effect seen at once. Hovering over any value in the results table opens a tooltip with the calculation behind it.
+1. **למה Snowflake.** הבנתי שזה מה שמשתמשים בו אצלכם, ולכן כל ה-SQL כתוב עבורו. הפקודה שאני הכי אוהב היא `QUALIFY`‏: היא מסננת לפי התוצאה של פונקציית חלון (window function), כמו ש-`WHERE` מסנן לפי עמודה. בלעדיה, "ההפקדה הראשונה של כל חשבון" דורשת subquery או CTE רק כדי להשאיר `ROW_NUMBER() = 1`‏. איתה זו שורה אחת בסוף השאילתה: הקוד קצר וקריא יותר, וקשה יותר לטעות בו. השתמשתי בה ב-A1 וב-A2‏.
+2. **החלק החלש שלי הוא נוסחאות סטטיסטיות.** אני לא מסתמך על שינון שלהן. לכן הצגתי את כל דרך החישוב, והוספתי אפשרות לכוונון (D1), כדי "להרגיש" את המשמעות של הערכים לפי הנתונים.
+3. **מודל האקסל (Section E).** בניתי מערכת שבה אפשר לכוונן כל פרמטר ולראות מיד מה קורה כשהוא משתנה. מעבר עם העכבר על כל חישוב בטבלת התוצאות פותח tooltip עם פירוט החישוב.
 
 # General assumptions
 
