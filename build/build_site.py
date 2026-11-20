@@ -112,6 +112,7 @@ def split_head(q):
 
 
 he_iter = iter(he_sections)
+toc_groups = []
 for k in range(1, len(parts_en), 2):
     title = parts_en[k]
     sid, pts, short, short_he = SECTION_META[title]
@@ -138,6 +139,7 @@ for k in range(1, len(parts_en), 2):
         crumb_text = "אודות העבודה" if notes else EN_L("Read first", "קראו קודם")
     crumb = f'<p class="crumb"><b>{letter if letter != "·" else sym}</b><span>{crumb_text}</span>{crumb_pts}</p>'
     chips = []
+    sec_start = len(pages)
     if not qs:
         pid = sid if letter == "·" else letter.lower()
         ptitle = name if letter == "·" else f"{letter}. {name}"
@@ -179,14 +181,30 @@ for k in range(1, len(parts_en), 2):
             chips.append(f'<a href="#{pid}" data-page="{pid}">{pid.upper()}</a>')
             first = first or pid
     first_page[sid] = first
+    toc_groups.append((letter, name, name_he, pts, pages[sec_start:]))
     single = " single" if not qs else ""
     nav.append(f'<div class="r-sec{single}" data-sec="{sid}"><a class="r-head" href="#{first}" data-sec="{sid}"><b>{letter if letter != "·" else sym}</b>'
                f'<span class="l-en">{short}</span>' + (f'<span class="l-he">{short_he}</span>' if HEBREW else "")
                + (f'<em>{pts}</em>' if pts else "") + f'</a><div class="r-qs">{"".join(chips)}</div></div>')
 
-toc = "".join(f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
-              f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span>' + (f'<span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>' if HEBREW else "")
-              + (f'<em>{EN_L(p + " pts", p + " נק׳")}</em>' if p else "") + '</a>' for pid, t, th, p in pages)
+def toc_item(pid, t, th, p):
+    return (f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
+            f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span>' + (f'<span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>' if HEBREW else "")
+            + (f'<em>{EN_L(p + " pts", p + " נק׳")}</em>' if p else "") + '</a>')
+
+
+# one block per section (A to F); the unlettered pages (notes, assumptions) form the first block
+head_pages = [pg for g in toc_groups if g[0] == "·" for pg in g[4]]
+blocks = [("·", "Read first", "קראו קודם", "", head_pages)] + [g for g in toc_groups if g[0] != "·"]
+toc = ""
+for letter, name, name_he, pts, grp in blocks:
+    label = (f'{letter} · {name}' if letter != "·" else EN_L("Read first", "קראו קודם"))
+    if letter != "·":
+        label = EN_L(f"{letter} · {name}", f"{letter} · {name_he}")
+    n = len(grp)
+    meta = (f"{n} question{'s' if n != 1 else ''}" if letter != "·" else "") + (f" · {pts} pts" if pts else "")
+    toc += (f'<div class="toc-group"><p class="toc-head"><span>{label}</span><em>{meta}</em></p>'
+            f'<nav class="toc" aria-label="Section {letter}">' + "".join(toc_item(*pg) for pg in grp) + '</nav></div>')
 
 tpl = open("site/template.html", encoding="utf-8").read()
 if not HEBREW:  # no language button and no Hebrew twins of the static text

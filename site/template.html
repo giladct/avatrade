@@ -249,6 +249,9 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 .page > .crumb + .qhead { border-top: 0; padding-top: 0; margin-top: 4px; }
 .page > .crumb + blockquote, .page > .crumb + p { margin-top: 18px; }
 .toc-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 34px 0 8px; }
+.toc-group { margin: 0 0 22px; }
+.toc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 2px; padding: 0 4px 6px; border-bottom: 2px solid var(--ink); font-weight: 650; font-size: 15px; }
+.toc-head em { font-style: normal; font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--ink-3); }
 .toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 24px; }
 .toc a { display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; align-items: baseline; padding: 9px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 14.5px; }
 .toc a { cursor: pointer; }
@@ -284,7 +287,7 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
 .dl:hover { background: var(--accent); color: var(--bg); }
 @media print { @page { size: A4; margin: 12mm; } }
 html.print, html.print body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-html.print .rail, html.print .pager, html.print .toc-title, html.print .toc { display: none !important; }
+html.print .rail, html.print .pager, html.print .toc-title, html.print .toc-group, html.print .toc { display: none !important; }
 html.print .shell { display: block; max-width: none; padding: 0; }
 html.print .page { break-before: auto; margin-top: 30px; }
 html.print .page.sec-first { break-before: page; margin-top: 0; }
@@ -347,7 +350,7 @@ html[lang="he"] .eq { text-align: center; }
       <h1><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></h1>
       <p class="lede"><span class="l-en">All six answers. The SQL runs on sample data, and Sections D and E are interactive.</span><span class="l-he">כל ששת החלקים. ה-SQL רץ על נתוני דוגמה, וחלקים D ו-E אינטראקטיביים.</span></p>
       <p class="toc-title"><span class="l-en">Questions</span><span class="l-he">שאלות</span></p>
-      <nav class="toc" aria-label="All questions">{{TOC}}</nav>
+      {{TOC}}
     </header>
     </section>
     {{CONTENT}}
