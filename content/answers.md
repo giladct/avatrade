@@ -1,6 +1,7 @@
 # General assumptions
 
-- **SQL is Snowflake.** Test accounts are excluded everywhere.
+- **SQL is Snowflake.**
+- **Test accounts are excluded everywhere.**
 - **Funding = first completed deposit** over all history (ties broken by `transaction_id`).
 - **FX:** rate on the deposit date, or the latest earlier one. Months are UTC calendar months.
 - **Revenue** = commission + interest on cash.
