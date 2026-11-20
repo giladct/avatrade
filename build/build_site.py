@@ -14,6 +14,7 @@ body = markdown.markdown(md_src, extensions=["tables", "fenced_code", "nl2br"])
 
 # --- sections: split on <h1>
 SECTION_META = {
+    "My notes on this project": ("notes", "", "My notes"),
     "General assumptions": ("assumptions", "", "Applies to every answer"),
     "Section A: SQL": ("section-a", "25", "SQL"),
     "Section B: Metrics": ("section-b", "15", "Metrics"),
@@ -80,16 +81,17 @@ for k in range(1, len(parts), 2):
     # one page per question; text before the first question stays on the first page
     chunks = re.split(r'(?=<h3 id="q-)', content)
     intro, qs = chunks[0], chunks[1:]
-    crumb = (f'<p class="crumb"><b>{letter}</b><span>{"Section " + letter + " · " + name if letter != "·" else "Read first"}</span>'
+    sym = "i" if sid == "notes" else "•"  # symbol for the two pages that are not lettered sections
+    crumb = (f'<p class="crumb"><b>{letter if letter != "·" else sym}</b><span>{"Section " + letter + " · " + name if letter != "·" else ("About this work" if sid == "notes" else "Read first")}</span>'
              + (f'<span class="crumb-pts">{pts} pts</span>' if pts else '') + '</p>')
     chips = []
     if not qs:
-        pid = "assumptions" if letter == "·" else letter.lower()
+        pid = sid if letter == "·" else letter.lower()
         ptitle = name if letter == "·" else f"{letter}. {name}"
         qhtml = f'<h3 class="qhead"><span>{ptitle}</span>' + (f'<span class="pts">{pts} pts</span>' if pts else '') + '</h3>'
         out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" hidden>{crumb}{qhtml}{intro}</section>')
         pages.append((pid, ptitle, pts))
-        chips.append(f'<a href="#{pid}" data-page="{pid}">{letter if letter != "·" else "•"}</a>')
+        chips.append(f'<a href="#{pid}" data-page="{pid}">{letter if letter != "·" else sym}</a>')
         first = pid
     else:
         first = None
@@ -105,7 +107,7 @@ for k in range(1, len(parts), 2):
             first = first or pid
     first_page[sid] = first
     single = " single" if not qs else ""
-    nav.append(f'<div class="r-sec{single}" data-sec="{sid}"><a class="r-head" href="#{first}" data-sec="{sid}"><b>{letter if letter != "·" else "•"}</b><span>{short}</span>'
+    nav.append(f'<div class="r-sec{single}" data-sec="{sid}"><a class="r-head" href="#{first}" data-sec="{sid}"><b>{letter if letter != "·" else sym}</b><span>{short}</span>'
                + (f'<em>{pts}</em>' if pts else "") + f'</a><div class="r-qs">{"".join(chips)}</div></div>')
 
 # Hebrew prep notes (site only; delete content/explain_he.md to remove them)
@@ -132,7 +134,7 @@ if os.path.exists("content/explain_he.md"):
             j = s.index("</h3>") + len("</h3>")
             out[i] = s[:j] + box + s[j:]
 
-toc = "".join(f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else "•"}</b><span>{html.escape(t.split(". ", 1)[-1])}</span>'
+toc = "".join(f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b><span>{html.escape(t.split(". ", 1)[-1])}</span>'
               + (f'<em>{p} pts</em>' if p else "") + '</a>' for pid, t, p in pages)
 
 tpl = open("site/template.html", encoding="utf-8").read()

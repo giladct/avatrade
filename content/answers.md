@@ -1,3 +1,9 @@
+# My notes on this project
+
+1. **Why Snowflake.** I understood it is what you use, so all the SQL is written for it. The feature I like most is `QUALIFY`. It filters on the result of a window function, the way `WHERE` filters on a column. Without it, "first deposit per account" needs a subquery or CTE just to keep `ROW_NUMBER() = 1`; with it, it is one clause at the end of the query. The code is shorter and easier to read, and it is harder to get wrong. I use it in A1 and A2.
+2. **My weaker area is statistical formulas.** I do not rely on memorizing them. So I show every step of the calculation, and I added controls to tune the inputs (D1), so I can feel what each value means on real numbers.
+3. **The Excel model (Section E).** I built it so that every parameter can be tuned and the effect seen at once. Hovering over any value in the results table opens a tooltip with the calculation behind it.
+
 # General assumptions
 
 - **SQL is Snowflake.**
