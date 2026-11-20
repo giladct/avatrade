@@ -272,6 +272,8 @@ table.cohort-table { border-collapse: separate; border-spacing: 4px; width: auto
   .page > .qhead { font-size: 21px; }
 }
 .dl { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; margin: 0 2px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: .92em; text-decoration: none; }
+.files { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+.files .dl { margin: 0; }
 .dl:hover { background: var(--accent); color: var(--bg); }
 @media print { @page { size: A4; margin: 12mm; } }
 html.print .rail, html.print .toc-title, html.print .toc-group, html.print .toc { display: none !important; }
@@ -335,6 +337,10 @@ html[lang="he"] .eq { text-align: center; }
       <p class="eyebrow"><span class="l-en">Business Analyst Assessment · Answers</span><span class="l-he">מטלת אנליסט עסקי · תשובות</span></p>
       <h1><span class="l-en">Gilad Cohen-Tal</span><span class="l-he">גלעד כהן-טל</span></h1>
       <p class="lede"><span class="l-en">All six answers. The SQL runs on sample data, and Sections D and E are interactive.</span><span class="l-he">כל ששת החלקים. ה-SQL רץ על נתוני דוגמה, וחלקים D ו-E אינטראקטיביים.</span></p>
+      <p class="files">
+        <a class="dl" href="https://giladct.github.io/avatrade/BA_Assessment_Gilad_Cohen-Tal.pdf" target="_blank" rel="noopener">&#x2B07; PDF</a>
+        <a class="dl" href="https://giladct.github.io/avatrade/Section_E_Subscription_Model.xlsx" target="_blank" rel="noopener">&#x2B07; Excel model</a>
+      </p>
       <p class="toc-title"><span class="l-en">Questions</span><span class="l-he">שאלות</span></p>
       {{TOC}}
     </header>
