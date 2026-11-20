@@ -294,6 +294,7 @@ html.print .tablewrap, html.print .callout, html.print blockquote, html.print .s
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }
+html.print p:has(> strong:only-child) { break-after: avoid; }
 </style>
 
 <div class="shell">
@@ -975,6 +976,45 @@ n = (1.96·√(2·0.2·0.8) + 0.84·√(0.18·0.82 + 0.22·0.78))² ÷ 0.04² �
 </table></div>
 <p>Model in the attached <strong>Section_E_Subscription_Model.xlsx</strong>. Commission per trade = <code>MAX(rate × value, minimum)</code>; subscribers pay the fee and trade free.</p>
 <p>Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.</p>
+<p><strong>How it is calculated</strong></p>
+<ul>
+<li><strong>Current revenue</strong> = customers × commission per customer.</li>
+<li><strong>Proposed revenue</strong> = subscribers × $9.99 + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.</li>
+</ul>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Commission per trade</th>
+<th>Commission per customer</th>
+<th>Subscribers</th>
+<th>Proposed revenue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter</td>
+<td>MAX(0.2% × $800, $1) = $1.60</td>
+<td>$1.60 × 2 trades = $3.20</td>
+<td>40,000 × 5% = 2,000</td>
+<td>2,000 × $9.99 + 38,000 × $3.20 = $141,580</td>
+</tr>
+<tr>
+<td>Regular</td>
+<td>MAX(0.2% × $2,500, $1) = $5.00</td>
+<td>$5.00 × 8 trades = $40.00</td>
+<td>15,000 × 30% = 4,500</td>
+<td>4,500 × $9.99 + 10,500 × $40 = $464,955</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>MAX(0.2% × $6,000, $1) = $12.00</td>
+<td>$12.00 × 30 trades = $360.00</td>
+<td>4,000 × 70% = 2,800</td>
+<td>2,800 × $9.99 + 1,200 × $360 = $459,972</td>
+</tr>
+</tbody>
+</table></div>
 <p><strong>Results (monthly)</strong></p>
 <div class="tablewrap"><table>
 <thead>

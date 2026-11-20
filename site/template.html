@@ -294,6 +294,7 @@ html.print .tablewrap, html.print .callout, html.print blockquote, html.print .s
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }
+html.print p:has(> strong:only-child) { break-after: avoid; }
 </style>
 
 <div class="shell">

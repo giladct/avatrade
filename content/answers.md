@@ -376,6 +376,17 @@ Model in the attached **Section_E_Subscription_Model.xlsx**. Commission per trad
 
 Using average trade values gives a lower bound (any trade under $500 pays the $1 minimum), so actual commission is likely higher. The model also holds trades per month fixed, though free trading may make subscribers trade more.
 
+**How it is calculated**
+
+- **Current revenue** = customers × commission per customer.
+- **Proposed revenue** = subscribers × $9.99 + non-subscribers × commission per customer. Subscribers = customers × opt-in rate.
+
+| Segment | Commission per trade | Commission per customer | Subscribers | Proposed revenue |
+|---|---|---|---|---|
+| Starter | MAX(0.2% × $800, $1) = $1.60 | $1.60 × 2 trades = $3.20 | 40,000 × 5% = 2,000 | 2,000 × $9.99 + 38,000 × $3.20 = $141,580 |
+| Regular | MAX(0.2% × $2,500, $1) = $5.00 | $5.00 × 8 trades = $40.00 | 15,000 × 30% = 4,500 | 4,500 × $9.99 + 10,500 × $40 = $464,955 |
+| Active | MAX(0.2% × $6,000, $1) = $12.00 | $12.00 × 30 trades = $360.00 | 4,000 × 70% = 2,800 | 2,800 × $9.99 + 1,200 × $360 = $459,972 |
+
 **Results (monthly)**
 
 | Segment | Commission / customer | Current revenue | Proposed revenue | Difference |
