@@ -302,8 +302,8 @@
     };
     dw.className = "widget";
     dw.innerHTML = `
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">Sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
-      <p class="sub">Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">A/B test planner: sample size, live</h4><button class="btn" type="button" id="d-reset">Reset to assignment figures</button></div>
+      <p class="sub">Plans the future A/B test with a two-proportion z-test, two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.</p>
       <div class="controls">
         <div class="ctl"><label for="d-base">Current funding rate <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
         <div class="ctl"><label for="d-diff">Improvement <output id="o-diff"></output></label><input id="d-diff" type="range" min="0.01" max="0.1" step="0.01"></div>

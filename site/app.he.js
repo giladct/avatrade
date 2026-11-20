@@ -348,7 +348,7 @@
     const powerTip = tx("The chance the test catches a real effect of the size you chose. At 80%, a real improvement is detected 4 times out of 5. Higher power needs more users.",
       "הסיכוי שהבדיקה תזהה השפעה אמיתית בגודל שבחרתם. בעוצמה של 80%, שיפור אמיתי מזוהה 4 פעמים מתוך 5. עוצמה גבוהה יותר דורשת יותר משתמשים.");
     dw.innerHTML = `
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">${tx("Sample size, live", "גודל מדגם, חי")}</h4><button class="btn" type="button" id="d-reset">${tx("Reset to assignment figures", "איפוס לנתוני המטלה")}</button></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px"><h4 style="white-space:nowrap">${tx("A/B test planner: sample size, live", "מתכנן מבחן A/B: גודל מדגם, חי")}</h4><button class="btn" type="button" id="d-reset">${tx("Reset to assignment figures", "איפוס לנתוני המטלה")}</button></div>
       <p class="sub">${tx("Two-sided α = 5%. Defaults are the assignment's figures; sign-ups per week is my assumption.", "דו-צדדי α = 5%. ברירות המחדל הן נתוני המטלה; מספר הנרשמים בשבוע הוא ההנחה שלי.")}</p>
       <div class="controls">
         <div class="ctl"><label for="d-base">${tx("Current funding rate", "שיעור מימון נוכחי")} <output id="o-base"></output></label><input id="d-base" type="range" min="0.05" max="0.5" step="0.01"></div>
