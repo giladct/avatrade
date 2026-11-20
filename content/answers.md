@@ -443,15 +443,15 @@ Management's summary of Q3 is "a good quarter, revenue up 6%". These are the fig
 
 > In no more than 150 words, what is the real state of the business?
 
-**Revenue is up 6%, but only because of 20 clients. The rest of the business is shrinking.**
+**The headline says "revenue up 6%", but the company is actually getting weaker.**
 
-Revenue from the 20 largest clients rose 60%, while revenue from everyone else fell 7.5%. Without the growth of those 20, revenue would have fallen about 6%.
+All the growth came from just 20 big clients. They paid us 60% more. Everyone else paid us 7.5% less. Without the extra money from those 20, our revenue would have gone down.
 
-Fewer people are trading: active traders fell 8% and volume fell 3%, even though 11,500 new accounts were opened. New customers are not replacing those who leave.
+Fewer customers are trading. Many new people joined, but the number of customers who actually trade fell by 8%. New customers are not replacing the ones who leave.
 
-Acquisition is also weaker. Marketing spend rose 26% but new accounts only 15%, and each new account deposits 20% less and brings 25% less revenue in its first month. We paid more and got less.
+Winning new customers is also getting worse. We spent 26% more on marketing but got only 15% more customers, and each new customer puts in less money and earns us less.
 
-It is a weak quarter that looks good because of a few large clients. If they slow down, revenue falls sharply.
+So it was a weak quarter that looks good only because of a few big clients. If they slow down, revenue will drop.
 
 ## F2. The number that worries me most (4 points)
 
