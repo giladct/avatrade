@@ -445,13 +445,13 @@ Management's summary of Q3 is "a good quarter, revenue up 6%". These are the fig
 
 **Revenue is up 6%, but only because of 20 clients. The rest of the business is shrinking.**
 
-The top 20 added $3.6M (+60%) and are now 30% of revenue. All other clients fell 7.5%. Without the top-20 growth, revenue would be $28.2M, down 6%.
+Revenue from the 20 largest clients rose 60%, while revenue from everyone else fell 7.5%. Without the growth of those 20, revenue would have fallen about 6%.
 
-Active traders fell 8% and volume 3%, even with 11,500 new accounts, so new customers are not replacing those who leave.
+Fewer people are trading: active traders fell 8% and volume fell 3%, even though 11,500 new accounts were opened. New customers are not replacing those who leave.
 
-Acquisition is weaker: marketing rose 26% for 15% more accounts (cost per account $500 → $548), while first deposits fell 20% and first-month revenue per account 25%. **$1.3M more spend bought 14% less first-month revenue.**
+Acquisition is also weaker. Marketing spend rose 26% but new accounts only 15%, and each new account deposits 20% less and brings 25% less revenue in its first month. We paid more and got less.
 
-It is a weak quarter that looks good because of a few large clients. If they return to Q2 levels and the rest stays flat, Q4 revenue falls about 11%.
+It is a weak quarter that looks good because of a few large clients. If they slow down, revenue falls sharply.
 
 ## F2. The number that worries me most (4 points)
 
