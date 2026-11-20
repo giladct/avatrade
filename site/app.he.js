@@ -38,7 +38,7 @@
     const prev = pages[i - 1], next = pages[i + 1];
     const ttl = p => esc(LANG === "he" ? (p.dataset.titleHe || p.dataset.title) : p.dataset.title);
     const link = (p, cls, label) => p ? '<a class="' + cls + '" href="#' + p.dataset.page + '"><small>' + label + '</small><span>' + ttl(p) + '</span></a>' : "";
-    pager.innerHTML = link(prev, "prev", tx("&larr; Previous", "&rarr; הקודם")) + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", tx("Next &rarr;", "הבא &larr;"));
+    if (pager) pager.innerHTML = link(prev, "prev", tx("&larr; Previous", "&rarr; הקודם")) + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", tx("Next &rarr;", "הבא &larr;"));
   }
   function show(id, fromHistory) {
     id = resolve(id);

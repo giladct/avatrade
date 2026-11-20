@@ -15,7 +15,6 @@
   const pages = $$("section.page");
   const ids = pages.map(p => p.dataset.page);
   const LEGACY = { "section-a": "a1", "section-b": "b1", "section-c": "c1", "section-d": "d1", "section-e": "e", "section-f": "f1", "f": "f1" };
-  const pager = $("#pager");
   let current = null;
   function resolve(h) {
     h = decodeURIComponent((h || "").replace(/^#/, "")).toLowerCase().replace(/^p-|^q-/, "");
@@ -32,9 +31,6 @@
     $$(".rail .r-head").forEach(a => a.classList.toggle("on", a.dataset.sec === page.dataset.sec));
     const chip = $('.rail [data-page="' + id + '"]');
     if (chip && innerWidth <= 900) chip.scrollIntoView({ block: "nearest", inline: "center" });
-    const i = ids.indexOf(id), prev = pages[i - 1], next = pages[i + 1];
-    const link = (p, cls, label) => p ? '<a class="' + cls + '" href="#' + p.dataset.page + '"><small>' + label + '</small><span>' + esc(p.dataset.title) + '</span></a>' : "";
-    pager.innerHTML = link(prev, "prev", "&larr; Previous") + (i > 0 ? '<span class="count">' + i + ' / ' + (ids.length - 1) + '</span>' : "") + link(next, "next", "Next &rarr;");
     if (!fromHistory) { try { history.pushState(null, "", "#" + id); } catch (e) {} }
     window.scrollTo({ top: 0, behavior: "instant" });
     tip.hidden = true;
