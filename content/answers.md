@@ -273,7 +273,7 @@ ORDER BY cur.month, cur.rnk;
 |---|---|---|---|---|
 | 1 | **Market gains** | Prices rose; holding assets earns no commission | Asset growth = Net deposits + Market performance | Most of the +20% is market performance |
 | 2 | **Lower turnover** | More buy-and-hold (ETFs, funds) | Turnover = Traded volume ÷ Average assets | Turnover falls |
-| 3 | **Less cash or lower rates** | Cash moved into investments, or the interest margin fell | Cash share = Cash ÷ Average assets; Net interest margin = Interest revenue ÷ Cash | Either ratio falls |
+| 3 | **Less cash or lower rates** | Cash moved into investments, or the interest margin fell | Cash share = Cash ÷ Average assets<br>Net interest margin = Interest revenue ÷ Cash | Either ratio falls |
 | 4 | **Lower take rate** | Price cuts, promotions, discounts for large clients | Take rate = Commission ÷ Traded volume | Take rate falls |
 
 ## B3. Country comparison (5 points)

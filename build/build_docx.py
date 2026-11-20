@@ -109,12 +109,15 @@ def cell_shade(cell, hex_fill):
     tcPr.append(shd)
 
 
-INLINE = re.compile(r"(\*\*.+?\*\*|`[^`]+`|\*[^*]+\*)")
+INLINE = re.compile(r"(<br>|\*\*.+?\*\*|`[^`]+`|\*[^*]+\*)")
 
 
 def add_runs(p, text, size=None, color=None, italic=False):
     for part in INLINE.split(text):
         if not part:
+            continue
+        if part == "<br>":
+            p.add_run().add_break()
             continue
         if part.startswith("**") and part.endswith("**"):
             r = p.add_run(part[2:-2]); r.bold = True
