@@ -100,6 +100,8 @@ blockquote.brief { margin: 0 0 20px; padding: 14px 18px; background: var(--surfa
 blockquote.brief p { margin: 0; font-size: 15px; }
 .brief-label { display: block; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 4px; }
 
+#e-table td[data-tip] { cursor: help; text-decoration: underline dotted var(--ink-3); text-underline-offset: 4px; }
+#e-table td[data-tip]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .eq { overflow-x: auto; overflow-y: hidden; margin: 0 0 6px; padding: 6px 0; }
 .eq math { margin: 0; line-height: 1.5; }
 math { font-size: 1.1em; }
@@ -295,6 +297,8 @@ html.print .page.sec-first { break-before: page; margin-top: 0; }
 html.print .page:not(.sec-first) > .crumb { display: none; }
 html.print #p-overview { display: none !important; }
 html.print #p-assumptions { break-before: auto; }
+html.print .hint-hover { display: none; }
+html.print #e-table td[data-tip] { text-decoration: none; }
 html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
@@ -1549,6 +1553,7 @@ ORDER BY cur.month, cur.rnk;`;
       <label class="toggle"><input type="checkbox" id="e-rational"><span><b>Customers opt in only if it saves them money.</b></span></label>
       <div class="tiles" id="e-tiles"></div>
       <div class="tablewrap"><table id="e-table"></table></div>
+      <p class="chart-sub hint-hover" style="margin:-10px 0 0">Hover or tap a value to see how it is calculated.</p>
       <p class="chart-title" style="margin-top:18px">Monthly revenue by subscription price</p>
       <p class="chart-sub" id="e-chart-sub"></p>
       <div class="legend" id="e-legend"></div>
@@ -1566,6 +1571,15 @@ ORDER BY cur.month, cur.rnk;`;
       E.opt.forEach((v, i) => ($("#e-opt" + i).value = v));
     };
     setInputs();
+    // tooltips on the results table: each value explains its own calculation
+    const et = $("#e-table"), cellOf = ev => ev.target.closest && ev.target.closest("td[data-tip]");
+    const tipAt = (td, ev) => { const r = td.getBoundingClientRect(); showTip(td.dataset.tip, ev && ev.clientX ? ev : { clientX: r.left + r.width / 2, clientY: r.bottom }); };
+    et.addEventListener("pointerover", ev => { const td = cellOf(ev); if (td) tipAt(td, ev); });
+    et.addEventListener("pointermove", ev => { const td = cellOf(ev); if (td) tipAt(td, ev); });
+    et.addEventListener("pointerleave", hideTip);
+    et.addEventListener("pointerout", ev => { if (!cellOf(ev) || !ev.relatedTarget || !ev.relatedTarget.closest || !ev.relatedTarget.closest("td[data-tip]")) hideTip(); });
+    et.addEventListener("focusin", ev => { const td = cellOf(ev); if (td) tipAt(td); });
+    et.addEventListener("focusout", hideTip);
     ew.addEventListener("input", e => {
       const id = e.target.id;
       if (id === "e-price") E.price = +e.target.value;
@@ -1588,12 +1602,25 @@ ORDER BY cur.month, cur.rnk;`;
       ["Difference", `<span class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</span>${m.cur ? ` <small style="font-size:14px;color:var(--ink-3)">${(d / m.cur * 100).toFixed(1)}%</small>` : ""}`],
       ["Break-even price*", fmt$(m.breakeven, 2)]].map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
     let h = "<thead><tr><th>Segment</th><th>Commission / customer</th><th>Opt-in used</th><th>Current ($/mo)</th><th>With subscription ($/mo)</th><th>Difference</th></tr></thead><tbody>";
-    for (const r of m.rows) {
-      const dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
-      h += `<tr${dim}><td>${r.name}</td><td>${fmt$(r.cpc, 2)}</td><td>${Math.round(r.opt * 100)}%</td><td>${fmt$(r.cur)}</td><td>${fmt$(r.prop)}</td><td class="${r.diff >= 0 ? "pos" : "neg"}">${fmtSigned$(r.diff)}</td></tr>`;
-    }
+    const n0t = v => Math.round(v).toLocaleString("en-US");
+    const tp = t => ` data-tip="${t.replace(/"/g, "&quot;")}" tabindex="0"`;
+    m.rows.forEach((r, i) => {
+      const sg = SEG[i], dim = E.filter !== "All" && r.name !== E.filter ? ' style="opacity:.4"' : "";
+      const tCpc = `<b>Commission per customer</b><br>Per trade: MAX(${(E.rate * 100).toFixed(2)}% × ${fmt$(sg.value)}, ${fmt$(E.min, 2)}) = ${fmt$(r.cpt, 2)}<br>Per customer: ${fmt$(r.cpt, 2)} × ${sg.trades} trades = <b>${fmt$(r.cpc, 2)}</b>`;
+      const tOpt = E.rational
+        ? `<b>Opt-in used</b><br>Customers opt in only if it saves them money.<br>Commission ${fmt$(r.cpc, 2)} ${r.cpc > E.price ? ">" : "≤"} price ${fmt$(E.price, 2)} → ${r.opt ? "they opt in: " + Math.round(r.opt * 100) + "% (the stated rate)" : "no one opts in: <b>0%</b>"}`
+        : `<b>Opt-in used</b><br>The stated opt-in rate for ${r.name}: <b>${Math.round(r.opt * 100)}%</b><br>${n0t(sg.customers)} × ${Math.round(r.opt * 100)}% = ${n0t(r.subs)} subscribers`;
+      const tCur = `<b>Current revenue</b><br>${n0t(sg.customers)} customers × ${fmt$(r.cpc, 2)} = <b>${fmt$(r.cur)}</b>`;
+      const tProp = `<b>Revenue with subscription</b><br>Subscribers: ${n0t(r.subs)} × ${fmt$(E.price, 2)} = ${fmt$(r.subs * E.price)}<br>Others: ${n0t(sg.customers - r.subs)} × ${fmt$(r.cpc, 2)} = ${fmt$((sg.customers - r.subs) * r.cpc)}<br>Total = <b>${fmt$(r.prop)}</b>`;
+      const tDiff = `<b>Difference</b><br>${fmt$(r.prop)} − ${fmt$(r.cur)} = <b>${fmtSigned$(r.diff)}</b>`;
+      h += `<tr${dim}><td>${r.name}</td><td${tp(tCpc)}>${fmt$(r.cpc, 2)}</td><td${tp(tOpt)}>${Math.round(r.opt * 100)}%</td><td${tp(tCur)}>${fmt$(r.cur)}</td><td${tp(tProp)}>${fmt$(r.prop)}</td><td${tp(tDiff)} class="${r.diff >= 0 ? "pos" : "neg"}">${fmtSigned$(r.diff)}</td></tr>`;
+    });
     const totLabel = E.filter === "All" ? "Total" : "Total (" + E.filter + ")";
-    h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td>${fmt$(m.cur)}</td><td>${fmt$(m.prop)}</td><td class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
+    const sumTxt = k => m.sel.map(r => fmt$(r[k])).join(" + ");
+    const tTotCur = `<b>Total current revenue</b><br>${sumTxt("cur")} = <b>${fmt$(m.cur)}</b>`;
+    const tTotProp = `<b>Total with subscription</b><br>${sumTxt("prop")} = <b>${fmt$(m.prop)}</b>`;
+    const tTotDiff = `<b>Total difference</b><br>${fmt$(m.prop)} − ${fmt$(m.cur)} = <b>${fmtSigned$(d)}</b>${m.cur ? `<br>That is ${d < 0 ? "−" : "+"}${Math.abs(d / m.cur * 100).toFixed(1)}% vs current revenue.` : ""}`;
+    h += `<tr style="font-weight:700;border-top:2px solid var(--line)"><td>${totLabel}</td><td></td><td></td><td${tp(tTotCur)}>${fmt$(m.cur)}</td><td${tp(tTotProp)}>${fmt$(m.prop)}</td><td${tp(tTotDiff)} class="${d >= 0 ? "pos" : "neg"}">${fmtSigned$(d)}</td></tr>`;
     $("#e-table").innerHTML = h + `</tbody>`;
     const n0 = v => Math.round(v).toLocaleString("en-US");
     let c = "<thead><tr><th>Segment</th><th>Commission per trade</th><th>Commission per customer</th><th>Subscribers</th><th>Proposed revenue</th></tr></thead><tbody>";
