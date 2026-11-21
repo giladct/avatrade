@@ -304,7 +304,7 @@ Orders and deposits were normal, so trading customers were active: the problem i
 
 A February-vs-March comparison can't show that the flow caused the increase. I would check five things:
 
-1. **Denominator.** If the flow filters people out before they count as sign-ups, the rate rises without more funded accounts. Compare absolute funded accounts, measured the same way in both months (funded within 14 days).
+1. **Denominator.** The rate is funded accounts divided by sign-ups. If the new flow drops people before they count as sign-ups, the rate rises even when no more people fund. Compare the number of funded accounts, counted the same way in both months (funded within 14 days).
 2. **Mix.** Compare rates within each channel and country.
 3. **Other March effects.** Seasonality, markets, promotions. Does the weekly trend jump exactly on 1 March?
 4. **No control group.** The flow went live for everyone, so the weekly trend around 1 March is the best evidence (interrupted time series). It supports a causal claim but can't prove it.
