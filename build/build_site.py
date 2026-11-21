@@ -26,7 +26,7 @@ body_he = markdown.markdown(md_he, extensions=EXT)
 # --- sections: split on <h1>; English sections pair with Hebrew ones by order (the Hebrew notes page has no English twin)
 SECTION_META = {
     "הערות אישיות על הפרויקט": ("notes", "", "הערות אישיות", "הערות אישיות"),
-    "General assumptions": ("assumptions", "", "Applies to every answer", "חל על כל התשובות"),
+    "General assumptions": ("assumptions", "", "General assumptions", "חל על כל התשובות"),
     "Section A: SQL": ("section-a", "25", "SQL", "SQL"),
     "Section B: Metrics": ("section-b", "15", "Metrics", "מדדים"),
     "Section C: Data quality": ("section-c", "10", "Data quality", "איכות נתונים"),
