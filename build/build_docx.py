@@ -163,7 +163,7 @@ p = doc.add_paragraph()
 r = p.add_run(f"{NAME}  ·  Business Analyst assessment, application to AvaTrade  ·  {DATE}"); r.font.size = Pt(12); r.font.color.rgb = MUTED
 p.paragraph_format.space_after = Pt(36)
 
-contents = [("הערות אישיות על הפרויקט", ""), ("General assumptions", ""), ("A", "SQL (25)"), ("B", "Metrics (15)"), ("C", "Data quality (10)"),
+contents = [("General assumptions", ""), ("A", "SQL (25)"), ("B", "Metrics (15)"), ("C", "Data quality (10)"),
             ("D", "Analytical reasoning (10)"), ("E", "Excel model (20), workbook attached"), ("F", "Business review (20)")]
 for k, v in contents:
     p = doc.add_paragraph()
@@ -183,7 +183,7 @@ page_number_footer(sec)
 # ---------------------------------------------------------------- body
 lines = open(SRC, encoding="utf-8").read().splitlines()
 i = 0
-first_h1 = 2  # the notes and the general assumptions share the cover page
+first_h1 = 1  # the general assumptions share the cover page
 first_h2 = True
 
 
