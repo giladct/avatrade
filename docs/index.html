@@ -288,7 +288,8 @@ html.print .hint-hover { display: none; }
 html.print [data-sec="section-f"] th, html.print [data-sec="section-f"] td { padding: 5px 12px; }
 html.print .qhead, html.print blockquote.brief { break-after: avoid; }
 html.print #e-table td[data-tip] { text-decoration: none; }
-html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun { break-inside: avoid; }
+html.print .eq, html.print .tablewrap, html.print .callout, html.print blockquote, html.print .sqlrun, html.print .chart, html.print .tiles { break-inside: avoid; }
+html.print .chart-title, html.print .controls { break-after: avoid; }
 html.print pre, html.print pre code { white-space: pre-wrap !important; overflow: visible !important; overflow-wrap: anywhere; }
 html.print .codebox, html.print .tablewrap { overflow: visible !important; }
 html.print h3, html.print h4 { break-after: avoid; }
@@ -443,8 +444,6 @@ ORDER BY g.month, g.signup_channel;
 <li>The 2026 filter runs <em>after</em> finding the first deposit, so 2025-funded accounts are not counted as new.</li>
 <li><code>rows_missing_fx_rate</code> flags deposits with no FX rate; it should be 0.</li>
 </ul>
-<div class="sqlrun" data-q="a1"></div>
-
 </section>
 <section class="sec page" id="p-a2" data-page="a2" data-sec="section-a" data-title="A2. Cohort activity" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead l-en"><span>A2. Cohort activity</span><span class="pts">10 pts</span></h3>
 <blockquote class="brief"><span class="brief-label">The question</span>
@@ -516,10 +515,6 @@ ORDER BY funding_month;
 <li>Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.</li>
 <li><code>orders</code> holds only executed orders (per the brief), so no status filter is needed.</li>
 </ul>
-<div class="sqlrun" data-q="a2"></div>
-
-
-
 </section>
 <section class="sec page" id="p-a3" data-page="a3" data-sec="section-a" data-title="A3. Most traded symbols" hidden><p class="crumb"><b>A</b><span>Section A · SQL</span><span class="crumb-pts">25 pts</span></p><h3 class="qhead l-en"><span>A3. Most traded symbols</span><span class="pts">9 pts</span></h3>
 <blockquote class="brief"><span class="brief-label">The question</span>
@@ -602,8 +597,6 @@ ORDER BY cur.month, cur.rnk;
 </tbody>
 </table></div>
 <p><strong>In both:</strong> total by month first, then rank; exclude test accounts with <code>NOT EXISTS</code> (a short list); save past months' ranks, since they no longer change.</p>
-<div class="sqlrun" data-q="a3"></div>
-
 </section>
 <section class="sec page" id="p-b1" data-page="b1" data-sec="section-b" data-title="B1. Active customers" hidden><p class="crumb"><b>B</b><span>Section B · Metrics</span><span class="crumb-pts">15 pts</span></p><h3 class="qhead l-en"><span>B1. Active customers</span><span class="pts">5 pts</span></h3>
 

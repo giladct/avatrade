@@ -95,8 +95,6 @@ ORDER BY g.month, g.signup_channel;
 - The 2026 filter runs *after* finding the first deposit, so 2025-funded accounts are not counted as new.
 - `rows_missing_fx_rate` flags deposits with no FX rate; it should be 0.
 
-<!-- widget:sql-a1 -->
-
 ## A2. Cohort activity (10 points)
 
 > Build a table with one row per funding month, January to June 2026, with: the number of accounts funded in that month; the share of those accounts that placed at least one order in the funding month, the month after, and the month after that; and the average commission per funded account in the first 90 days after its funding date.
@@ -171,10 +169,6 @@ ORDER BY funding_month;
 - Month 0 is the calendar funding month, so an account funded on 31 January has one day in it.
 - `orders` holds only executed orders (per the brief), so no status filter is needed.
 
-<!-- widget:sql-a2 -->
-
-<!-- widget:cohort -->
-
 ## A3. Most traded symbols (9 points)
 
 > For each month of 2026, return the 10 symbols with the highest traded value (quantity × price), their rank, and how many places each one moved compared with the previous month. Explain how you would keep this query fast on 500 million orders.
@@ -236,8 +230,6 @@ ORDER BY cur.month, cur.rnk;
 | **Compute** | Size the warehouse for the one-off backfill, not every run | Parallel query; run heavy loads off-peak or on a read replica |
 
 **In both:** total by month first, then rank; exclude test accounts with `NOT EXISTS` (a short list); save past months' ranks, since they no longer change.
-
-<!-- widget:sql-a3 -->
 
 # Section B: Metrics
 
