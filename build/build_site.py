@@ -159,7 +159,7 @@ for k in range(1, len(parts_en), 2):
         out.append(f'<section class="sec page" id="p-{pid}" data-page="{pid}" data-sec="{sid}" data-title="{html.escape(ptitle)}" '
                    f'data-title-he="{html.escape(ptitle_he)}"{rtl} hidden>{crumb}{qhtml}{body_html}</section>')
         pages.append((pid, ptitle, ptitle_he, pts))
-        chips.append(f'<a href="#{pid}" data-page="{pid}">{letter if letter != "·" else sym}</a>')
+        chips.append(f'<a href="#{pid}" data-page="{pid}">{letter + "1" if letter != "·" else sym}</a>')  # a lettered section with one page: A-style chip, e.g. E1
         first = pid
     else:
         first = None
@@ -188,7 +188,7 @@ for k in range(1, len(parts_en), 2):
                + (f'<em>{pts}</em>' if pts else "") + f'</a><div class="r-qs">{"".join(chips)}</div></div>')
 
 def toc_item(pid, t, th, p):
-    return (f'<a href="#{pid}"><b>{pid.upper() if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
+    return (f'<a href="#{pid}"><b>{(pid.upper() + "1" if pid == "e" else pid.upper()) if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
             f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span>' + (f'<span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>' if HEBREW else "")
             + (f'<em>{EN_L(p + " pts", p + " נק׳")}</em>' if p else "") + '</a>')
 
