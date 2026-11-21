@@ -230,5 +230,13 @@ full = (
     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
     '<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>'
     '</head><body>' + body + '</body></html>')
-for path in ("site/preview.html", "docs/index.html"):
-    open(path, "w", encoding="utf-8").write(full)
+# Microsoft Clarity analytics: only on the public GitHub Pages copy (not the artifact, not the local preview)
+CLARITY = """<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "zh7xqq2fr1");
+</script>"""
+open("site/preview.html", "w", encoding="utf-8").write(full)
+open("docs/index.html", "w", encoding="utf-8").write(full.replace("</head>", CLARITY + "</head>", 1))
