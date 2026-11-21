@@ -302,6 +302,8 @@ Orders and deposits were normal, so trading customers were active: the problem i
 
 > A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?
 
+**Part 1: what I would check now**
+
 A February-vs-March comparison can't show that the flow caused the increase. I would check five things:
 
 1. **Denominator.** The rate is funded accounts divided by sign-ups. If the new flow drops people before they count as sign-ups, the rate rises even when no more people fund. Compare the number of funded accounts, counted the same way in both months (funded within 14 days).
@@ -310,7 +312,9 @@ A February-vs-March comparison can't show that the flow caused the increase. I w
 4. **No control group.** The flow went live for everyone, so the weekly trend around 1 March is the best evidence (interrupted time series). It supports a causal claim but can't prove it.
 5. **Quality.** Do the extra funders deposit and trade like the others in their first 30 days?
 
-**Next time:** run an A/B test, randomized before sign-up, with one main metric (funded within 14 days), read only after the last sign-ups have had their 14 days.
+**Part 2: how to measure it properly next time**
+
+Run an A/B test, randomized before sign-up, with one main metric (funded within 14 days), read only after the last sign-ups have had their 14 days.
 
 **Sample size** (two-sided α = 5%, power 80%):
 
