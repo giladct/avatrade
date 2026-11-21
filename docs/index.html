@@ -530,7 +530,7 @@ WITH monthly AS (
       AND o.executed_at &lt;  '2027-01-01'          -- November 2026 is month-to-date
       AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts (missing flag = real)
                       WHERE a.account_id = o.account_id AND a.is_test = 1)
-    GROUP BY ALL   -- month, symbol
+    GROUP BY DATE_TRUNC('month', o.executed_at)::DATE, o.symbol
 ),
 ranked AS (
     -- Rank all symbols, not only the top 10
