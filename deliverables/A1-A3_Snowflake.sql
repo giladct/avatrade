@@ -49,27 +49,26 @@ months AS (
     SELECT DATEADD(month, ROW_NUMBER() OVER (ORDER BY SEQ4()) - 1, '2026-01-01'::DATE) AS month
     FROM TABLE(GENERATOR(ROWCOUNT => 10))
 ),
-grid AS (
-    -- CROSS JOIN pairs every month with every channel. A plain GROUP BY would drop
-    -- a combination with no new accounts; this grid keeps it, so it shows 0.
-    SELECT m.month, c.signup_channel
-    FROM months m
+channels AS (
     -- Channels come from the data, so a new or missing channel is not dropped
-    CROSS JOIN (SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
-                FROM accounts
-                WHERE COALESCE(is_test, 0) = 0) c
+    SELECT DISTINCT COALESCE(signup_channel, 'Unknown') AS signup_channel
+    FROM accounts
+    WHERE COALESCE(is_test, 0) = 0
 )
-SELECT g.month,
-       g.signup_channel,
+SELECT m.month,
+       c.signup_channel,
        COUNT(f.account_id)                        AS new_funded_accounts,
        COALESCE(ROUND(SUM(f.amount_usd), 2), 0)   AS first_deposit_usd,
        COUNT(f.account_id) - COUNT(f.amount_usd)  AS rows_missing_fx_rate  -- data-quality flag
-FROM grid g
+FROM months m
+-- CROSS JOIN pairs every month with every channel. A plain GROUP BY would drop
+-- a combination with no new accounts; this grid keeps it, so it shows 0.
+CROSS JOIN channels c
 LEFT JOIN first_deposit_usd f
-       ON f.funding_month  = g.month
-      AND f.signup_channel = g.signup_channel
-GROUP BY g.month, g.signup_channel
-ORDER BY g.month, g.signup_channel;
+       ON f.funding_month  = m.month
+      AND f.signup_channel = c.signup_channel
+GROUP BY m.month, c.signup_channel
+ORDER BY m.month, c.signup_channel;
 
 
 -- =====================================================================
@@ -100,17 +99,14 @@ per_account AS (
     -- One row per account; the LEFT JOIN keeps non-traders as 0
     SELECT c.account_id,
            c.funding_month,
-           -- traded_m0 / m1 / m2 = traded in the funding month / next month / the month after (1 or 0)
-           MAX(CASE WHEN o.executed_at >= c.funding_month
-                     AND o.executed_at <  DATEADD(month, 1, c.funding_month) THEN 1 ELSE 0 END) AS traded_m0,
-           MAX(CASE WHEN o.executed_at >= DATEADD(month, 1, c.funding_month)
-                     AND o.executed_at <  DATEADD(month, 2, c.funding_month) THEN 1 ELSE 0 END) AS traded_m1,
-           MAX(CASE WHEN o.executed_at >= DATEADD(month, 2, c.funding_month)
-                     AND o.executed_at <  DATEADD(month, 3, c.funding_month) THEN 1 ELSE 0 END) AS traded_m2,
-           -- Days 0–89 counted from the funding date
-           COALESCE(SUM(CASE WHEN o.executed_at >= c.funding_date
-                              AND o.executed_at <  DATEADD(day, 90, c.funding_date)
-                             THEN o.commission_usd END), 0) AS commission_90d
+           -- traded_m0 / m1 / m2 = 1 if the account traded in the funding month / the next / the one after
+           -- (DATEDIFF counts calendar months, e.g. funded in March: an April order gives 1)
+           MAX(IFF(DATEDIFF(month, c.funding_month, o.executed_at) = 0, 1, 0)) AS traded_m0,
+           MAX(IFF(DATEDIFF(month, c.funding_month, o.executed_at) = 1, 1, 0)) AS traded_m1,
+           MAX(IFF(DATEDIFF(month, c.funding_month, o.executed_at) = 2, 1, 0)) AS traded_m2,
+           -- Commission in days 0–89 from the funding date; 0 for accounts with no orders
+           SUM(IFF(o.executed_at >= c.funding_date
+               AND o.executed_at <  DATEADD(day, 90, c.funding_date), o.commission_usd, 0)) AS commission_90d
     FROM cohort c
     LEFT JOIN orders o
            ON o.account_id   = c.account_id
@@ -144,7 +140,7 @@ WITH monthly AS (
       AND o.executed_at <  '2027-01-01'          -- November 2026 is month-to-date
       AND NOT EXISTS (SELECT 1 FROM accounts a    -- exclude test accounts (missing flag = real)
                       WHERE a.account_id = o.account_id AND a.is_test = 1)
-    GROUP BY DATE_TRUNC('month', o.executed_at)::DATE, o.symbol
+    GROUP BY ALL   -- month, symbol
 ),
 ranked AS (
     -- Rank all symbols, not only the top 10
