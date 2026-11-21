@@ -459,8 +459,8 @@ It covers 70% of revenue and almost every customer, and it already reflects the 
 
 | Problem (from F1) | Decision | Why it matters |
 |---|---|---|
-| The +6% headline hid a shrinking core | **Change the scorecard.** Report revenue excluding the top 20, active traders and payback per channel. | Management called it a good quarter while the core fell 7.5%. |
-| Growth depends on 20 clients | **Manage the top 20 as a portfolio.** Give each an account manager and review our risk exposure to them. | They are 30% of revenue: losing one shows at once, and at Q2 levels Q4 falls to $28.2M (−11%). |
-| Active traders fell 8% despite 11,500 new accounts | **Own retention.** Give churn an owner and a target, act on early-warning signals, and win back recent leavers. | Keeping or winning back a trader usually costs less than a $548 new account. |
-| Marketing costs more and brings less | **Fund marketing by value.** Check which channels and campaigns worked by 90-day revenue per dollar, not account count, and move budget from the weakest to the strongest. | Cost per account rose to $548 while first-month revenue fell 25%. The average hides which campaigns still pay back. |
-| New accounts are smaller | **Improve the first 30 days.** Education and support up to the first trade. | The first month decides whether a new customer stays. |
+| The growth is narrow: the headline hid a shrinking core | **Change the scorecard.** Report revenue excluding the top 20, active traders and payback per channel. | Management called it a good quarter while the core fell 7.5%. |
+| The customer base is eroding: active traders fell despite many new accounts | **Own retention.** Give churn an owner and a target, act on early-warning signals, and win back recent leavers. | Keeping or winning back a trader usually costs less than a $548 new account. |
+| Growth is more expensive: marketing rose faster than new accounts | **Fund marketing by value.** Check which channels and campaigns worked by 90-day revenue per dollar, not account count, and move budget from the weakest to the strongest. | Cost per account rose to $548 while first-month revenue per account fell 25%. The average hides which campaigns still pay back. |
+| Growth is less valuable: new customers deposit and earn less | **Improve the first 30 days.** Education and support up to the first trade. | The first month decides whether a new customer stays. |
+| The result is fragile: it depends on a few clients | **Manage the top 20 as a portfolio.** Give each an account manager and review our risk exposure to them. | They are 30% of revenue: losing one shows at once, and at Q2 levels Q4 falls to $28.2M (−11%). |
