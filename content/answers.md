@@ -20,12 +20,6 @@
 - Use a month × channel grid, so empty combinations show as 0.
 - Take channels from the accounts table; a missing one shows as Unknown.
 
-<!-- note -->
-
-**Why Snowflake.** `QUALIFY` keeps the first deposit per account without a subquery, and `ASOF JOIN` finds the latest FX rate on or before each date in one join.
-
-<!-- /note -->
-
 ```sql
 -- A1. Newly funded accounts and first-deposit USD, by month and signup channel, Jan–Oct 2026
 WITH first_deposit AS (
