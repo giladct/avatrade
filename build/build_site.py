@@ -198,8 +198,7 @@ for letter, name, name_he, pts, grp in blocks:
     if letter != "·":
         label = EN_L(f"{letter} · {name}", f"{letter} · {name_he}")
     n = len(grp)
-    meta = (f"{n} question{'s' if n != 1 else ''}" if letter != "·" else "") + (f" · {pts} pts" if pts else "")
-    toc += (f'<div class="toc-group"><p class="toc-head"><span>{label}</span><em>{meta}</em></p>'
+    toc += (f'<div class="toc-group"><p class="toc-head"><span>{label}</span></p>'
             f'<nav class="toc" aria-label="Section {letter}">' + "".join(toc_item(*pg) for pg in grp) + '</nav></div>')
 
 tpl = open("site/template.html", encoding="utf-8").read()
