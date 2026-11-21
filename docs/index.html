@@ -741,15 +741,15 @@ ORDER BY cur.month, cur.rnk;
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?</p>
 </blockquote>
-<p>A February-vs-March comparison can't isolate the flow. I would check:</p>
+<p>A February-vs-March comparison can't show that the flow caused the increase. I would check five things:</p>
 <ol>
-<li><strong>Denominator.</strong> If the flow filters people out before they count as sign-ups, the rate rises with no more funded accounts. Check absolute funded accounts, and measure both months the same way: funded within 14 days of sign-up.</li>
+<li><strong>Denominator.</strong> If the flow filters people out before they count as sign-ups, the rate rises without more funded accounts. Compare absolute funded accounts, measured the same way in both months (funded within 14 days).</li>
 <li><strong>Mix.</strong> Compare rates within each channel and country.</li>
-<li><strong>Other March effects.</strong> Seasonality, markets, promotions. Check whether the weekly trend jumps exactly on 1 March.</li>
-<li><strong>No control group.</strong> The flow went live for everyone, so the best evidence is the weekly trend around 1 March (interrupted time series). It supports a causal claim but can't prove it, which is why next time needs an A/B test.</li>
+<li><strong>Other March effects.</strong> Seasonality, markets, promotions. Does the weekly trend jump exactly on 1 March?</li>
+<li><strong>No control group.</strong> The flow went live for everyone, so the weekly trend around 1 March is the best evidence (interrupted time series). It supports a causal claim but can't prove it.</li>
 <li><strong>Quality.</strong> Do the extra funders deposit and trade like the others in their first 30 days?</li>
 </ol>
-<p><strong>Next time:</strong> an A/B test randomized before sign-up, with one primary metric (funded within 14 days), analyzed only once the last sign-ups have had their 14 days.</p>
+<p><strong>Next time:</strong> run an A/B test, randomized before sign-up, with one main metric (funded within 14 days), read only after the last sign-ups have had their 14 days.</p>
 <p><strong>Sample size</strong> (two-sided α = 5%, power 80%):</p>
 <div class="tablewrap"><table>
 <thead>
@@ -772,8 +772,8 @@ ORDER BY cur.month, cur.rnk;
 </tr>
 </tbody>
 </table></div>
-<p>I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.</p>
-<p><strong>All the tuning below is for planning this A/B test.</strong> The sliders (baseline rate, improvement, power) change the sample size and run time of the future test, using a two-proportion z-test. They do not test the February-vs-March change.</p>
+<p>I would plan for +2 points: part of the jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample.</p>
+<p><strong>The tuning below is for planning this A/B test.</strong> The sliders change its sample size and run time, using a two-proportion z-test. They do not test the February-vs-March change.</p>
 <!-- math:d1 -->
 
 <div id="d1-widget"></div>

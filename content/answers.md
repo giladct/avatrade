@@ -302,15 +302,15 @@ Orders and deposits were normal, so trading customers were active: the problem i
 
 > A new sign-up flow went live for all users on 1 March. The share of sign-ups who fund their account rose from 18% in February to 22% in March. The product team credits the new flow. How would you check whether the flow caused the increase, and how would you measure it properly next time?
 
-A February-vs-March comparison can't isolate the flow. I would check:
+A February-vs-March comparison can't show that the flow caused the increase. I would check five things:
 
-1. **Denominator.** If the flow filters people out before they count as sign-ups, the rate rises with no more funded accounts. Check absolute funded accounts, and measure both months the same way: funded within 14 days of sign-up.
+1. **Denominator.** If the flow filters people out before they count as sign-ups, the rate rises without more funded accounts. Compare absolute funded accounts, measured the same way in both months (funded within 14 days).
 2. **Mix.** Compare rates within each channel and country.
-3. **Other March effects.** Seasonality, markets, promotions. Check whether the weekly trend jumps exactly on 1 March.
-4. **No control group.** The flow went live for everyone, so the best evidence is the weekly trend around 1 March (interrupted time series). It supports a causal claim but can't prove it, which is why next time needs an A/B test.
+3. **Other March effects.** Seasonality, markets, promotions. Does the weekly trend jump exactly on 1 March?
+4. **No control group.** The flow went live for everyone, so the weekly trend around 1 March is the best evidence (interrupted time series). It supports a causal claim but can't prove it.
 5. **Quality.** Do the extra funders deposit and trade like the others in their first 30 days?
 
-**Next time:** an A/B test randomized before sign-up, with one primary metric (funded within 14 days), analyzed only once the last sign-ups have had their 14 days.
+**Next time:** run an A/B test, randomized before sign-up, with one main metric (funded within 14 days), read only after the last sign-ups have had their 14 days.
 
 **Sample size** (two-sided α = 5%, power 80%):
 
@@ -319,9 +319,9 @@ A February-vs-March comparison can't isolate the flow. I would check:
 | 18% → 22% (+4 points, the observed jump) | ~1,570 | ~3,140 |
 | 18% → 20% (+2 points) | **~6,000** | **~12,000** |
 
-I would plan for +2 points: part of the observed jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample. Run for at least two full weeks.
+I would plan for +2 points: part of the jump is probably seasonality or mix, so the true effect is likely smaller. Halving the difference needs four times the sample.
 
-**All the tuning below is for planning this A/B test.** The sliders (baseline rate, improvement, power) change the sample size and run time of the future test, using a two-proportion z-test. They do not test the February-vs-March change.
+**The tuning below is for planning this A/B test.** The sliders change its sample size and run time, using a two-proportion z-test. They do not test the February-vs-March change.
 
 <!-- math:d1 -->
 
