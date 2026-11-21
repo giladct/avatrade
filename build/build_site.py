@@ -182,7 +182,7 @@ for k in range(1, len(parts_en), 2):
             first = first or pid
     first_page[sid] = first
     toc_groups.append((letter, name, name_he, pts, pages[sec_start:]))
-    single = " single" if not qs else ""
+    single = " single" if (not qs and letter == "·") else ""  # lettered one-page sections (E) still show their chip (E1)
     nav.append(f'<div class="r-sec{single}" data-sec="{sid}"><a class="r-head" href="#{first}" data-sec="{sid}"><b>{letter if letter != "·" else sym}</b>'
                f'<span class="l-en">{short}</span>' + (f'<span class="l-he">{short_he}</span>' if HEBREW else "")
                + (f'<em>{pts}</em>' if pts else "") + f'</a><div class="r-qs">{"".join(chips)}</div></div>')
