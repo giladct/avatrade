@@ -409,3 +409,5 @@ doc.core_properties.author = NAME
 doc.core_properties.title = "Business Analyst Assessment: Answers"
 doc.save(OUT)
 print("saved", OUT)
+import shutil
+shutil.copy(OUT, "docs/BA_Assessment_Gilad_Cohen-Tal.docx")  # GitHub Pages copy, linked from the site
