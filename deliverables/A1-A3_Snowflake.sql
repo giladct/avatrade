@@ -48,7 +48,8 @@ months AS (
     FROM TABLE(GENERATOR(ROWCOUNT => 10))
 ),
 grid AS (
-    -- Every month x channel, so empty ones show 0
+    -- CROSS JOIN pairs every month with every channel. A plain GROUP BY would drop
+    -- a combination with no new accounts; this grid keeps it, so it shows 0.
     SELECT m.month, c.signup_channel
     FROM months m
     -- Channels come from the data, so a new or missing channel is not dropped
