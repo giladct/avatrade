@@ -186,7 +186,7 @@ for k in range(1, len(parts_en), 2):
 def toc_item(pid, t, th, p):
     return (f'<a href="#{pid}"><b>{(pid.upper() + "1" if pid == "e" else pid.upper()) if len(pid) <= 2 else ("i" if pid == "notes" else "•")}</b>'
             f'<span class="l-en">{html.escape(t.split(". ", 1)[-1])}</span>' + (f'<span class="l-he">{html.escape(th.split(". ", 1)[-1])}</span>' if HEBREW else "")
-            + (f'<em>{EN_L(p + " pts", p + " נק׳")}</em>' if p else "") + '</a>')
+            + '</a>')  # no per-question points in the contents
 
 
 # one block per section (A to F); the unlettered pages (notes, assumptions) form the first block
