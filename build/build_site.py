@@ -1,4 +1,4 @@
-"""Build site/index.html (single-file artifact) from content/answers.md + content/answers_he.md + site/template.html + site/*.js."""
+"""Build site/index.html (single-file artifact) from content/answers.md + site/template.html + site/*.js."""
 import base64
 import re
 import html
@@ -7,18 +7,14 @@ import os
 import shutil
 import subprocess
 
-# The Hebrew version (content/answers_he.md + the language button) is built but switched off: the submission is English only.
-# Set HEBREW = True to bring it back.
+# English only. The Hebrew version was removed; HEBREW = False keeps the shared code on its English-only path.
 HEBREW = False
 SQLJS_DIR = os.environ.get("SQLJS_DIR")
 if SQLJS_DIR:
     subprocess.run(["node", "build/cohort_data.js", SQLJS_DIR], check=True)
 
 md_en = open("content/answers.md", encoding="utf-8").read()
-md_he = open("content/answers_he.md", encoding="utf-8").read()
-# the Hebrew text reuses the English SQL blocks: <!-- code --> is replaced by the n-th block of answers.md
-_blocks = iter(re.findall(r"```sql\n.*?```", md_en, flags=re.S))
-md_he = re.sub(r"<!-- code -->", lambda m: next(_blocks), md_he)
+md_he = md_en  # no Hebrew text any more: the English stands in, and only English is output
 EXT = ["tables", "fenced_code", "nl2br"]
 body_en = markdown.markdown(md_en, extensions=EXT)
 body_he = markdown.markdown(md_he, extensions=EXT)
@@ -210,7 +206,7 @@ tpl = open("site/template.html", encoding="utf-8").read()
 if not HEBREW:  # no language button and no Hebrew twins of the static text
     tpl = re.sub(r'\s*<button class="langbtn".*?</button>', "", tpl, flags=re.S)
     tpl = re.sub(r'<span class="l-he">[^<]*</span>', "", tpl)
-js = open("site/app.he.js" if HEBREW else "site/app.js", encoding="utf-8").read()
+js = open("site/app.js", encoding="utf-8").read()
 sqljs = open("site/sqldemo.js", encoding="utf-8").read()
 cohortjs = open("site/cohort.js", encoding="utf-8").read()
 a2_json = open("site/a2_data.json", encoding="utf-8").read()

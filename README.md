@@ -5,7 +5,7 @@ Answers to a Business Analyst home assignment. The answers site is published at 
 | Folder | What it holds |
 |---|---|
 | `deliverables/` | The submitted document (Word and PDF), the Section E Excel workbook and the Snowflake SQL |
-| `content/` | `answers.md`, the single source for every answer; `answers_he.md`, a Hebrew translation (switched off) |
+| `content/` | `answers.md`, the single source for every answer |
 | `site/` | Interactive answer site (template, JavaScript) and the built `index.html` |
 | `docs/` | The GitHub Pages copy of the site, with the PDF and the workbook for download |
 | `build/` | Scripts that build the site, the PDF, the Word document and the workbook |
