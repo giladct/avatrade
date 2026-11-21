@@ -64,7 +64,9 @@ first_deposit_usd AS (
       AND fd.funded_at <  '2026-11-01'
 ),
 months AS (
-    -- Jan–Oct 2026; numbered before the cross join (SEQ4 alone can have gaps)
+    -- Builds the 10 months Jan-Oct 2026: GENERATOR makes 10 rows, and each row adds
+    -- 0 to 9 months to January. This replaces a dim_date (calendar) table.
+    -- Numbered with ROW_NUMBER first, because SEQ4 alone can have gaps.
     SELECT DATEADD(month, ROW_NUMBER() OVER (ORDER BY SEQ4()) - 1, '2026-01-01'::DATE) AS month
     FROM TABLE(GENERATOR(ROWCOUNT => 10))
 ),
