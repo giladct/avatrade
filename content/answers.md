@@ -259,9 +259,9 @@ ORDER BY cur.month, cur.rnk;
 
 | Possible cause | What it means | How to test it |
 |---|---|---|
-| **Customer mix** | B has more tenured or wealthier customers, or a few very large clients lifting the average. | Compare groups of the same tenure and deposit size across countries. If the gap closes, mix explains it. Also compare medians and recheck without the top 1% of clients. |
-| **Acquisition channel** | In B, more customers may come through Referral and Search, arriving already intending to invest; in A, through Paid social promotions that bring smaller, occasional traders. | Compare the channel mix (`signup_channel`) in each country, then revenue per customer within the same channel. If B and A are close channel by channel, the mix of channels explains the gap. |
-| **Regulation and tax** | Rules differ by country: EU retail investors can't buy US-listed ETFs without a KID, and the UK charges 0.5% stamp duty on share purchases. Fewer products and costlier trades mean fewer orders. | Compare orders per customer and asset-type mix. If A places fewer orders and holds fewer US ETFs at a similar commission per order, rules explain the gap. |
+| **Customer mix** | B has wealthier or longer-standing customers, or a few very large ones. | Compare customers with the same tenure and deposit size in both countries. If the gap closes, mix explains it. Also compare medians, and recheck without the top 1%. |
+| **Acquisition channel** | B gets more customers from Referral and Search, who arrive ready to invest. A gets more from Paid social, who trade less. | Compare revenue per customer within the same channel. If the gap closes, channel mix explains it. |
+| **Regulation and tax** | Local rules change what customers can buy and what trading costs, for example EU KID rules or UK stamp duty. Fewer products and costlier trades mean fewer orders. | Compare orders per customer and asset types. If A trades less at a similar commission per order, the rules explain it. |
 
 # Section C: Data quality
 
