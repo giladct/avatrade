@@ -720,7 +720,7 @@ ORDER BY cur.month, cur.rnk;
 <li><strong>Event tracking outage.</strong> Check the tracking service's error logs and any release that day.</li>
 <li><strong>Day boundary.</strong> A time-zone or cut-off error moved activity into Monday or Wednesday. Is either day higher than usual?</li>
 </ol>
-<p><strong>If it stayed low:</strong> something permanent changed. Check recent changes to the metric logic, then app releases, by platform and app version.</p>
+<p><strong>If it stayed low:</strong> something permanent changed. Compare the dashboard's count with distinct customers in the raw activity data; if they differ, the metric logic changed. Otherwise check app releases, by platform and app version.</p>
 <p><strong>Quick test:</strong> count accounts that placed an order on Tuesday but have no activity event. It should be near zero.</p>
 <p><strong>Then:</strong> reload Tuesday and add an alert on daily event volume.</p>
 </section>

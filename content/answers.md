@@ -277,7 +277,7 @@ Orders and deposits were normal, so customers were active: the drop is most like
 2. **Event tracking outage.** Check the tracking service's error logs and any release that day.
 3. **Day boundary.** A time-zone or cut-off error moved activity into Monday or Wednesday. Is either day higher than usual?
 
-**If it stayed low:** something permanent changed. Check recent changes to the metric logic, then app releases, by platform and app version.
+**If it stayed low:** something permanent changed. Compare the dashboard's count with distinct customers in the raw activity data; if they differ, the metric logic changed. Otherwise check app releases, by platform and app version.
 
 **Quick test:** count accounts that placed an order on Tuesday but have no activity event. It should be near zero.
 
