@@ -208,7 +208,7 @@ M["B23"] = "=$I$8*B22+$L$8"
 M["A24"] = "Check: current revenue ($/mo)"
 M["B24"] = "=$G$8"
 M["A25"] = "Check: gap (should be 0)"
-M["B25"] = "=ROUND(B23-B24,6)"
+M["B25"] = "=B23-B24"
 for r in (23, 24, 25):
     M[f"A{r}"].font = f(size=9)
     M[f"B{r}"].number_format = USD2; M[f"B{r}"].font = f(size=9); M[f"B{r}"].border = BOX
