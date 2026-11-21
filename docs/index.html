@@ -713,17 +713,16 @@ ORDER BY cur.month, cur.rnk;
 <blockquote class="brief"><span class="brief-label">The question</span>
 <p>The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.</p>
 </blockquote>
-<p>Orders and deposits were normal, so trading customers were active: the problem is most likely in measurement. The first check is Wednesday, because it splits the causes in two.</p>
-<p><strong>If Wednesday was back to normal (my assumption):</strong> nothing permanent changed, and Tuesday's activity data is most likely incomplete. Activity comes from a separate event feed, unlike orders and deposits. In order:</p>
+<p>Orders and deposits were normal, so customers were active: the drop is most likely in the measurement, not the business.</p>
+<p><strong>First check: was Wednesday back to normal?</strong> If yes (my assumption), Tuesday's activity data is incomplete. Check in this order:</p>
 <ol>
-<li><strong>Late or partial load.</strong> Tuesday's job ran before all events arrived, or failed partway. Compare hourly counts with previous Tuesdays; a gap of a few hours points here.</li>
-<li><strong>Event collection outage.</strong> The service that records logins and sessions was down for a few hours. Check its error logs and any incident or rolled-back release that day.</li>
-<li><strong>Day boundary.</strong> A time-zone mismatch or a job that cut the day early moved activity into Monday or Wednesday. Check whether either day is higher than usual.</li>
+<li><strong>Late or partial load.</strong> Compare hourly counts with previous Tuesdays; a gap of a few hours points here.</li>
+<li><strong>Event tracking outage.</strong> Check the tracking service's error logs and any release that day.</li>
+<li><strong>Day boundary.</strong> A time-zone or cut-off error moved activity into Monday or Wednesday. Is either day higher than usual?</li>
 </ol>
-<p><strong>If it stayed low:</strong> something permanent changed. Check recent changes to the metric logic (filters, joins, time zone), then any app release or tracking change, split by platform and app version.</p>
-<p><strong>Real drop:</strong> unlikely either way, since orders and deposits were normal.</p>
-<p><strong>Quick test:</strong> count accounts that placed an order on Tuesday but have no activity event. Normally it is near zero; if not, the activity data is missing events.</p>
-<p><strong>Then:</strong> reload Tuesday so the history is right, and add an alert on daily event volume so the next gap is caught the same day.</p>
+<p><strong>If it stayed low:</strong> something permanent changed. Check recent changes to the metric logic, then app releases, by platform and app version.</p>
+<p><strong>Quick test:</strong> count accounts that placed an order on Tuesday but have no activity event. It should be near zero.</p>
+<p><strong>Then:</strong> reload Tuesday and add an alert on daily event volume.</p>
 </section>
 <section class="sec page" id="p-c2" data-page="c2" data-sec="section-c" data-title="C2. Two numbers for one month" hidden><p class="crumb"><b>C</b><span>Section C · Data quality</span><span class="crumb-pts">10 pts</span></p><h3 class="qhead l-en"><span>C2. Two numbers for one month</span><span class="pts">5 pts</span></h3>
 <blockquote class="brief"><span class="brief-label">The question</span>

@@ -269,21 +269,19 @@ ORDER BY cur.month, cur.rnk;
 
 > The daily active customers chart fell 30% on Tuesday, while orders and deposits that day look normal. List the likely causes in the order you would check them, and what you would look at for each.
 
-Orders and deposits were normal, so trading customers were active: the problem is most likely in measurement. The first check is Wednesday, because it splits the causes in two.
+Orders and deposits were normal, so customers were active: the drop is most likely in the measurement, not the business.
 
-**If Wednesday was back to normal (my assumption):** nothing permanent changed, and Tuesday's activity data is most likely incomplete. Activity comes from a separate event feed, unlike orders and deposits. In order:
+**First check: was Wednesday back to normal?** If yes (my assumption), Tuesday's activity data is incomplete. Check in this order:
 
-1. **Late or partial load.** Tuesday's job ran before all events arrived, or failed partway. Compare hourly counts with previous Tuesdays; a gap of a few hours points here.
-2. **Event collection outage.** The service that records logins and sessions was down for a few hours. Check its error logs and any incident or rolled-back release that day.
-3. **Day boundary.** A time-zone mismatch or a job that cut the day early moved activity into Monday or Wednesday. Check whether either day is higher than usual.
+1. **Late or partial load.** Compare hourly counts with previous Tuesdays; a gap of a few hours points here.
+2. **Event tracking outage.** Check the tracking service's error logs and any release that day.
+3. **Day boundary.** A time-zone or cut-off error moved activity into Monday or Wednesday. Is either day higher than usual?
 
-**If it stayed low:** something permanent changed. Check recent changes to the metric logic (filters, joins, time zone), then any app release or tracking change, split by platform and app version.
+**If it stayed low:** something permanent changed. Check recent changes to the metric logic, then app releases, by platform and app version.
 
-**Real drop:** unlikely either way, since orders and deposits were normal.
+**Quick test:** count accounts that placed an order on Tuesday but have no activity event. It should be near zero.
 
-**Quick test:** count accounts that placed an order on Tuesday but have no activity event. Normally it is near zero; if not, the activity data is missing events.
-
-**Then:** reload Tuesday so the history is right, and add an alert on daily event volume so the next gap is caught the same day.
+**Then:** reload Tuesday and add an alert on daily event volume.
 
 ## C2. Two numbers for one month (5 points)
 
